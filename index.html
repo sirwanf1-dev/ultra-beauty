@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f2ee">
+  <meta name="description" content="Discover skincare, beauty, haircare and personal care at Ultra Beauty. Serving customers throughout Iraq.">
+  <title>Ultra Beauty | Beauty for Every Day</title>
+  <style>
+    :root{--ink:#282321;--muted:#766d68;--paper:#fbf8f5;--rose:#d8b8b1;--rose-dark:#9a625c;--line:#e9dfd9;--white:#fff}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;cursor:pointer}
+    .announcement{padding:9px 16px;background:var(--ink);color:#fff;text-align:center;font-size:12px;letter-spacing:.06em}
+    header{position:sticky;top:0;z-index:10;background:rgba(251,248,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav{max-width:1180px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-family:Georgia,'Times New Roman',serif;font-size:25px;font-weight:700;letter-spacing:-.7px;white-space:nowrap}
+    .brand span{color:var(--rose-dark)}
+    .navlinks{display:flex;align-items:center;gap:24px;font-size:13px;color:#554d49}
+    .actions{display:flex;gap:8px;align-items:center}
+    .lang,.menu-btn{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:9px 13px;font-size:12px;color:var(--ink)}
+    .menu-btn{display:none}
+    .hero{max-width:1180px;margin:0 auto;padding:34px 22px 26px}
+    .hero-panel{min-height:440px;display:grid;grid-template-columns:1.02fr .98fr;overflow:hidden;border-radius:8px;background:#efe3dc}
+    .hero-copy{padding:clamp(28px,5vw,68px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.19em;color:var(--rose-dark);font-weight:700}
+    h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(42px,5vw,68px);font-weight:500;line-height:1.02;letter-spacing:-1.8px;margin:17px 0}
+    .hero-copy p{max-width:390px;color:#675c56;font-size:15px;line-height:1.8;margin:0 0 25px}
+    .primary{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;padding:14px 21px;border:1px solid var(--ink);border-radius:3px;font-size:13px;font-weight:700;transition:transform .2s,background .2s}
+    .primary:hover{background:#473a36;transform:translateY(-1px)}
+    .hero-image{min-height:340px;background:#dfc9bf url('https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1200&q=85') center/cover no-repeat}
+    .section{max-width:1180px;margin:0 auto;padding:38px 22px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:22px}
+    .section h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(28px,3vw,38px);font-weight:500;letter-spacing:-.6px;margin:6px 0 0}
+    .section-head p{font-size:13px;color:var(--muted);margin:0}
+    .categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+    .category{position:relative;min-height:205px;border-radius:5px;overflow:hidden;background:#eee4de;display:flex;align-items:end;padding:19px;isolation:isolate}
+    .category:before{content:"";position:absolute;inset:0;z-index:-2;background:var(--photo) center/cover no-repeat;transition:transform .35s}
+    .category:after{content:"";position:absolute;inset:35% 0 0;z-index:-1;background:linear-gradient(transparent,rgba(30,23,21,.68))}
+    .category:hover:before{transform:scale(1.04)}
+    .category h3{color:#fff;margin:0;font-size:18px;font-weight:600}
+    .category span{display:block;color:#fff;font-size:11px;margin-top:3px;opacity:.9}
+    .intro{background:#f1e7e1;text-align:center;padding:45px 20px;margin-top:16px}
+    .intro h2{font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:30px;margin:0 0 8px}
+    .intro p{max-width:570px;margin:0 auto;color:var(--muted);font-size:14px;line-height:1.8}
+    footer{background:#292321;color:#fff;margin-top:42px}
+    .footer-inner{max-width:1180px;margin:auto;padding:30px 22px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+    .footer-inner p{margin:5px 0 0;color:#d0c4bf;font-size:12px}
+    .footer-brand{font-family:Georgia,'Times New Roman',serif;font-size:23px}
+    .footer-note{font-size:11px;color:#d0c4bf}
+    [dir="rtl"] body{text-align:right}
+    [dir="rtl"] .hero-panel{grid-template-columns:.98fr 1.02fr}
+    [dir="rtl"] .hero-copy{align-items:flex-start}
+    [dir="rtl"] .section-head{flex-direction:row}
+    @media(max-width:760px){
+      .nav{padding:12px 16px}.brand{font-size:22px}.navlinks{display:none}.menu-btn{display:inline-block}
+      .hero{padding:18px 14px 10px}.hero-panel{grid-template-columns:1fr;min-height:0}
+      .hero-copy{padding:34px 25px 30px;order:1}.hero-image{order:0;min-height:245px;background-position:center 45%}
+      h1{font-size:47px;margin:13px 0}.hero-copy p{font-size:14px}
+      .section{padding:30px 14px}.section-head{align-items:flex-start;flex-direction:column;gap:7px}
+      .categories{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.category{min-height:180px;padding:13px}.category h3{font-size:16px}
+      .intro{padding:35px 20px}.intro h2{font-size:27px}
+      .footer-inner{align-items:flex-start;flex-direction:column;padding:26px 16px}
+      [dir="rtl"] .hero-panel{grid-template-columns:1fr}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="announcement" data-en="BEAUTY, SKINCARE & MORE — MADE SIMPLE" data-ku="جوانکاری، چاودێری پێست و زیاتر">BEAUTY, SKINCARE & MORE — MADE SIMPLE</div>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#" aria-label="Ultra Beauty home">ultra <span>beauty</span></a>
+      <div class="navlinks">
+        <a href="#categories" data-en="Shop categories" data-ku="بەشەکان">Shop categories</a>
+        <a href="#about" data-en="About us" data-ku="دەربارەمان">About us</a>
+        <a href="#contact" data-en="Contact" data-ku="پەیوەندی">Contact</a>
+      </div>
+      <div class="actions">
+        <button class="lang" id="languageToggle" type="button" aria-label="Switch language">کوردی</button>
+        <button class="menu-btn" id="menuButton" type="button" data-en="Menu" data-ku="لیست">Menu</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="hero-copy">
+          <div class="eyebrow" data-en="Your everyday beauty edit" data-ku="جوانکاری بۆ هەموو ڕۆژێک">Your everyday beauty edit</div>
+          <h1 data-en="Feel good in your own beauty." data-ku="بە جوانیی خۆت دڵخۆش بە.">Feel good in your own beauty.</h1>
+          <p data-en="Discover skincare, makeup, haircare and personal-care favourites, all in one place. Serving customers across Iraq." data-ku="باشترین بەرهەمەکانی چاودێری پێست، مەیکاپ، چاودێری قژ و کەسی بدۆزەرەوە. خزمەتگوزاری لە سەرانسەری عێراق.">Discover skincare, makeup, haircare and personal-care favourites, all in one place. Serving customers across Iraq.</p>
+          <a class="primary" href="#categories" data-en="Explore the collection" data-ku="بەرهەمەکان ببینە">Explore the collection</a>
+        </div>
+        <div class="hero-image" role="img" aria-label="Skincare and beauty products"></div>
+      </div>
+    </section>
+    <section class="section" id="categories">
+      <div class="section-head">
+        <div><div class="eyebrow" data-en="Find your favourites" data-ku="بەرهەمی دڵخوازت بدۆزەرەوە">Find your favourites</div><h2 data-en="Shop by category" data-ku="بەپێی بەش کڕین بکە">Shop by category</h2></div>
+        <p data-en="A little care goes a long way." data-ku="چاودێرییەکی بچووک جیاوازییەکی گەورە دروست دەکات.">A little care goes a long way.</p>
+      </div>
+      <div class="categories">
+        <a class="category" href="#contact" style="--photo:url('https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80')"><div><h3 data-en="Skincare" data-ku="چاودێری پێست">Skincare</h3><span data-en="Care for your skin" data-ku="چاودێری پێستت">Care for your skin</span></div></a>
+        <a class="category" href="#contact" style="--photo:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80')"><div><h3 data-en="Beauty & makeup" data-ku="جوانکاری و مەیکاپ">Beauty & makeup</h3><span data-en="Everyday essentials" data-ku="پێداویستییەکانی ڕۆژانە">Everyday essentials</span></div></a>
+        <a class="category" href="#contact" style="--photo:url('https://images.unsplash.com/photo- haircare?auto=format&fit=crop&w=700&q=80')"><div><h3 data-en="Haircare" data-ku="چاودێری قژ">Haircare</h3><span data-en="Love your hair" data-ku="خۆشەویستی بۆ قژت">Love your hair</span></div></a>
+        <a class="category" href="#contact" style="--photo:url('https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=80')"><div><h3 data-en="Personal care" data-ku="چاودێری کەسی">Personal care</h3><span data-en="Feel fresh every day" data-ku="هەموو ڕۆژێک تازە بە">Feel fresh every day</span></div></a>
+      </div>
+    </section>
+    <section class="intro" id="about">
+      <div class="eyebrow" data-en="Welcome to Ultra Beauty" data-ku="بەخێربێن بۆ Ultra Beauty">Welcome to Ultra Beauty</div>
+      <h2 data-en="Your beauty. Your way." data-ku="جوانیی تۆ، بە شێوازی تۆ.">Your beauty. Your way.</h2>
+      <p data-en="We're creating a simple way to discover beauty and personal-care products, with convenient ordering and delivery across Iraq. Our collection is coming soon." data-ku="ئێمە ڕێگایەکی ئاسان بۆ دۆزینەوەی بەرهەمەکانی جوانکاری و چاودێری کەسی دروست دەکەین، لەگەڵ داواکردنی ئاسان و گەیاندن لە سەرانسەری عێراق. کۆمەڵە بەرهەمەکانمان بە زوویی دێن.">We're creating a simple way to discover beauty and personal-care products, with convenient ordering and delivery across Iraq. Our collection is coming soon.</p>
+    </section>
+  </main>
+  <footer id="contact">
+    <div class="footer-inner">
+      <div><div class="footer-brand">ultra beauty</div><p data-en="Beauty and personal care, delivered across Iraq." data-ku="جوانکاری و چاودێری کەسی، گەیاندن لە سەرانسەری عێراق.">Beauty and personal care, delivered across Iraq.</p></div>
+      <div class="footer-note" data-en="WhatsApp ordering will be connected in the next step." data-ku="داواکردن لە ڕێگەی واتساپ لە هەنگاوی داهاتوودا پەیوەست دەکرێت.">WhatsApp ordering will be connected in the next step.</div>
+    </div>
+  </footer>
+  <script>
+    const languageToggle = document.getElementById('languageToggle');
+    let language = 'en';
+    languageToggle.addEventListener('click', () => {
+      language = language === 'en' ? 'ku' : 'en';
+      document.documentElement.lang = language === 'ku' ? 'ckb' : 'en';
+      document.documentElement.dir = language === 'ku' ? 'rtl' : 'ltr';
+      document.querySelectorAll('[data-en][data-ku]').forEach(el => {
+        el.textContent = el.dataset[language];
+      });
+      languageToggle.textContent = language === 'en' ? 'کوردی' : 'English';
+    });
+    document.getElementById('menuButton').addEventListener('click', () => {
+      document.getElementById('categories').scrollIntoView({behavior:'smooth'});
+    });
+  </script>
+</body>
+</html>
