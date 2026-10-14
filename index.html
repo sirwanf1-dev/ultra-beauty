@@ -215,6 +215,33 @@ footer{background:#fff;border-top:1px solid #e0e5ee}
 .old-price s{text-decoration-thickness:1.5px}
 @media(max-width:760px){.price-stack .price{font-size:clamp(15px,4vw,20px)}.old-price{font-size:12px}}
 
+
+/* Elegant, compact carousel refinements */
+.showcase-window{box-sizing:border-box;border:1px solid #d6b2c0!important;border-radius:12px!important;background:linear-gradient(125deg,#fff8fb 0%,#f5e8ee 48%,#e9edf6 100%)!important;box-shadow:0 5px 18px #2e456815, inset 0 0 0 3px #ffffffb8!important;overflow:hidden}
+.showcase-track{gap:10px!important;transition:transform .95s cubic-bezier(.2,.75,.25,1)!important}
+.showcase-slide{flex:0 0 66%!important;height:91%!important;border:2px solid #ffffff!important;border-radius:10px!important;opacity:.52!important;transform:scale(.92)!important;filter:saturate(.82);box-shadow:0 4px 12px #1e2d4212!important;transition:transform .8s cubic-bezier(.2,.75,.25,1),opacity .8s,filter .8s,box-shadow .8s!important;overflow:hidden}
+.showcase-slide.active{opacity:1!important;transform:scale(1)!important;filter:saturate(1.06);border-color:#fff!important;box-shadow:0 7px 20px #2e456828!important}
+.showcase-slide img{object-fit:cover!important;transition:transform 1.1s cubic-bezier(.2,.7,.2,1),filter .8s!important}
+.showcase-slide.active img{transform:scale(1.045)!important}
+.showcase-arrow{top:50%!important;width:30px!important;height:30px!important;border:1px solid #ffffffc9!important;border-radius:50%!important;background:#2e4568eF!important;color:#fff!important;font-size:20px!important;box-shadow:0 3px 12px #182b492c!important;backdrop-filter:blur(8px);transition:transform .22s,background .22s,box-shadow .22s!important}
+.showcase-prev{left:8px!important}.showcase-next{right:8px!important}
+.showcase-arrow:active{transform:translateY(-50%) scale(.9)!important;background:#d94f79!important}
+.showcase-dots{bottom:6px!important;gap:5px!important;padding:5px 8px!important;border:1px solid #ffffffb8;border-radius:20px!important;background:#fffffff0!important;box-shadow:0 2px 8px #1c2e4515!important}
+.showcase-dots button{width:5px!important;height:5px!important;border-radius:6px!important;background:#9eabc0!important;transition:width .35s,background .35s!important}
+.showcase-dots button.active{width:17px!important;background:#d94f79!important}
+@media(max-width:760px){
+ .showcase{padding-top:5px!important;padding-bottom:12px!important}
+ .showcase-window{height:clamp(140px,43vw,200px)!important;border-radius:11px!important}
+ .showcase-track{gap:8px!important}
+ .showcase-slide{flex-basis:72%!important;height:91%!important;border-radius:9px!important}
+ .showcase-arrow{width:28px!important;height:28px!important;font-size:18px!important}
+ .showcase-prev{left:6px!important}.showcase-next{right:6px!important}
+ .showcase-dots{bottom:5px!important}
+}
+/* Keep the brand name balanced and smaller in the header */
+.logo.wordmark{font-size:19px!important;letter-spacing:-.8px!important;gap:4px!important}
+@media(max-width:760px){.logo.wordmark{font-size:16px!important;letter-spacing:-.65px!important;gap:3px!important}.logo.wordmark span{margin-left:0!important}}
+
 </style>
 </head>
 <body>
