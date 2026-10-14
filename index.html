@@ -111,10 +111,103 @@ header{box-shadow:0 1px 0 #eee7e9;background:#fff}.topbar{height:70px;padding:6p
 }
 @media(max-width:370px){.logo.wordmark{font-size:17px}.addbtn{min-width:78px;font-size:10px}}
 
+
+/* Reference-inspired catalog layout: two-column cards, pale blue canvas, navy action buttons */
+:root{--gold:#d94f79;--gold-dark:#c43c68;--ink:#101827;--muted:#8993a2;--line:#dbe2ed;--paper:#fff;--soft:#b9c8e2}
+body{background:#b9c8e2;color:#111827}
+.announcement{background:#171717;color:#fff;border:0}
+header{background:#fff;box-shadow:none}
+.topbar{height:65px;padding:4px 15px}
+.logo.wordmark{font-family:Arial,Helvetica,sans-serif;font-size:22px;letter-spacing:-1px;font-weight:800;color:#14294a;min-width:0;width:auto}
+.logo.wordmark span{color:#d94f79}
+.logo.wordmark img{display:none!important}
+.iconbtn{color:#243b5a}
+.searchbtn{width:38px;height:38px;border:1px solid #e5e8ee;border-radius:7px}
+.category-nav{padding:0 12px 9px;gap:3px;background:#fff}
+.navtab{font-size:13px;padding:9px 12px;border-radius:6px;color:#14294a}
+.navtab.active{background:#2e4568;color:#fff;box-shadow:none}
+.page{max-width:980px;padding-left:12px;padding-right:12px}
+.featured{padding-top:13px}
+.showcase{padding-top:4px!important;padding-bottom:18px!important}
+.showcase-window{height:clamp(140px,38vw,230px);border:2px solid #fff;border-radius:5px;background:#e8edf5;box-shadow:0 0 0 1px #aebdd4;overflow:hidden}
+.showcase-track{gap:10px;transition:transform .8s cubic-bezier(.2,.75,.25,1)}
+.showcase-slide{flex:0 0 48%;height:100%;border:0;border-radius:0;opacity:.72;transform:scale(.97);box-shadow:none}
+.showcase-slide.active{opacity:1;transform:scale(1);border:0;box-shadow:none}
+.showcase-slide img{object-fit:cover}
+.showcase-arrow{width:31px;height:31px;border:0;border-radius:3px;background:#2e4568;color:#fff;box-shadow:0 3px 10px #16274625}
+.showcase-dots{bottom:6px;padding:4px 8px;background:#ffffffdf;border-radius:4px}
+.showcase-dots button{background:#aab7cc;border-radius:0}.showcase-dots button.active{background:#2e4568}
+.trending{padding-top:8px}
+.section-head{margin-bottom:12px}
+.section-title{font-size:22px;color:#111827}
+.section-sub{font-size:12px;color:#5e6877}
+.viewall{color:#2e4568}
+.trend-tabs{margin:12px 0 15px;gap:6px}
+.trend-tabs button{border:1px solid #e2e6ed;background:#fff;color:#18263c;border-radius:5px;padding:8px 13px;font-size:12px}
+.trend-tabs button.active{background:#2e4568;color:#fff;border-color:#2e4568}
+.product-track{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}
+.product-card{border:2px solid #e4e8ef;border-radius:0;background:#fff;box-shadow:none;overflow:hidden}
+.product-image{height:clamp(180px,51vw,310px);border-radius:0;background:#fff;border-bottom:1px solid #e7e9ed}
+.product-image img{object-fit:contain;background:#fff;padding:5px}
+.product-brand{text-align:right;font-size:10px;letter-spacing:.07em;margin:12px 12px 4px;color:#9aa1ad}
+.product-name{font-size:clamp(16px,4.2vw,22px);line-height:1.28;min-height:52px;margin:0 12px 10px;color:#111827;font-weight:600}
+.product-bottom{margin:0;padding:10px 12px 12px;border-top:1px solid #e6e8ed;min-height:74px;align-items:center;gap:7px}
+.price{font-size:clamp(16px,4vw,22px);font-weight:800;color:#b52e31;white-space:normal}
+.addbtn{min-width:46px;width:46px;height:46px;padding:0;border-radius:0;background:#2e4568;color:#fff;font-size:0;flex-shrink:0;box-shadow:none}
+.addbtn::before{content:"";width:23px;height:23px;display:block;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 3h2l2.5 12h10.8l2-8H6'/%3E%3Ccircle cx='9' cy='19' r='1.5'/%3E%3Ccircle cx='18' cy='19' r='1.5'/%3E%3Cpath d='M12 9v5m-2.5-2.5h5'/%3E%3C/svg%3E") center/contain no-repeat}
+.addbtn::after{content:"";display:none}
+[dir=rtl] .addbtn::after{content:"";display:none}
+.quantity-controls{border:0;background:#eef2f8;border-radius:0;padding:4px;gap:3px}
+.qty-btn{border-radius:0;background:#fff;color:#1e3453;border:1px solid #d9e1ec;width:27px;height:30px}
+.qty-number{min-width:16px;color:#17263d}
+.heart{top:9px;left:9px;width:36px;height:36px;border-radius:50%;background:#ffffffed;color:#314765}
+.heart svg{width:27px;height:27px}
+.benefits{display:none}
+footer{background:#fff;border-top:1px solid #e0e5ee}
+.mobile-bottom-nav{background:#fff;border-top:1px solid #d9e0eb}
+.mobile-bottom-nav button{color:#243b5a}
+.mobile-bottom-nav button i{background:#d94f79;color:#fff}
+.wa{border:3px solid #fff;box-shadow:0 3px 12px #1c2e4520}
+@media(max-width:760px){
+ body{padding-bottom:90px!important}
+ .announcement{font-size:10px;padding:8px 5px}
+ .topbar{height:58px;padding:4px 9px}
+ .logo.wordmark{font-size:19px;letter-spacing:-.8px}
+ .category-nav{padding:0 7px 8px;gap:2px}
+ .navtab{font-size:12px;padding:8px 10px}
+ .page{padding-left:10px;padding-right:10px}
+ .showcase-window{height:clamp(150px,47vw,220px)}
+ .showcase-slide{flex-basis:66%}
+ .showcase-arrow{width:29px;height:29px}
+ .section-title{font-size:19px}
+ .section-sub{font-size:11px}
+ .trend-tabs{gap:4px;margin:10px 0 13px}
+ .trend-tabs button{font-size:11px;padding:8px 11px}
+ .product-track{gap:14px 10px}
+ .product-image{height:clamp(170px,47vw,275px)}
+ .product-name{font-size:clamp(15px,4.2vw,19px);min-height:48px;margin:0 10px 8px}
+ .product-brand{margin:10px 10px 4px}
+ .product-bottom{padding:9px 9px 11px;min-height:70px;gap:6px}
+ .price{font-size:clamp(15px,4.3vw,20px);line-height:1.35}
+ .addbtn{width:42px;height:42px;min-width:42px}
+ .addbtn::before{width:22px;height:22px}
+ .quantity-controls{flex-shrink:0}
+ .qty-btn{width:24px;min-width:24px;height:27px}
+ .qty-number{font-size:12px}
+ .mobile-bottom-nav{height:65px}
+ .wa{bottom:77px!important}
+}
+@media(max-width:370px){
+ .product-name{font-size:15px;min-height:42px}
+ .product-bottom{padding:8px 7px}
+ .addbtn{width:37px;height:39px;min-width:37px}
+ .price{font-size:14px}
+}
+
 </style>
 </head>
 <body>
-<div class="announcement" data-en="BEAUTY, SKINCARE & MORE — MADE SIMPLE" data-ku="جوانکاری، چاودێری پێست و زیاتر">BEAUTY, SKINCARE & MORE — MADE SIMPLE</div>
+<div class="announcement" data-en="جوانکاری، چاودێری پێست و زیاتر" data-ku="جوانکاری، چاودێری پێست و زیاتر">BEAUTY, SKINCARE & MORE — MADE SIMPLE</div>
 <header>
  <div class="topbar">
   <a class="logo wordmark" href="#" aria-label="Ultra Beauty home">Ultra <span>Beauty</span><img hidden src="data:image/webp;base64,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" alt="Ultra Beauty logo"></a>
