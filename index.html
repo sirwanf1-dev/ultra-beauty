@@ -602,6 +602,28 @@ header{background:#fff!important;border-bottom:1px solid #f2cbd9!important;box-s
 header{position:sticky}
 @media(max-width:760px){.site-menu-panel{top:72px;left:9px}}
 
+
+/* Compact brand: enlarge the wordmark without adding header height */
+@media(max-width:760px){
+ .topbar{height:66px!important;min-height:66px;padding-top:4px!important;padding-bottom:4px!important}
+ .brand-name{font-size:clamp(27px,7.2vw,34px)!important;letter-spacing:-1.2px!important;line-height:1!important}
+ .brand-side{gap:8px!important}
+ .brand-side .menu-btn{width:35px!important;height:36px!important;flex-basis:35px}
+ .iconrow .iconbtn,.iconrow .searchbtn{height:36px!important;width:36px!important;flex-basis:36px}
+ .iconrow .lang-icon-btn{width:36px!important}
+ .category-nav{height:48px!important;padding-bottom:5px!important}
+ .site-menu-panel{top:62px!important}
+}
+@media(max-width:390px){
+ .topbar{height:62px!important;min-height:62px;padding-left:7px!important;padding-right:7px!important}
+ .brand-name{font-size:24px!important;letter-spacing:-1px!important}
+ .brand-side{gap:6px!important}
+ .brand-side .menu-btn{width:31px!important;height:34px!important;flex-basis:31px}
+ .iconrow{gap:3px!important}
+ .iconrow .iconbtn,.iconrow .searchbtn{width:31px!important;height:33px!important;flex-basis:31px}
+ .category-nav{height:46px!important}
+}
+
 </style>
 </head>
 <body>
