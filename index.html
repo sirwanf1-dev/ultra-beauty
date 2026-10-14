@@ -487,6 +487,39 @@ header{background:#fff!important;border-bottom:1px solid #f2cbd9!important;box-s
  .iconrow .langbtn{font-size:8px!important;padding:6px 3px!important}
 }
 
+
+/* Refined mobile header: balanced brand, controls and category navigation */
+@media(max-width:760px){
+  header{background:rgba(255,255,255,.98);box-shadow:0 1px 0 #eee3e8;backdrop-filter:blur(14px)}
+  .topbar{height:88px!important;padding:10px 14px!important;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .logo.wordmark{order:2!important;width:auto!important;max-width:49%;min-width:0;flex:0 1 auto;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:6px;row-gap:3px;align-items:center;justify-content:end;text-align:right}
+  .uk-flag{grid-column:1;grid-row:1;font-size:19px;line-height:1}
+  .brand-name{grid-column:2;grid-row:1;font-size:clamp(18px,4.8vw,23px)!important;line-height:1.05;letter-spacing:-.7px;white-space:nowrap;font-weight:800}
+  .brand-name span{color:#d83f75}
+  .brand-trust{grid-column:1 / -1;grid-row:2;display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:9px!important;line-height:1.35!important;color:#74616a;white-space:normal;max-width:100%}
+  .iconrow{order:1!important;flex:1 1 auto!important;min-width:0;display:flex;align-items:center;justify-content:flex-start;gap:5px!important}
+  .iconrow .iconbtn{width:36px!important;height:38px!important;flex:0 0 36px;border:1px solid #eee0e6;background:#fff;border-radius:11px;color:#55434c}
+  .iconrow .iconbtn svg{width:20px!important;height:20px!important}
+  .iconrow .searchbtn{width:36px!important;height:38px!important;border:1px solid #ead9e0;background:#fff7fa}
+  .iconrow .langbtn{height:34px;padding:0 7px!important;border:1px solid #ead9e0;border-radius:9px;color:#b63866;font-weight:700;font-size:10px!important;background:#fff;white-space:nowrap}
+  .iconrow .cart-count{top:-4px;right:-4px;min-width:16px;height:16px;font-size:9px;background:#d83f75;color:#fff}
+  .category-nav{height:54px;padding:0 12px 8px!important;gap:6px!important;align-items:center}
+  .navtab{height:36px;display:flex;align-items:center;justify-content:center;padding:0 13px!important;border:1px solid transparent;border-radius:10px!important;font-size:12px!important;font-weight:700;color:#655660;background:transparent}
+  .navtab.active{background:#d83f75!important;color:#fff!important;box-shadow:0 3px 8px #d83f7526!important}
+}
+@media(max-width:390px){
+ .topbar{padding-left:10px!important;padding-right:10px!important;gap:6px}
+ .logo.wordmark{max-width:48%;column-gap:4px}
+ .brand-name{font-size:18px!important}
+ .brand-trust{font-size:8px!important}
+ .iconrow{gap:3px!important}
+ .iconrow .iconbtn,.iconrow .searchbtn{width:32px!important;flex-basis:32px;height:35px!important}
+ .iconrow .iconbtn svg{width:18px!important;height:18px!important}
+ .iconrow .langbtn{padding:0 5px!important;font-size:9px!important}
+ .category-nav{gap:3px!important;padding-left:8px!important;padding-right:8px!important}
+ .navtab{padding:0 10px!important;font-size:11px!important}
+}
+
 </style>
 </head>
 <body>
