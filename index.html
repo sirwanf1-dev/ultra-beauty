@@ -546,18 +546,59 @@ header{background:#fff!important;border-bottom:1px solid #f2cbd9!important;box-s
  .navtab{padding:0 9px!important;font-size:11px!important}
 }
 
+
+/* Header layout: brand on the left, open centre, utility icons on the right */
+@media(min-width:761px){
+ .topbar{display:flex;align-items:center;gap:22px}
+ .brand-side{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+ .topbar-spacer{flex:1 1 auto;min-width:30px}
+ .logo.wordmark{width:auto;display:flex;align-items:center}
+ .brand-name{font-size:30px;white-space:nowrap;letter-spacing:-.8px}
+ .brand-name span{color:#d83f75}
+ .iconrow{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+ .iconrow .iconbtn{width:42px;height:42px;border:1px solid #eee0e6;border-radius:12px;background:#fff}
+}
+@media(max-width:760px){
+ .topbar{height:76px!important;padding:8px 12px!important;display:flex;align-items:center;gap:10px!important}
+ .brand-side{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+ .brand-side .menu-btn{order:0;width:37px!important;height:39px!important;flex:0 0 37px;border-radius:11px;background:#d83f75!important;border:1px solid #d83f75!important;color:#fff!important}
+ .brand-side .menu-btn svg{width:21px!important;height:21px!important}
+ .logo.wordmark{order:1!important;display:flex!important;width:auto!important;max-width:none!important;flex:0 0 auto!important;align-items:center;justify-content:flex-start}
+ .brand-name{font-size:clamp(22px,5.8vw,27px)!important;letter-spacing:-.8px;line-height:1.05;white-space:nowrap;font-weight:850}
+ .brand-name span{color:#d83f75}
+ .topbar-spacer{flex:1 1 auto;min-width:0}
+ .iconrow{order:3!important;flex:0 0 auto!important;display:flex;align-items:center;justify-content:flex-end;gap:6px!important;min-width:0}
+ .iconrow .iconbtn,.iconrow .searchbtn{width:38px!important;height:39px!important;flex:0 0 38px;border:1px solid #eadde2;background:#fff;border-radius:11px;color:#38333a}
+ .iconrow .iconbtn svg{width:20px!important;height:20px!important}
+ .iconrow .cart-count{top:-5px;right:-5px;min-width:16px;height:16px;font-size:9px;background:#d83f75;color:#fff}
+ .category-nav{height:52px;padding:0 12px 7px!important;gap:5px!important;align-items:center}
+ .navtab{height:34px;padding:0 12px!important;border-radius:9px!important;font-size:12px!important}
+}
+@media(max-width:390px){
+ .topbar{padding-left:8px!important;padding-right:8px!important;gap:6px!important}
+ .brand-side{gap:6px}
+ .brand-side .menu-btn{width:33px!important;height:36px!important;flex-basis:33px}
+ .brand-name{font-size:20px!important}
+ .iconrow{gap:4px!important}
+ .iconrow .iconbtn,.iconrow .searchbtn{width:33px!important;height:35px!important;flex-basis:33px}
+ .iconrow .iconbtn svg{width:18px!important;height:18px!important}
+ .navtab{padding:0 9px!important;font-size:11px!important}
+}
+
 </style>
 </head>
 <body>
 <header>
  <div class="topbar">
-  <a class="logo wordmark" href="#homeMain" aria-label="Ultra Beauty home"><span class="uk-flag" aria-label="United Kingdom">🇬🇧</span><span class="brand-name">Ultra <span>Beauty</span></span><span class="brand-trust" aria-hidden="true"></span><img hidden src="data:image/webp;base64,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" alt="Ultra Beauty logo"></a>
+  <div class="brand-side">
+   <button class="iconbtn menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+   <a class="logo wordmark" href="#homeMain" aria-label="Ultra Beauty home"><span class="brand-name">Ultra <span>Beauty</span></span></a>
+  </div>
+  <div class="topbar-spacer" aria-hidden="true"></div>
   <div class="iconrow">
    <button class="iconbtn searchbtn" id="searchBtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></button>
    <button class="iconbtn" id="cartBtn" aria-label="Shopping bag"><span class="cart-count" id="cartCount">0</span><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
-   
-   <button class="iconbtn menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-   <button class="langbtn" id="langBtn">کوردی</button>
+   <button class="iconbtn lang-icon-btn" id="langBtn" aria-label="Change language" title="Change language"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></button>
   </div>
  </div>
  <nav class="category-nav" aria-label="Shop categories"><button class="navtab active" data-filter="all" data-en="All" data-ku="هەموو">All</button><button class="navtab" data-filter="women" data-en="Women" data-ku="ژنانه">Women</button><button class="navtab" data-filter="men" data-en="Men" data-ku="پیاوان">Men</button><button class="navtab" data-filter="perfumes" data-en="Perfumes" data-ku="بۆن">Perfumes</button><button class="navtab" data-filter="skincare" data-en="Skin Care" data-ku="چاودێری پێست">Skin Care</button><button class="navtab" data-filter="haircare" data-en="Hair Care" data-ku="چاودێری قژ">Hair Care</button></nav>
@@ -623,7 +664,7 @@ document.getElementById("closeSearch").addEventListener("click",()=>{hideViews()
 document.getElementById("backFromFavorites").addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});
 function openPayment(){hideViews();document.getElementById("paymentPage").style.display="block";renderCart();window.scrollTo({top:0,left:0,behavior:"auto"});}document.getElementById("cartBtn").addEventListener("click",openPayment);document.getElementById("bottomCart")?.addEventListener("click",openPayment);document.getElementById("bottomSearch")?.addEventListener("click",openSearch);function goHome(){hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";window.scrollTo({top:0,left:0,behavior:"smooth"});history.replaceState(null,"",location.pathname+location.search);}
 document.querySelector(".logo.wordmark")?.addEventListener("click",e=>{e.preventDefault();goHome();});
-document.querySelectorAll(".mobile-bottom-nav [data-goto]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.goto==="homeMain"){goHome();return;}hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";document.getElementById(b.dataset.goto)?.scrollIntoView({behavior:"smooth",block:"start"});}));document.getElementById("backToShop")?.addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});const showcase=document.querySelector(".showcase");if(showcase){const track=showcase.querySelector(".showcase-track");const slides=[...showcase.querySelectorAll(".showcase-slide")];const dots=[...showcase.querySelectorAll(".showcase-dots button")];let current=0;function showShowcase(n){current=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle("active",i===current));dots.forEach((d,i)=>d.classList.toggle("active",i===current));const slide=slides[current];const offset=slide.offsetLeft-(track.parentElement.clientWidth-slide.clientWidth)/2;track.style.transform="translateX("+-offset+"px)";}function restartShowcase(){clearInterval(timer);timer=setInterval(()=>showShowcase(current+1),3500);}showcase.querySelector(".showcase-prev").addEventListener("click",()=>{showShowcase(current-1);restartShowcase();});showcase.querySelector(".showcase-next").addEventListener("click",()=>{showShowcase(current+1);restartShowcase();});dots.forEach((d,i)=>d.addEventListener("click",()=>{showShowcase(i);restartShowcase();}));let timer=setInterval(()=>showShowcase(current+1),3500);window.addEventListener("resize",()=>showShowcase(current));showShowcase(0);}let lang='ku';function setLang(next){lang=next;document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.getElementById('langBtn').textContent=lang==='en'?'کوردی':'English';}
+document.querySelectorAll(".mobile-bottom-nav [data-goto]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.goto==="homeMain"){goHome();return;}hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";document.getElementById(b.dataset.goto)?.scrollIntoView({behavior:"smooth",block:"start"});}));document.getElementById("backToShop")?.addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});const showcase=document.querySelector(".showcase");if(showcase){const track=showcase.querySelector(".showcase-track");const slides=[...showcase.querySelectorAll(".showcase-slide")];const dots=[...showcase.querySelectorAll(".showcase-dots button")];let current=0;function showShowcase(n){current=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle("active",i===current));dots.forEach((d,i)=>d.classList.toggle("active",i===current));const slide=slides[current];const offset=slide.offsetLeft-(track.parentElement.clientWidth-slide.clientWidth)/2;track.style.transform="translateX("+-offset+"px)";}function restartShowcase(){clearInterval(timer);timer=setInterval(()=>showShowcase(current+1),3500);}showcase.querySelector(".showcase-prev").addEventListener("click",()=>{showShowcase(current-1);restartShowcase();});showcase.querySelector(".showcase-next").addEventListener("click",()=>{showShowcase(current+1);restartShowcase();});dots.forEach((d,i)=>d.addEventListener("click",()=>{showShowcase(i);restartShowcase();}));let timer=setInterval(()=>showShowcase(current+1),3500);window.addEventListener("resize",()=>showShowcase(current));showShowcase(0);}let lang='ku';function setLang(next){lang=next;document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.getElementById('langBtn').setAttribute('aria-label',lang==='en'?'Switch to Kurdish':'Switch to English');}
 document.getElementById('langBtn').addEventListener('click',()=>setLang(lang==='en'?'ku':'en'));setLang('ku');
 document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('trending').scrollIntoView({behavior:'smooth'}));document.getElementById('searchBtn').addEventListener('click',openSearch);
 function filterProducts(filter,group){group.querySelectorAll('button[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));const cards=document.querySelectorAll('.product-card');cards.forEach(c=>{const cats=(c.dataset.category||'').split(' ');c.style.display=filter==='all'||cats.includes(filter)?'':'none';});}
