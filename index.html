@@ -585,6 +585,23 @@ header{background:#fff!important;border-bottom:1px solid #f2cbd9!important;box-s
  .navtab{padding:0 9px!important;font-size:11px!important}
 }
 
+
+/* Stronger Ultra Beauty branding */
+.brand-name{font-size:34px!important;font-weight:900;letter-spacing:-1.2px}
+.brand-name span{color:#d83f75}
+@media(max-width:760px){.brand-name{font-size:clamp(25px,6.5vw,31px)!important;letter-spacing:-1px}.brand-side{gap:8px!important}}
+@media(max-width:390px){.brand-name{font-size:23px!important}}
+/* Three-line menu panel */
+.site-menu-panel{position:absolute;top:calc(100% + 6px);left:12px;width:min(290px,calc(100vw - 24px));z-index:60;background:#fff;border:1px solid #f0dfe6;border-radius:16px;padding:9px;box-shadow:0 16px 40px #28131d20;display:none;text-align:left}
+.site-menu-panel.open{display:block}
+.site-menu-panel a,.site-menu-panel button{width:100%;display:flex;align-items:center;gap:11px;padding:13px 12px;border:0;border-radius:10px;background:transparent;color:#30252b;font-size:14px;font-weight:700;text-align:left}
+.site-menu-panel a:hover,.site-menu-panel button:hover{background:#fff1f5}
+.site-menu-panel .menu-symbol{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#fff0f4;color:#d83f75;flex-shrink:0}
+.site-menu-panel .menu-note{display:block;font-size:11px;font-weight:400;color:#81727a;margin-top:3px}
+.site-menu-panel .menu-divider{height:1px;background:#f2e6ea;margin:4px 8px}
+header{position:sticky}
+@media(max-width:760px){.site-menu-panel{top:72px;left:9px}}
+
 </style>
 </head>
 <body>
@@ -602,6 +619,13 @@ header{background:#fff!important;border-bottom:1px solid #f2cbd9!important;box-s
   </div>
  </div>
  <nav class="category-nav" aria-label="Shop categories"><button class="navtab active" data-filter="all" data-en="All" data-ku="هەموو">All</button><button class="navtab" data-filter="women" data-en="Women" data-ku="ژنانه">Women</button><button class="navtab" data-filter="men" data-en="Men" data-ku="پیاوان">Men</button><button class="navtab" data-filter="perfumes" data-en="Perfumes" data-ku="بۆن">Perfumes</button><button class="navtab" data-filter="skincare" data-en="Skin Care" data-ku="چاودێری پێست">Skin Care</button><button class="navtab" data-filter="haircare" data-en="Hair Care" data-ku="چاودێری قژ">Hair Care</button></nav>
+ <div class="site-menu-panel" id="siteMenuPanel" aria-label="Main menu">
+  <a href="#homeMain" data-menu-home><span class="menu-symbol">⌂</span><span>Home<span class="menu-note">Browse Ultra Beauty</span></span></a>
+  <div class="menu-divider"></div>
+  <a href="#trending" data-menu-products><span class="menu-symbol">✦</span><span>Original beauty products<span class="menu-note">Beauty, skincare and haircare</span></span></a>
+  <div class="menu-divider"></div>
+  <a href="https://wa.me/9647706943110" target="_blank" rel="noopener"><span class="menu-symbol">↗</span><span>Contact us<span class="menu-note">Chat with Ultra Beauty on WhatsApp</span></span></a>
+ </div>
 </header>
 <main id="homeMain">
  <section class="page featured showcase" aria-label="New beauty products"><div class="showcase-window"><div class="showcase-track"><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1000&q=85" alt="New perfumes"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1000&q=85" alt="New skincare products"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1000&q=85" alt="New makeup products"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1000&q=85" alt="Beauty products"></div></div></div><button class="showcase-arrow showcase-prev" aria-label="Previous image">‹</button><button class="showcase-arrow showcase-next" aria-label="Next image">›</button><div class="showcase-dots"><button class="active" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button><button aria-label="Slide 4"></button></div></section>
@@ -666,7 +690,7 @@ function openPayment(){hideViews();document.getElementById("paymentPage").style.
 document.querySelector(".logo.wordmark")?.addEventListener("click",e=>{e.preventDefault();goHome();});
 document.querySelectorAll(".mobile-bottom-nav [data-goto]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.goto==="homeMain"){goHome();return;}hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";document.getElementById(b.dataset.goto)?.scrollIntoView({behavior:"smooth",block:"start"});}));document.getElementById("backToShop")?.addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});const showcase=document.querySelector(".showcase");if(showcase){const track=showcase.querySelector(".showcase-track");const slides=[...showcase.querySelectorAll(".showcase-slide")];const dots=[...showcase.querySelectorAll(".showcase-dots button")];let current=0;function showShowcase(n){current=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle("active",i===current));dots.forEach((d,i)=>d.classList.toggle("active",i===current));const slide=slides[current];const offset=slide.offsetLeft-(track.parentElement.clientWidth-slide.clientWidth)/2;track.style.transform="translateX("+-offset+"px)";}function restartShowcase(){clearInterval(timer);timer=setInterval(()=>showShowcase(current+1),3500);}showcase.querySelector(".showcase-prev").addEventListener("click",()=>{showShowcase(current-1);restartShowcase();});showcase.querySelector(".showcase-next").addEventListener("click",()=>{showShowcase(current+1);restartShowcase();});dots.forEach((d,i)=>d.addEventListener("click",()=>{showShowcase(i);restartShowcase();}));let timer=setInterval(()=>showShowcase(current+1),3500);window.addEventListener("resize",()=>showShowcase(current));showShowcase(0);}let lang='ku';function setLang(next){lang=next;document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.getElementById('langBtn').setAttribute('aria-label',lang==='en'?'Switch to Kurdish':'Switch to English');}
 document.getElementById('langBtn').addEventListener('click',()=>setLang(lang==='en'?'ku':'en'));setLang('ku');
-document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('trending').scrollIntoView({behavior:'smooth'}));document.getElementById('searchBtn').addEventListener('click',openSearch);
+const siteMenu=document.getElementById('siteMenuPanel');document.getElementById('menuBtn').addEventListener('click',e=>{e.stopPropagation();siteMenu.classList.toggle('open');});siteMenu.querySelector('[data-menu-home]').addEventListener('click',()=>{siteMenu.classList.remove('open');goHome();});siteMenu.querySelector('[data-menu-products]').addEventListener('click',()=>{siteMenu.classList.remove('open');document.getElementById('trending').scrollIntoView({behavior:'smooth'});});document.addEventListener('click',e=>{if(siteMenu&&!siteMenu.contains(e.target)&&!e.target.closest('#menuBtn'))siteMenu.classList.remove('open');});document.getElementById('searchBtn').addEventListener('click',openSearch);
 function filterProducts(filter,group){group.querySelectorAll('button[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));const cards=document.querySelectorAll('.product-card');cards.forEach(c=>{const cats=(c.dataset.category||'').split(' ');c.style.display=filter==='all'||cats.includes(filter)?'':'none';});}
 document.querySelectorAll('.category-nav').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);document.querySelector('.featured').scrollIntoView({behavior:'smooth'});})));
 document.querySelectorAll('.trend-tabs').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);})));
