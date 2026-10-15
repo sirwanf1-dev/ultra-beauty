@@ -22,3 +22,11 @@ Open `admin.html` on the published site to try adding and editing product detail
 5. Test backup, restore, pricing, and mobile workflows before real use.
 
 Never put service-role keys, payment secrets, or private credentials in public HTML or client-side JavaScript.
+
+
+## Shared database setup (in progress)
+
+- `supabase-setup.sql` — database tables and Row Level Security policies for the shared catalogue and product images.
+- `SUPABASE_SETUP.md` — step-by-step instructions for creating the Supabase project and authorising an admin account.
+
+The database schema is committed, but the live pages are not connected yet. The next required step is creating the Supabase project and supplying its **Project URL** and **publishable/anon key** so the storefront and admin can be wired to it. Never share a service-role/secret key. Before migration, export a JSON backup from the same browser where the current product was entered.
