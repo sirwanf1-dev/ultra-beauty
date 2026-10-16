@@ -961,8 +961,8 @@ function updateGuestDelivery(){
 document.getElementById("openGuestOrder").addEventListener("click",()=>{
  if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before ordering.");return;}
  document.getElementById("paymentPage").style.display="none";
- document.getElementById("guestOrderForm").style.display="block";
  document.getElementById("guestOrderForm").hidden=false;
+ document.getElementById("guestOrderForm").style.display="block";
  document.getElementById("guestDeliveryCity").value=document.getElementById("deliveryCity").value;
  document.getElementById("orderSummaryWrap").hidden=true;
  renderGuestOrder();window.scrollTo({top:0,left:0,behavior:"auto"});
