@@ -643,6 +643,40 @@ header{position:sticky}
 [dir=rtl] .menu-page{text-align:right}[dir=rtl] .menu-page-links>a,[dir=rtl] .menu-page-links>button{text-align:right}[dir=rtl] .menu-page-top{flex-direction:row-reverse}
 @media(max-width:760px){.topbar{height:62px!important;min-height:62px!important;padding-top:3px!important;padding-bottom:3px!important}.brand-name{font-size:clamp(27px,7.2vw,34px)!important;line-height:1!important}.category-nav{height:46px!important}}
 
+
+/* Product detail page */
+.product-detail-page{display:none;max-width:1120px;margin:0 auto;padding:22px 18px 48px}
+.product-detail-page.visible{display:block}
+.product-detail-back{border:0;background:transparent;padding:10px 0;color:#6f6570;font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px}
+.product-detail-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start;margin-top:10px}
+.product-detail-photo{position:relative;background:#fff5f7;border:1px solid #f1e4e8;border-radius:13px;overflow:hidden;aspect-ratio:1/1}
+.product-detail-photo img{width:100%;height:100%;object-fit:contain;display:block}
+.product-detail-info{padding:6px 0}
+.product-detail-brand{font-size:11px;letter-spacing:.12em;color:#d34f78;font-weight:800;text-transform:uppercase;margin-bottom:10px}
+.product-detail-title{font-size:clamp(24px,3vw,36px);line-height:1.15;letter-spacing:-.5px;margin:0 0 15px;font-weight:750}
+.product-detail-price{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0 5px}
+.product-detail-current{font-size:clamp(25px,3vw,32px);font-weight:850;letter-spacing:-.5px}
+.product-detail-old{color:#88818a;font-size:15px}
+.product-detail-discount{background:#fde7ed;color:#c13e67;padding:5px 8px;border-radius:5px;font-size:11px;font-weight:800}
+.product-detail-stock{font-size:12px;color:#28754b;font-weight:700;margin:12px 0 18px}
+.product-detail-description{font-size:14px;line-height:1.85;color:#625b64;border-top:1px solid #f0e5e9;padding-top:15px;margin-top:15px;white-space:pre-line}
+.product-detail-qty{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 12px}
+.product-detail-qty label{font-size:13px;font-weight:700}
+.product-detail-qty-controls{display:flex;align-items:center;border:1px solid #eadde2;border-radius:8px;overflow:hidden}
+.product-detail-qty-controls button{width:40px;height:40px;border:0;background:#fff5f7;font-size:20px;color:#272128}
+.product-detail-qty-controls span{min-width:42px;text-align:center;font-weight:800}
+.product-detail-add{width:100%;border:0;border-radius:8px;background:#e65f86;color:#fff;padding:15px 16px;font-size:14px;font-weight:800;box-shadow:0 4px 12px #e65f8626}
+.product-detail-add:hover{background:#c94570}
+.product-detail-whatsapp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:13px 14px;border:1px solid #d8e9df;border-radius:8px;background:#f2faf5;color:#1b7547;font-weight:750;font-size:13px}
+.product-detail-note{font-size:11px;color:#8a8188;line-height:1.6;margin-top:13px}
+.product-detail-related{margin-top:38px}
+.product-detail-related h2{font-size:18px;margin:0 0 14px}
+.product-detail-related-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.product-related-card{min-width:0;border:1px solid #f0e4e8;border-radius:9px;overflow:hidden;background:#fff;text-align:left;padding:0}
+.product-related-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fff5f7}
+.product-related-card span{display:block;padding:9px;font-size:12px;font-weight:750;line-height:1.4}
+@media(max-width:650px){.product-detail-page{padding:10px 13px 30px}.product-detail-layout{grid-template-columns:1fr;gap:18px;margin-top:4px}.product-detail-photo{aspect-ratio:1/1;max-height:430px}.product-detail-info{padding:0 2px}.product-detail-title{font-size:25px;margin-bottom:10px}.product-detail-price{margin-top:12px}.product-detail-current{font-size:27px}.product-detail-stock{margin:10px 0 13px}.product-detail-description{font-size:13px;line-height:1.8}.product-detail-qty{margin-top:17px}.product-detail-related-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-detail-related h2{font-size:16px}}
+
 </style>
 </head>
 <body>
@@ -766,4 +800,23 @@ document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{c
 document.addEventListener("click",e=>{const b=e.target.closest(".addbtn");if(!b)return;e.preventDefault();e.stopPropagation();const name=b.dataset.product||b.closest(".product-card")?.querySelector(".product-name")?.textContent?.trim()||"Beauty product";changeQty(name,1);toastAdded();});
 document.getElementById("waLink").href="https://wa.me/"+CART_PHONE;document.getElementById("waLink").target="_blank";document.getElementById("waLink").rel="noopener";
 </script>
+
+<section id="productDetailPage" class="product-detail-page" aria-live="polite">
+ <button type="button" class="product-detail-back" id="productDetailBack"><span aria-hidden="true">←</span><span data-en="Back to shop" data-ku="گەڕانەوە بۆ فرۆشگا">گەڕانەوە بۆ فرۆشگا</span></button>
+ <div class="product-detail-layout">
+  <div class="product-detail-photo"><img id="detailImage" src="" alt=""></div>
+  <div class="product-detail-info">
+   <div class="product-detail-brand" id="detailBrand"></div>
+   <h1 class="product-detail-title" id="detailTitle"></h1>
+   <div class="product-detail-price"><span class="product-detail-current" id="detailPrice"></span><s class="product-detail-old" id="detailOldPrice"></s><span class="product-detail-discount" id="detailDiscount" hidden></span></div>
+   <div class="product-detail-stock" id="detailStock"></div>
+   <div class="product-detail-description" id="detailDescription"></div>
+   <div class="product-detail-qty"><label data-en="Quantity" data-ku="ژمارە">ژمارە</label><div class="product-detail-qty-controls"><button type="button" id="detailMinus" aria-label="Decrease quantity">−</button><span id="detailQty">1</span><button type="button" id="detailPlus" aria-label="Increase quantity">+</button></div></div>
+   <button type="button" class="product-detail-add" id="detailAdd"></button>
+   <a class="product-detail-whatsapp" id="detailWhatsApp" href="#" target="_blank" rel="noopener"><span>◉</span><span data-en="Ask about this product on WhatsApp" data-ku="لە واتساپ لەبارەی ئەم بەرهەمە بپرسە">لە واتساپ لەبارەی ئەم بەرهەمە بپرسە</span></a>
+   <p class="product-detail-note" id="detailNote"></p>
+  </div>
+ </div>
+ <div class="product-detail-related" id="detailRelatedWrap"><h2 data-en="You may also like" data-ku="لەوانەیە ئەمانەشت بەدڵ بن">لەوانەیە ئەمانەشت بەدڵ بن</h2><div class="product-detail-related-grid" id="detailRelated"></div></div>
+</section>
 <div class="added-toast" id="addedToast" role="status" aria-live="polite">Added to bag</div></body></html>
