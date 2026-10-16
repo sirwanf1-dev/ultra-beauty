@@ -458,6 +458,8 @@ header{background:#fff!important;border-bottom:1px solid #f2cbd9!important;box-s
 
 
 /* Guest order form and screenshot-ready summary */
+.checkout-form-error{padding:10px 12px;margin:0 0 12px;border:1px solid #e7a6b8;border-radius:9px;background:#fff0f4;color:#9e234b;font-size:13px;font-weight:700;line-height:1.5}
+.customer-details-box input[aria-invalid="true"]{border-color:#c72e68;box-shadow:0 0 0 3px #c72e6818}
 .customer-details-box h2{margin-top:0}.customer-details-box label{display:block;margin:12px 0 6px;font-size:13px;font-weight:700;color:#66515b}
 .customer-details-box input{display:block;width:100%;min-height:46px;padding:11px 12px;border:1px solid #e9bdcd;border-radius:9px;background:#fff;color:#241820;font-size:15px;outline-color:#d83f73}
 .customer-details-box .field-help{font-size:12px;color:#76636c;margin:9px 0 0}
@@ -775,7 +777,7 @@ header{position:sticky}
 
 
 /* Instagram-only guest checkout: keep delivery selection compact */
-#paymentPage .customer-details-box{display:none!important}
+/* Customer details must remain visible in guest checkout. */
 </style>
 </head>
 <body>
@@ -890,11 +892,21 @@ function makeSummaryRow(label,value){const row=document.createElement("div");row
 document.getElementById("createOrderSummary").addEventListener("click",()=>{
  const nameInput=document.getElementById("customerName"),phoneInput=document.getElementById("customerPhone");
  const name=nameInput.value.trim(),phone=phoneInput.value.trim();
- if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before preparing your order.");return;}
- if(!name){nameInput.focus();nameInput.reportValidity?.();alert(lang==="ku"?"تکایە ناوی تەواوت بنووسە.":"Please enter your full name.");return;}
- if(!phone){phoneInput.focus();alert(lang==="ku"?"تکایە ژمارەی تەلەفۆنت بنووسە.":"Please enter your phone number.");return;}
+ const formBox=document.querySelector(".customer-details-box");
+ const showError=(input,message)=>{
+  let error=document.getElementById("checkoutFormError");
+  if(!error){error=document.createElement("p");error.id="checkoutFormError";error.className="checkout-form-error";error.setAttribute("role","alert");formBox.insertBefore(error,formBox.children[1]||null);}
+  error.textContent=message;input.setAttribute("aria-invalid","true");
+  formBox.scrollIntoView({behavior:"smooth",block:"center"});
+  window.setTimeout(()=>input.focus({preventScroll:true}),250);
+ };
+ const clearError=()=>{const error=document.getElementById("checkoutFormError");if(error)error.remove();nameInput.removeAttribute("aria-invalid");phoneInput.removeAttribute("aria-invalid");};
+ if(!cart.length){document.getElementById("cartItems").scrollIntoView({behavior:"smooth",block:"center"});document.getElementById("cartItems").textContent=lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before preparing your order.";return;}
+ clearError();
+ if(!name){showError(nameInput,lang==="ku"?"تکایە ناوی تەواوت لە خانەی سەرەوە بنووسە.":"Please enter your full name in the field above.");return;}
+ if(!phone){showError(phoneInput,lang==="ku"?"تکایە ژمارەی تەلەفۆنت بنووسە.":"Please enter your phone number.");return;}
  const phoneDigits=phone.replace(/[\\s()+.-]/g,"");
- if(phoneDigits.length<7){phoneInput.focus();alert(lang==="ku"?"تکایە ژمارەیەکی تەلەفۆنی دروست بنووسە.":"Please enter a valid phone number.");return;}
+ if(phoneDigits.length<7){showError(phoneInput,lang==="ku"?"تکایە ژمارەیەکی تەلەفۆنی دروست بنووسە.":"Please enter a valid phone number.");return;}
  const city=document.getElementById("deliveryCity").selectedOptions[0]?.textContent||document.getElementById("deliveryCity").value;
  const fee=selectedDeliveryFee(),subtotal=cart.reduce((n,x)=>n+x.qty*5000,0),total=subtotal+fee,box=document.getElementById("orderSummaryContent");
  box.innerHTML="";
