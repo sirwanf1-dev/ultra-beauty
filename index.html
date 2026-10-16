@@ -457,6 +457,29 @@ header{background:#fff!important;border-bottom:1px solid #f2cbd9!important;box-s
 .instagram-note{margin:8px 2px 0!important;color:#76636c!important;font-size:12px!important;line-height:1.5!important;text-align:center!important}
 
 
+/* Correct checkout: normal cart first, separate Instagram guest order second */
+#guestOrderForm[hidden]{display:none!important}
+#paymentPage .customer-details-box{display:none!important}
+#paymentPage #openGuestOrder{display:flex!important;width:100%;margin-top:18px;min-height:52px;border:0;gap:10px;background:linear-gradient(110deg,#a72e63,#e34d78)!important;color:#fff!important;cursor:pointer}
+#paymentPage #openGuestOrder svg{width:22px;height:22px;flex-shrink:0}
+#paymentPage .instagram-note{margin:9px 4px 0!important;font-size:12px;line-height:1.6;text-align:center}
+.guest-order-page{max-width:620px!important}
+.guest-order-page h1{font-size:23px;margin:16px 0}
+.guest-order-instruction{margin:12px 0 16px;padding:14px 15px;border-radius:11px;background:#c92f61;color:#fff;font-size:13px;font-weight:750;line-height:1.65;box-shadow:0 4px 12px #c92f6125}
+.guest-order-items{margin:12px 0}
+.guest-order-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f2e2e8}
+.guest-order-item img{width:64px;height:64px;object-fit:cover;border:1px solid #f0dce3;border-radius:10px}
+.guest-order-item-info{flex:1;min-width:0}.guest-order-item-info strong{display:block;font-size:14px;overflow-wrap:anywhere}.guest-order-item-info small{display:block;color:#77646d;margin-top:5px;font-size:12px}
+.guest-order-item-price{font-size:13px;font-weight:800;white-space:nowrap}
+#guestOrderForm .customer-details-box{display:block!important;margin:0 0 14px;padding:16px;border:1px solid #efd9e1;border-radius:14px;background:#fff8fa}
+#guestOrderForm .customer-details-box h2{margin:0 0 12px;font-size:19px}
+#guestOrderForm .customer-details-box label{display:block;margin:12px 0 7px;font-size:13px;font-weight:700}
+#guestOrderForm .customer-details-box input{box-sizing:border-box;width:100%;min-height:48px;padding:12px;border:1.5px solid #e6c8d3;border-radius:10px;background:#fff;font:inherit;font-size:15px}
+#guestOrderForm .checkout-delivery-part{margin:0 0 14px;padding:15px;border:1px solid #f0d5df;border-radius:14px;background:#fff8fa}
+#guestOrderForm #createOrderSummary{width:100%;margin-top:14px;border:0;cursor:pointer;background:#c92f61!important;color:#fff!important}
+#guestOrderForm .pay-back{margin-bottom:8px}
+.checkout-form-error{padding:10px 12px;margin:0 0 12px;border:1px solid #e7a6b8;border-radius:9px;background:#fff0f4;color:#9e234b;font-size:13px;font-weight:700;line-height:1.5}
+@media(max-width:760px){.guest-order-page{margin:10px 10px 90px!important;padding:14px!important}.guest-order-page h1{font-size:21px}.guest-order-instruction{font-size:12px;padding:12px}.guest-order-item img{width:58px;height:58px}}
 /* Separate guest Instagram order flow from the ordinary bag view */
 .guest-order-entry{width:100%;display:flex;align-items:center;gap:12px;margin:18px 0 4px;padding:15px 16px;border:1px solid #efc6d4;border-radius:13px;background:linear-gradient(120deg,#fff3f7,#fff);color:#282027;text-align:left;cursor:pointer;box-shadow:0 4px 14px #a52b4b0a}
 .guest-entry-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(130deg,#a72e63,#e64f7c);color:#fff;flex-shrink:0}
@@ -851,30 +874,11 @@ header{position:sticky}
 <section class="payment-page" id="favoritesPage"><button class="pay-back" id="backFromFavorites" data-en="← Continue shopping" data-ku="← بەردەوام بە لە کڕین">← Continue shopping</button><h1 data-en="Your favourites" data-ku="دڵخوازەکانت">Your favourites</h1><div id="favoriteItems" class="favorite-grid"></div></section>
 <section class="search-page" id="searchPage"><button class="pay-back" id="closeSearch" data-en="← Close search" data-ku="← داخستن">← Close search</button><h1 data-en="Search products" data-ku="گەڕان بۆ بەرهەم">Search products</h1><label class="search-field"><span aria-hidden="true">⌕</span><input id="productSearchInput" type="search" placeholder="Search products..." autocomplete="off" data-placeholder-en="Search products..." data-placeholder-ku="گەڕان بۆ بەرهەم..." /><button id="clearSearch" type="button" aria-label="Clear search">×</button></label><p id="searchStatus" class="search-status"></p><div id="searchResults" class="search-results"></div></section>
 <section class="payment-page" id="paymentPage">
-
-
-<div id="cartItems"></div>
-<button type="button" id="openGuestOrder" class="guest-order-entry">
- <span class="guest-entry-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg></span>
- <span><strong data-en="Continue without an account" data-ku="بەبێ هەژمار بەردەوام بە">Continue without an account</strong><small data-en="Order through Instagram" data-ku="لە ڕێگەی ئینستاگرام داوا بکە">Order through Instagram</small></span>
- <span class="guest-entry-arrow" aria-hidden="true">›</span>
-</button>
-<div id="guestOrderForm" hidden>
- <button type="button" id="backToGuestCart" class="pay-back" data-en="← Back to bag" data-ku="← گەڕانەوە بۆ سەبەتە">← Back to bag</button>
- <div class="guest-order-instruction" data-en="Instagram order: fill in your name and phone number, check your delivery city, then prepare your order screenshot. Tap Continue to Instagram and send the screenshot to our page." data-ku="داواکاری ئینستاگرام: ناو و ژمارەی تەلەفۆنت بنووسە، شارەکەی گەیاندن هەڵبژێرە، پاشان وێنەی شاشەی داواکاری ئامادە بکە. کرتە لە بەردەوامبوون بۆ ئینستاگرام بکە و وێنەکە بۆ پەیجەکەمان بنێرە.">Instagram order: fill in your name and phone number, check your delivery city, then prepare your order screenshot. Tap Continue to Instagram and send the screenshot to our page.</div>
- <!-- Guest checkout: customers can order without creating an account -->
-<div class="delivery-box customer-details-box">
- <h2 data-en="Your details" data-ku="وردەکارییەکانت">Your details</h2>
- <label for="customerName" data-en="Full name" data-ku="ناوی تەواو">Full name</label>
- <input id="customerName" name="customerName" type="text" autocomplete="name" required maxlength="100" placeholder="Enter your full name">
- <label for="customerPhone" data-en="Phone number" data-ku="ژمارەی تەلەفۆن">Phone number</label>
- <input id="customerPhone" name="customerPhone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" placeholder="Enter your phone number">
- <p class="field-help" data-en="No account or password needed." data-ku="پێویست بە هەژمار یان وشەی نهێنی نییە.">No account or password needed.</p>
-</div>
-<div class="delivery-box checkout-delivery-part">
- <h2 data-en="Delivery location" data-ku="شوێنی گەیاندن">Delivery location</h2>
- <label for="deliveryCity" data-en="Choose your city in Iraq" data-ku="شارەکەت لە عێراق هەڵبژێرە">Choose your city in Iraq</label>
- <select id="deliveryCity" required>
+ <div id="cartItems"></div>
+ <div class="delivery-box checkout-delivery-part">
+  <h2 data-en="Delivery location" data-ku="شوێنی گەیاندن">Delivery location</h2>
+  <label for="deliveryCity" data-en="Choose your city in Iraq" data-ku="شارەکەت لە عێراق هەڵبژێرە">Choose your city in Iraq</label>
+  <select id="deliveryCity" required>
   <optgroup label="Kurdistan Region — 3,000 IQD" data-ku-label="هەرێمی کوردستان — ٣,٠٠٠ دینار">
    <option value="Erbil" data-region="kurdistan">Erbil / هەولێر</option><option value="Sulaymaniyah" data-region="kurdistan">Sulaymaniyah / سلێمانی</option><option value="Duhok" data-region="kurdistan">Duhok / دهۆک</option><option value="Halabja" data-region="kurdistan">Halabja / هەڵەبجە</option><option value="Zakho" data-region="kurdistan">Zakho / زاخۆ</option><option value="Soran" data-region="kurdistan">Soran / سۆران</option><option value="Ranya" data-region="kurdistan">Ranya / ڕانیە</option><option value="Koya" data-region="kurdistan">Koya / کۆیە</option><option value="Akre" data-region="kurdistan">Akre / ئاکرێ</option><option value="Shaqlawa" data-region="kurdistan">Shaqlawa / شەقڵاوە</option><option value="Chamchamal" data-region="kurdistan">Chamchamal / چەمچەماڵ</option><option value="Kalar" data-region="kurdistan">Kalar / کەلار</option><option value="Qaladizeh" data-region="kurdistan">Qaladizeh / قەڵادزێ</option><option value="Mergasor" data-region="kurdistan">Mergasor / مێرگەسۆر</option>
   </optgroup>
@@ -882,23 +886,45 @@ header{position:sticky}
    <option value="Baghdad" data-region="iraq">Baghdad / بەغدا</option><option value="Basra" data-region="iraq">Basra / بەسرە</option><option value="Mosul" data-region="iraq">Mosul / موسڵ</option><option value="Kirkuk" data-region="iraq">Kirkuk / کەرکووک</option><option value="Tikrit" data-region="iraq">Tikrit / تەکریت</option><option value="Samarra" data-region="iraq">Samarra / سامەڕا</option><option value="Baqubah" data-region="iraq">Baqubah / بەعقوبە</option><option value="Ramadi" data-region="iraq">Ramadi / ڕەمادی</option><option value="Fallujah" data-region="iraq">Fallujah / فەللووجە</option><option value="Karbala" data-region="iraq">Karbala / کەربەلا</option><option value="Najaf" data-region="iraq">Najaf / نەجەف</option><option value="Hillah" data-region="iraq">Hillah / حیللە</option><option value="Diwaniyah" data-region="iraq">Diwaniyah / دیوانیە</option><option value="Kut" data-region="iraq">Kut / کوت</option><option value="Amarah" data-region="iraq">Amarah / عەمارە</option><option value="Nasiriyah" data-region="iraq">Nasiriyah / ناصریە</option><option value="Samawah" data-region="iraq">Samawah / سەماوە</option><option value="Dujail" data-region="iraq">Dujail / دوجەیل</option><option value="Balad" data-region="iraq">Balad / بەڵەد</option><option value="Tal Afar" data-region="iraq">Tal Afar / تەلعەفەر</option><option value="Sinjar" data-region="iraq">Sinjar / شەنگال</option><option value="Alqosh" data-region="iraq">Alqosh / ئالقۆش</option><option value="Khanaqin" data-region="iraq">Khanaqin / خانەقین</option><option value="Haditha" data-region="iraq">Haditha / حەدیثە</option><option value="Rawa" data-region="iraq">Rawa / ڕاوە</option><option value="Zubair" data-region="iraq">Zubair / زوبەیر</option><option value="Abu Al-Khasib" data-region="iraq">Abu Al-Khasib / ئەبوو ئەلخەسیب</option><option value="Shatra" data-region="iraq">Shatra / شەترا</option><option value="Qurna" data-region="iraq">Qurna / قورنه</option><option value="Other city in Iraq" data-region="iraq">Other city in Iraq / شارێکی تری عێراق</option>
   </optgroup>
  </select>
- <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="deliveryFee">3,000 دینار</strong></div>
-</div>
-<div class="order-total"><span data-en="Order total" data-ku="کۆی داواکاری">Order total</span><strong id="cartTotal">0 دینار</strong></div>
-<div class="fib-mark"><div class="fib-symbol">FIB</div><div><strong data-en="First Iraqi Bank (FIB)" data-ku="یەکەم بانکی عێراق (FIB)">First Iraqi Bank (FIB)</strong><small data-en="Payment details will be confirmed after you contact us" data-ku="زانیاری پارەدان دوای پەیوەندیکردنت پشتڕاست دەکرێتەوە">Payment details will be confirmed on WhatsApp</small></div></div>
-<button class="pay-link instagram instagram-order-button" id="createOrderSummary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg><span data-en="Prepare Instagram order" data-ku="داواکاری بۆ ئینستاگرام ئامادە بکە">Prepare Instagram order</span></button>
-<p class="instagram-note" data-en="Step 1: enter your name and phone. Step 2: prepare your order summary and take a screenshot. Step 3: open Instagram and send the screenshot to Ultra Beauty." data-ku="هەنگاوی ١: ناو و ژمارەی تەلەفۆنت بنووسە. هەنگاوی ٢: پوختەی داواکاری ئامادە بکە و وێنەی شاشە بگرە. هەنگاوی ٣: ئینستاگرام بکەرەوە و وێنەکە بۆ Ultra Beauty بنێرە.">Step 1: enter your name and phone. Step 2: prepare your order summary and take a screenshot. Step 3: open Instagram and send the screenshot to Ultra Beauty.</p>
-<div id="orderSummaryWrap" class="order-summary-wrap" hidden>
- <div id="orderSummaryCard" class="order-summary-card">
-  <div class="summary-brand">ultra <span>beauty</span></div>
-  <h2 data-en="Order summary" data-ku="پوختەی داواکاری">Order summary</h2>
-  <div id="orderSummaryContent"></div>
-  <p class="summary-footer" data-en="Please confirm availability and final order with Ultra Beauty on Instagram." data-ku="تکایە بەردەستبوون و داواکاری کۆتایی لە ئینستاگرام لەگەڵ Ultra Beauty پشتڕاست بکەرەوە.">Please confirm availability and final order with Ultra Beauty on Instagram.</p>
+  <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="deliveryFee">3,000 دینار</strong></div>
  </div>
- <p class="screenshot-help" data-en="Take a screenshot of the order summary above, then send it in our Instagram chat." data-ku="وێنەی شاشەی پوختەی سەرەوە بگرە، پاشان لە چاتی ئینستاگرامماندا بینێرە.">Take a screenshot of the order summary above, then send it in our Instagram chat.</p>
- <a class="pay-link instagram" id="openInstagramAfterSummary" href="https://ig.me/m/ultra____beauty" target="_blank" rel="noopener noreferrer"><span data-en="Open Ultra Beauty on Instagram" data-ku="Ultra Beauty لە ئینستاگرام بکەرەوە">Open Ultra Beauty on Instagram</span></a>
-</div>
-</div>
+ <div class="order-total"><span data-en="Order total" data-ku="کۆی داواکاری">Order total</span><strong id="cartTotal">0 دینار</strong></div>
+ <div class="fib-mark"><div class="fib-symbol">FIB</div><div><strong data-en="First Iraqi Bank (FIB)" data-ku="یەکەم بانکی عێراق (FIB)">First Iraqi Bank (FIB)</strong><small data-en="Payment details will be confirmed after you contact us" data-ku="زانیاری پارەدان دوای پەیوەندیکردنت پشتڕاست دەکرێتەوە">Payment details will be confirmed after you contact us</small></div></div>
+ <button type="button" id="openGuestOrder" class="pay-link instagram instagram-order-button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg><span data-en="Order on Instagram" data-ku="لە ئینستاگرام داوا بکە">Order on Instagram</span></button>
+ <p class="instagram-note" data-en="Don't want to create an account? That's fine. You can place your order through Instagram without creating an account on this website." data-ku="نامەوێت هەژمار دروست بکەیت؟ کێشە نییە. دەتوانیت بەبێ دروستکردنی هەژمار لەم ماڵپەڕە، لە ڕێگەی ئینستاگرام داوا بکەیت.">Don't want to create an account? That's fine. You can place your order through Instagram without creating an account on this website.</p>
+</section>
+<section class="payment-page guest-order-page" id="guestOrderForm" hidden>
+ <button type="button" id="backToGuestCart" class="pay-back" data-en="← Back to checkout" data-ku="← گەڕانەوە بۆ پارەدان">← Back to checkout</button>
+ <h1 data-en="Instagram order details" data-ku="وردەکاریی داواکاری ئینستاگرام">Instagram order details</h1>
+ <div class="guest-order-instruction" data-en="Complete your name and phone number. Check the items and delivery city, then prepare your order summary, take a screenshot and send it to us on Instagram." data-ku="ناو و ژمارەی تەلەفۆنت پڕ بکەرەوە. بەرهەمەکان و شارەکەی گەیاندن بپشکنە، پاشان پوختەی داواکاری ئامادە بکە، وێنەی شاشە بگرە و لە ئینستاگرام بۆمان بینێرە.">Complete your name and phone number. Check the items and delivery city, then prepare your order summary, take a screenshot and send it to us on Instagram.</div>
+ <div id="guestOrderItems" class="guest-order-items"></div>
+ <div class="delivery-box customer-details-box">
+  <h2 data-en="Your details" data-ku="وردەکارییەکانت">Your details</h2>
+  <label for="customerName" data-en="Full name" data-ku="ناوی تەواو">Full name</label>
+  <input id="customerName" name="customerName" type="text" autocomplete="name" maxlength="100" placeholder="Enter your full name">
+  <label for="customerPhone" data-en="Phone number" data-ku="ژمارەی تەلەفۆن">Phone number</label>
+  <input id="customerPhone" name="customerPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Enter your phone number">
+ </div>
+ <div class="delivery-box checkout-delivery-part guest-delivery-box">
+  <h2 data-en="Delivery location" data-ku="شوێنی گەیاندن">Delivery location</h2>
+  <label for="guestDeliveryCity" data-en="Choose your city in Iraq" data-ku="شارەکەت لە عێراق هەڵبژێرە">Choose your city in Iraq</label>
+  <select id="guestDeliveryCity" required>
+  <optgroup label="Kurdistan Region — 3,000 IQD" data-ku-label="هەرێمی کوردستان — ٣,٠٠٠ دینار">
+   <option value="Erbil" data-region="kurdistan">Erbil / هەولێر</option><option value="Sulaymaniyah" data-region="kurdistan">Sulaymaniyah / سلێمانی</option><option value="Duhok" data-region="kurdistan">Duhok / دهۆک</option><option value="Halabja" data-region="kurdistan">Halabja / هەڵەبجە</option><option value="Zakho" data-region="kurdistan">Zakho / زاخۆ</option><option value="Soran" data-region="kurdistan">Soran / سۆران</option><option value="Ranya" data-region="kurdistan">Ranya / ڕانیە</option><option value="Koya" data-region="kurdistan">Koya / کۆیە</option><option value="Akre" data-region="kurdistan">Akre / ئاکرێ</option><option value="Shaqlawa" data-region="kurdistan">Shaqlawa / شەقڵاوە</option><option value="Chamchamal" data-region="kurdistan">Chamchamal / چەمچەماڵ</option><option value="Kalar" data-region="kurdistan">Kalar / کەلار</option><option value="Qaladizeh" data-region="kurdistan">Qaladizeh / قەڵادزێ</option><option value="Mergasor" data-region="kurdistan">Mergasor / مێرگەسۆر</option>
+  </optgroup>
+  <optgroup label="Other Iraqi cities — 5,000 IQD" data-ku-label="شارەکانی تری عێراق — ٥,٠٠٠ دینار">
+   <option value="Baghdad" data-region="iraq">Baghdad / بەغدا</option><option value="Basra" data-region="iraq">Basra / بەسرە</option><option value="Mosul" data-region="iraq">Mosul / موسڵ</option><option value="Kirkuk" data-region="iraq">Kirkuk / کەرکووک</option><option value="Tikrit" data-region="iraq">Tikrit / تەکریت</option><option value="Samarra" data-region="iraq">Samarra / سامەڕا</option><option value="Baqubah" data-region="iraq">Baqubah / بەعقوبە</option><option value="Ramadi" data-region="iraq">Ramadi / ڕەمادی</option><option value="Fallujah" data-region="iraq">Fallujah / فەللووجە</option><option value="Karbala" data-region="iraq">Karbala / کەربەلا</option><option value="Najaf" data-region="iraq">Najaf / نەجەف</option><option value="Hillah" data-region="iraq">Hillah / حیللە</option><option value="Diwaniyah" data-region="iraq">Diwaniyah / دیوانیە</option><option value="Kut" data-region="iraq">Kut / کوت</option><option value="Amarah" data-region="iraq">Amarah / عەمارە</option><option value="Nasiriyah" data-region="iraq">Nasiriyah / ناصریە</option><option value="Samawah" data-region="iraq">Samawah / سەماوە</option><option value="Dujail" data-region="iraq">Dujail / دوجەیل</option><option value="Balad" data-region="iraq">Balad / بەڵەد</option><option value="Tal Afar" data-region="iraq">Tal Afar / تەلعەفەر</option><option value="Sinjar" data-region="iraq">Sinjar / شەنگال</option><option value="Alqosh" data-region="iraq">Alqosh / ئالقۆش</option><option value="Khanaqin" data-region="iraq">Khanaqin / خانەقین</option><option value="Haditha" data-region="iraq">Haditha / حەدیثە</option><option value="Rawa" data-region="iraq">Rawa / ڕاوە</option><option value="Zubair" data-region="iraq">Zubair / زوبەیر</option><option value="Abu Al-Khasib" data-region="iraq">Abu Al-Khasib / ئەبوو ئەلخەسیب</option><option value="Shatra" data-region="iraq">Shatra / شەترا</option><option value="Qurna" data-region="iraq">Qurna / قورنه</option><option value="Other city in Iraq" data-region="iraq">Other city in Iraq / شارێکی تری عێراق</option>
+  </optgroup>
+ </select>
+  <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="guestDeliveryFee">3,000 IQD</strong></div>
+ </div>
+ <div class="order-total"><span data-en="Order total" data-ku="کۆی داواکاری">Order total</span><strong id="guestCartTotal">0 IQD</strong></div>
+ <button class="pay-link instagram instagram-order-button" id="createOrderSummary" type="button"><span data-en="Prepare screenshot" data-ku="وێنەی شاشە ئامادە بکە">Prepare screenshot</span></button>
+ <div id="orderSummaryWrap" class="order-summary-wrap" hidden>
+  <div id="orderSummaryCard" class="order-summary-card"><div class="summary-brand">ultra <span>beauty</span></div><h2 data-en="Order summary" data-ku="پوختەی داواکاری">Order summary</h2><div id="orderSummaryContent"></div><p class="summary-footer" data-en="Please confirm availability and final order with Ultra Beauty on Instagram." data-ku="تکایە بەردەستبوون و داواکاری کۆتایی لە ئینستاگرام لەگەڵ Ultra Beauty پشتڕاست بکەرەوە.">Please confirm availability and final order with Ultra Beauty on Instagram.</p></div>
+  <p class="screenshot-help" data-en="Take a screenshot of this summary, then continue to Instagram and send it to us." data-ku="وێنەی شاشەی ئەم پوختەیە بگرە، پاشان بچۆ بۆ ئینستاگرام و بۆمان بینێرە.">Take a screenshot of this summary, then continue to Instagram and send it to us.</p>
+  <a class="pay-link instagram" id="openInstagramAfterSummary" href="https://ig.me/m/ultra____beauty" target="_blank" rel="noopener noreferrer"><span data-en="Continue to Instagram" data-ku="بەردەوام بە بۆ ئینستاگرام">Continue to Instagram</span></a>
+ </div>
 </section>
 <footer><div class="footer-inner"><div class="footer-brand">ultra <span>beauty</span></div><div data-en="Beauty, skincare & more — made simple." data-ku="جوانکاری، چاودێری پێست و زیاتر">Beauty, skincare & more — made simple.</div><div>© Ultra Beauty</div></div></footer>
 <a class="wa" id="waLink" href="#contact" aria-label="WhatsApp contact"><svg viewBox="0 0 24 24"><path d="M20.1 11.7a8.1 8.1 0 0 1-12 7.1L3 20l1.3-4.9a8.1 8.1 0 1 1 15.8-3.4Z"/><path d="M8.8 8.1c.3-.5.6-.5.9-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4 0 .6l-.5.7c-.2.2-.2.4 0 .6.4.7 1 1.3 1.7 1.7.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8"/></svg></a>
@@ -911,47 +937,63 @@ function renderCart(){document.getElementById("cartCount").textContent=cart.redu
 function updateOrderWhatsApp(){const city=document.getElementById("deliveryCity")?.value||"Erbil";const fee=selectedDeliveryFee();const total=cart.reduce((n,x)=>n+x.qty*5000,0)+fee;const msg="Hello Ultra Beauty, I would like to place an order.\n"+cart.map(x=>x.name+" × "+x.qty).join("\n")+"\nDelivery city: "+city+"\nDelivery fee: "+fee+" IQD\nTotal: "+total+" IQD\nPlease confirm the order and payment details.";/* Order details are no longer sent through WhatsApp checkout. */}
 function buildOrderMessage(){const city=document.getElementById("deliveryCity")?.selectedOptions[0]?.textContent||document.getElementById("deliveryCity")?.value||"Erbil";const name=document.getElementById("customerName")?.value.trim()||"Not provided";const phone=document.getElementById("customerPhone")?.value.trim()||"Not provided";const fee=selectedDeliveryFee();const subtotal=cart.reduce((n,x)=>n+x.qty*5000,0);const total=subtotal+fee;const items=cart.map(x=>"Item name: "+x.name+" × "+x.qty+"\nItem size: Not specified").join("\n\n");return "Order:\nCustomer name: "+name+"\nPhone number: "+phone+"\n\n"+items+"\n\nCity: "+city+"\nPrice: "+subtotal.toLocaleString("en-US")+" IQD\nTotal with delivery: "+total.toLocaleString("en-US")+" IQD";}
 function makeSummaryRow(label,value){const row=document.createElement("div");row.className="summary-row";const a=document.createElement("span");a.textContent=label;const b=document.createElement("strong");b.textContent=value;row.append(a,b);return row;}
-const guestEntry=document.getElementById("openGuestOrder");
-guestEntry.addEventListener("click",()=>{
+function renderGuestOrder(){
+ const list=document.getElementById("guestOrderItems");list.innerHTML="";
+ cart.forEach(item=>{
+  const row=document.createElement("div");row.className="guest-order-item";
+  const img=document.createElement("img");img.src=productImageByName(item.name);img.alt=item.name;
+  const info=document.createElement("div");info.className="guest-order-item-info";
+  const name=document.createElement("strong");name.textContent=item.name;
+  const qty=document.createElement("small");qty.textContent=(lang==="ku"?"ژمارە: ":"Quantity: ")+item.qty;
+  info.append(name,qty);
+  const price=document.createElement("div");price.className="guest-order-item-price";price.textContent=(5000*item.qty).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
+  row.append(img,info,price);list.append(row);
+ });
+ updateGuestDelivery();
+}
+function updateGuestDelivery(){
+ const city=document.getElementById("guestDeliveryCity");if(!city)return;
+ const fee=city.selectedOptions[0]?.dataset.region==="kurdistan"?3000:5000;
+ const subtotal=cart.reduce((n,x)=>n+x.qty*5000,0);
+ document.getElementById("guestDeliveryFee").textContent=fee.toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
+ document.getElementById("guestCartTotal").textContent=(subtotal+fee).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
+}
+document.getElementById("openGuestOrder").addEventListener("click",()=>{
  if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before ordering.");return;}
- guestEntry.hidden=true;
+ document.getElementById("paymentPage").style.display="none";
  document.getElementById("guestOrderForm").hidden=false;
+ document.getElementById("guestDeliveryCity").value=document.getElementById("deliveryCity").value;
  document.getElementById("orderSummaryWrap").hidden=true;
- document.getElementById("guestOrderForm").scrollIntoView({behavior:"smooth",block:"start"});
+ renderGuestOrder();window.scrollTo({top:0,left:0,behavior:"auto"});
 });
 document.getElementById("backToGuestCart").addEventListener("click",()=>{
  document.getElementById("guestOrderForm").hidden=true;
- guestEntry.hidden=false;
- guestEntry.scrollIntoView({behavior:"smooth",block:"center"});
+ document.getElementById("paymentPage").style.display="block";
+ window.scrollTo({top:0,left:0,behavior:"auto"});
 });
+document.getElementById("guestDeliveryCity").addEventListener("change",updateGuestDelivery);
 document.getElementById("createOrderSummary").addEventListener("click",()=>{
  const nameInput=document.getElementById("customerName"),phoneInput=document.getElementById("customerPhone");
- const name=nameInput.value.trim(),phone=phoneInput.value.trim();
- const formBox=document.querySelector(".customer-details-box");
+ const name=nameInput.value.trim(),phone=phoneInput.value.trim(),formBox=document.querySelector("#guestOrderForm .customer-details-box");
  const showError=(input,message)=>{
   let error=document.getElementById("checkoutFormError");
   if(!error){error=document.createElement("p");error.id="checkoutFormError";error.className="checkout-form-error";error.setAttribute("role","alert");formBox.insertBefore(error,formBox.children[1]||null);}
-  error.textContent=message;input.setAttribute("aria-invalid","true");
-  formBox.scrollIntoView({behavior:"smooth",block:"center"});
-  window.setTimeout(()=>input.focus({preventScroll:true}),250);
+  error.textContent=message;input.setAttribute("aria-invalid","true");formBox.scrollIntoView({behavior:"smooth",block:"center"});window.setTimeout(()=>input.focus({preventScroll:true}),250);
  };
  const clearError=()=>{const error=document.getElementById("checkoutFormError");if(error)error.remove();nameInput.removeAttribute("aria-invalid");phoneInput.removeAttribute("aria-invalid");};
- if(!cart.length){document.getElementById("cartItems").scrollIntoView({behavior:"smooth",block:"center"});document.getElementById("cartItems").textContent=lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before preparing your order.";return;}
+ if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە.":"Your bag is empty.");return;}
  clearError();
- if(!name){showError(nameInput,lang==="ku"?"تکایە ناوی تەواوت لە خانەی سەرەوە بنووسە.":"Please enter your full name in the field above.");return;}
+ if(!name){showError(nameInput,lang==="ku"?"تکایە ناوی تەواوت بنووسە.":"Please enter your full name.");return;}
  if(!phone){showError(phoneInput,lang==="ku"?"تکایە ژمارەی تەلەفۆنت بنووسە.":"Please enter your phone number.");return;}
- const phoneDigits=phone.replace(/[\\s()+.-]/g,"");
- if(phoneDigits.length<7){showError(phoneInput,lang==="ku"?"تکایە ژمارەیەکی تەلەفۆنی دروست بنووسە.":"Please enter a valid phone number.");return;}
- const city=document.getElementById("deliveryCity").selectedOptions[0]?.textContent||document.getElementById("deliveryCity").value;
- const fee=selectedDeliveryFee(),subtotal=cart.reduce((n,x)=>n+x.qty*5000,0),total=subtotal+fee,box=document.getElementById("orderSummaryContent");
- box.innerHTML="";
+ const digits=phone.replace(/[\\s()+.-]/g,"");if(digits.length<7){showError(phoneInput,lang==="ku"?"تکایە ژمارەیەکی دروست بنووسە.":"Please enter a valid phone number.");return;}
+ const cityEl=document.getElementById("guestDeliveryCity"),city=cityEl.selectedOptions[0]?.textContent||cityEl.value;
+ const fee=cityEl.selectedOptions[0]?.dataset.region==="kurdistan"?3000:5000,subtotal=cart.reduce((n,x)=>n+x.qty*5000,0),total=subtotal+fee,box=document.getElementById("orderSummaryContent");box.innerHTML="";
  box.append(makeSummaryRow(lang==="ku"?"ناوی کڕیار":"Customer name",name),makeSummaryRow(lang==="ku"?"ژمارەی تەلەفۆن":"Phone number",phone),makeSummaryRow(lang==="ku"?"شار":"Delivery city",city));
  const itemsTitle=document.createElement("div");itemsTitle.className="summary-row";itemsTitle.style.fontWeight="800";itemsTitle.textContent=lang==="ku"?"بەرهەمەکان":"Items";box.append(itemsTitle);
- cart.forEach(item=>{const line=document.createElement("div");line.className="summary-item";const price=(5000*item.qty).toLocaleString("en-US");line.textContent=item.name+" × "+item.qty+" — "+price+" "+(lang==="ku"?"دینار":"IQD");box.append(line);});
+ cart.forEach(item=>{const row=document.createElement("div");row.className="summary-item";row.textContent=item.name+" × "+item.qty+" — "+(5000*item.qty).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");box.append(row);});
  box.append(makeSummaryRow(lang==="ku"?"کۆی بەرهەمەکان":"Subtotal",subtotal.toLocaleString("en-US")+" IQD"),makeSummaryRow(lang==="ku"?"کرێی گەیاندن":"Delivery fee",fee.toLocaleString("en-US")+" IQD"));
- const grand=document.createElement("div");grand.className="summary-total";const grandLabel=document.createElement("span");grandLabel.textContent=lang==="ku"?"کۆی گشتی":"TOTAL";const grandValue=document.createElement("strong");grandValue.textContent=total.toLocaleString("en-US")+" IQD";grand.append(grandLabel,grandValue);box.append(grand);
- document.getElementById("orderSummaryWrap").hidden=false;
- document.getElementById("orderSummaryWrap").scrollIntoView({behavior:"smooth",block:"start"});
+ const grand=document.createElement("div");grand.className="summary-total";const gl=document.createElement("span");gl.textContent=lang==="ku"?"کۆی گشتی":"TOTAL";const gv=document.createElement("strong");gv.textContent=total.toLocaleString("en-US")+" IQD";grand.append(gl,gv);box.append(grand);
+ document.getElementById("orderSummaryWrap").hidden=false;document.getElementById("orderSummaryWrap").scrollIntoView({behavior:"smooth",block:"start"});
 });
 document.getElementById("deliveryCity").addEventListener("change",()=>{renderCart();});
 function hideViews(){["homeMain","paymentPage","favoritesPage","searchPage"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display="none";});}
