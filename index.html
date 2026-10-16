@@ -799,6 +799,44 @@ document.querySelectorAll('.trend-tabs').forEach(n=>n.querySelectorAll('button')
 document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{const card=b.closest('.product-card');const name=card?.querySelector('.product-name')?.dataset.en||card?.querySelector('.product-name')?.textContent.trim();if(!name)return;if(favorites.has(name))favorites.delete(name);else favorites.add(name);b.classList.toggle('saved',favorites.has(name));renderFavorites();}));
 document.addEventListener("click",e=>{const b=e.target.closest(".addbtn");if(!b)return;e.preventDefault();e.stopPropagation();const name=b.dataset.product||b.closest(".product-card")?.querySelector(".product-name")?.textContent?.trim()||"Beauty product";changeQty(name,1);toastAdded();});
 document.getElementById("waLink").href="https://wa.me/"+CART_PHONE;document.getElementById("waLink").target="_blank";document.getElementById("waLink").rel="noopener";
+
+/* Product details: tapping a product card opens a dedicated mobile-friendly detail view. */
+let detailProductCard=null,detailQuantity=1;
+function detailCardPrice(card){return {current:card?.querySelector('.sale-price')?.textContent?.trim()||'5,000',old:card?.querySelector('.old-price s')?.textContent?.trim()||''};}
+function detailCardUrl(card){return '#product='+encodeURIComponent(card?.querySelector('.product-name')?.dataset.en||card?.querySelector('.product-name')?.textContent.trim()||'');}
+function openProductDetail(card,updateHistory=true){
+ if(!card)return;detailProductCard=card;detailQuantity=1;
+ const title=card.querySelector('.product-name'),image=card.querySelector('.product-image img'),brand=card.querySelector('.product-brand'),prices=detailCardPrice(card);
+ const enName=title?.dataset.en||title?.textContent.trim()||'Beauty product',kuName=title?.dataset.ku||enName,shownName=lang==='ku'?kuName:enName;
+ const photo=document.getElementById('detailImage');photo.src=image?.currentSrc||image?.src||'';photo.alt=shownName;
+ document.getElementById('detailBrand').textContent=brand?.textContent.trim()||card.dataset.category||'ULTRA BEAUTY';
+ document.getElementById('detailTitle').textContent=shownName;
+ document.getElementById('detailPrice').textContent=prices.current+' '+(lang==='ku'?'دینار':'IQD');
+ const oldEl=document.getElementById('detailOldPrice'),discountEl=document.getElementById('detailDiscount'),now=Number(prices.current.replace(/,/g,'')),was=Number(prices.old.replace(/,/g,''));
+ oldEl.hidden=!(was>now);oldEl.textContent=was>now?prices.old+' '+(lang==='ku'?'دینار':'IQD'):'';
+ discountEl.hidden=!(was>now);discountEl.textContent=was>now?'-'+Math.round((was-now)/was*100)+'%':'';
+ document.getElementById('detailStock').textContent=lang==='ku'?'بۆ بەردەستبوون، تکایە لە واتساپ پشتڕاستی بکەرەوە':'Availability: please confirm with us on WhatsApp';
+ const descEn=card.dataset.descriptionEn||'',descKu=card.dataset.descriptionKu||'';
+ document.getElementById('detailDescription').textContent=lang==='ku'?(descKu||'بۆ زانیاری زیاتر و وردەکاریی بەرهەم، تکایە لە واتساپ پەیوەندیمان پێوە بکە.'):(descEn||'For product details, ingredients and availability, please contact us on WhatsApp before ordering.');
+ document.getElementById('detailQty').textContent=detailQuantity;
+ document.getElementById('detailAdd').textContent=lang==='ku'?'زیادکردن بۆ سەبەتە':'ADD TO BAG';
+ document.getElementById('detailNote').textContent=lang==='ku'?'نرخی کۆتایی، بەردەستبوون و وردەکاریی گەیاندن لەگەڵ تیمەکەمان پشتڕاست دەکرێتەوە.':'Please confirm product availability, final price and delivery details with our team.';
+ document.getElementById('detailWhatsApp').href='https://wa.me/'+CART_PHONE+'?text='+encodeURIComponent((lang==='ku'?'سڵاو Ultra Beauty، دەمەوێت لەبارەی ئەم بەرهەمە بپرسم: ':'Hello Ultra Beauty, I would like to ask about this product: ')+shownName);
+ const related=document.getElementById('detailRelated');related.innerHTML='';
+ [...document.querySelectorAll('.product-card')].filter(c=>c!==card).slice(0,4).forEach(c=>{const b=document.createElement('button');b.type='button';b.className='product-related-card';const im=document.createElement('img');im.src=c.querySelector('.product-image img')?.src||'';im.alt=c.querySelector('.product-name')?.textContent.trim()||'';const label=document.createElement('span');label.textContent=lang==='ku'?(c.querySelector('.product-name')?.dataset.ku||im.alt):(c.querySelector('.product-name')?.dataset.en||im.alt);b.append(im,label);b.addEventListener('click',()=>{openProductDetail(c,true);window.scrollTo({top:0,behavior:'smooth'});});related.appendChild(b);});
+ hideViews();document.getElementById('menuPage')?.classList.remove('visible');document.getElementById('productDetailPage').classList.add('visible');
+ if(updateHistory)history.pushState({product:enName},'',detailCardUrl(card));
+ window.scrollTo({top:0,left:0,behavior:'auto'});
+}
+function closeProductDetail(updateHistory=true){document.getElementById('productDetailPage').classList.remove('visible');document.getElementById('homeMain').style.display='';if(updateHistory&&location.hash.startsWith('#product='))history.pushState({},'',location.pathname+location.search);detailProductCard=null;window.scrollTo({top:0,left:0,behavior:'auto'});}
+document.addEventListener('click',e=>{const card=e.target.closest('.product-card');if(!card||e.target.closest('button,a,input'))return;openProductDetail(card,true);});
+document.getElementById('productDetailBack').addEventListener('click',()=>closeProductDetail(true));
+document.getElementById('detailMinus').addEventListener('click',()=>{detailQuantity=Math.max(1,detailQuantity-1);document.getElementById('detailQty').textContent=detailQuantity;});
+document.getElementById('detailPlus').addEventListener('click',()=>{detailQuantity=Math.min(99,detailQuantity+1);document.getElementById('detailQty').textContent=detailQuantity;});
+document.getElementById('detailAdd').addEventListener('click',()=>{if(!detailProductCard)return;const name=detailProductCard.querySelector('.product-name')?.dataset.en||detailProductCard.querySelector('.product-name')?.textContent.trim();for(let i=0;i<detailQuantity;i++)changeQty(name,1);toastAdded();closeProductDetail(true);openPayment();});
+window.addEventListener('popstate',()=>{if(location.hash.startsWith('#product=')){const name=decodeURIComponent(location.hash.slice(9));const card=[...document.querySelectorAll('.product-card')].find(c=>(c.querySelector('.product-name')?.dataset.en||c.querySelector('.product-name')?.textContent.trim())===name);if(card)openProductDetail(card,false);}else if(document.getElementById('productDetailPage').classList.contains('visible'))closeProductDetail(false);});
+const initialProductHash=location.hash.startsWith('#product=')?decodeURIComponent(location.hash.slice(9)):'';if(initialProductHash){const target=[...document.querySelectorAll('.product-card')].find(c=>(c.querySelector('.product-name')?.dataset.en||c.querySelector('.product-name')?.textContent.trim())===initialProductHash);if(target)openProductDetail(target,false);}
+
 </script>
 
 <section id="productDetailPage" class="product-detail-page" aria-live="polite">
