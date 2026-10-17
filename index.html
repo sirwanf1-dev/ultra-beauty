@@ -2,7 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
-<meta name="build-version" content="2026-10-17-04-finish">
+<meta name="build-version" content="2026-10-17-05-finish">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
 <title>Ultra Beauty | Beauty & Personal Care</title>
 <style>
@@ -1118,6 +1118,12 @@ a,button{touch-action:manipulation}
 /* Keep a single search result or favourite balanced in the available space */
 .search-results:has(.search-result-card:only-child),.favorite-grid:has(.favorite-card:only-child){grid-template-columns:minmax(0,1fr)!important;justify-content:center!important}
 .search-results:has(.search-result-card:only-child)>.search-result-card,.favorite-grid:has(.favorite-card:only-child)>.favorite-card{width:100%!important;max-width:430px!important;margin-inline:auto!important}
+
+
+/* Pin the English wordmark at the left edge in the menu masthead */
+#menuPage .menu-page-top{display:flex!important;direction:ltr!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important}
+#menuPage .menu-page-top>.menu-page-brand{display:block!important;flex:0 0 auto!important;order:0!important;position:relative!important;opacity:1!important;visibility:visible!important;color:#28151f!important}
+#menuPage .menu-page-top>.menu-back{flex:0 0 auto!important;order:1!important;width:auto!important;margin-left:auto!important;white-space:nowrap!important}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
