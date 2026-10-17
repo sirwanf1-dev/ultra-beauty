@@ -195,6 +195,41 @@ button,input,select,textarea{font-family:inherit}
  .product-actions .btn{min-height:38px!important;padding:8px 10px!important}
 }
 
+/* Homepage carousel manager */
+.slide-manager{margin:0 0 22px;padding:clamp(16px,2.4vw,24px);border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 8px 26px #3b1c2b08}
+.slide-manager-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.slide-manager-head h2{margin:0 0 5px;font:500 clamp(22px,3vw,28px) Georgia,"Times New Roman",serif}
+.slide-manager-head p{margin:0}
+.slide-manager-count{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid #f0d8e2;border-radius:999px;background:#fff7fa;color:var(--berry);font-size:12px;font-weight:750}
+.slide-manager-count strong{font-size:16px}
+.slide-manager-grid{display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1.5fr);gap:16px;align-items:start}
+.slide-upload-card,.slide-current-panel{min-width:0;padding:16px;border:1px solid #eee2e7;border-radius:15px;background:#fffdfd}
+.slide-upload-card{background:linear-gradient(145deg,#fff8fb,#f7f3fa)}
+.slide-upload-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.slide-upload-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:12px;background:#f7e6ee;color:var(--berry)}
+.slide-upload-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.slide-upload-head h3,.slide-list-heading h3{margin:0 0 4px;font-size:15px}
+.slide-upload-head p,.slide-list-heading p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+.slide-pick{width:100%;margin:0 0 12px}
+.slide-preview-grid,.slide-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:11px}
+.slide-preview-grid{margin:14px 0}
+.slide-preview-card,.slide-card{min-width:0;overflow:hidden;border:1px solid #eadde4;border-radius:12px;background:#fff}
+.slide-preview-frame,.slide-card-frame{position:relative;overflow:hidden;aspect-ratio:16/9;background:linear-gradient(135deg,#f6e8ef,#f2eff8)}
+.slide-preview-frame img,.slide-card-frame img{display:block;width:100%;height:100%;object-fit:cover}
+.slide-preview-meta,.slide-card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px}
+.slide-preview-name{min-width:0;overflow:hidden;color:#5b4a52;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.slide-preview-remove{width:30px;height:30px;flex:0 0 30px;border:1px solid #f0d3dc;border-radius:9px;background:#fff8fa;color:var(--red);font-size:18px}
+.slide-upload-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.slide-upload-actions .btn{min-height:40px}
+.slide-message{min-height:1.4em;margin:9px 0 0;color:var(--muted);font-size:11px;line-height:1.5}
+.slide-list-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.slide-card-meta strong{font-size:12px}
+.slide-card-meta .btn{min-height:32px;padding:7px 9px;border-radius:9px;font-size:11px}
+.slide-card-frame .ratio-badge{position:absolute;left:8px;bottom:8px;padding:4px 7px;border:1px solid #ffffffa8;border-radius:999px;background:#fffdf2dd;color:#60424f;font-size:10px;font-weight:800}
+.slide-empty,.slide-setup-notice{padding:14px;border:1px dashed #ead6df;border-radius:12px;background:#fff8fb;color:#76646d;font-size:12px;line-height:1.6}
+.slide-setup-notice{margin-bottom:12px;border-style:solid;border-color:#efc4d2;background:#fff3f6;color:#7c2a49}
+@media(max-width:780px){.slide-manager-grid{grid-template-columns:1fr}.slide-manager-head{align-items:flex-start}.slide-list{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}}
+@media(max-width:440px){.slide-manager-head{flex-direction:column}.slide-upload-actions .btn{flex:1}.slide-preview-grid,.slide-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
@@ -219,6 +254,30 @@ button,input,select,textarea{font-family:inherit}
     <section class="welcome-hero">
       <div class="hero-copy"><p class="hero-kicker">Your shop, beautifully organised</p><h1>Make room for<br>something beautiful.</h1><p>Manage your products, prices and availability in one simple place. Your catalogue updates the shop when you save.</p>
         <div class="hero-bottom"><button class="btn primary" id="addProductBtn" type="button"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a product</button><span class="hero-count"><strong id="totalCount">0</strong> products in your catalogue</span></div>
+      </div>
+    </section>
+    <section class="slide-manager" aria-labelledby="slideManagerTitle">
+      <div class="slide-manager-head">
+        <div><p class="eyebrow">Storefront</p><h2 id="slideManagerTitle">Homepage slides</h2><p class="muted">Add or remove the images in your shop carousel.</p></div>
+        <div class="slide-manager-count"><strong id="slideCount">0</strong><span>slides</span></div>
+      </div>
+      <div class="slide-manager-grid">
+        <div class="slide-upload-card">
+          <div class="slide-upload-head">
+            <span class="slide-upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M5 14v5h14v-5"/></svg></span>
+            <div><h3>Add slide images</h3><p>Select one or more photos. They will be center-cropped and resized to 1600 × 900 (16:9). Check the preview before uploading.</p></div>
+          </div>
+          <label class="btn soft slide-pick" for="slideFiles">Choose images</label>
+          <input id="slideFiles" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple hidden>
+          <div class="slide-preview-grid" id="slidePreviewGrid" hidden></div>
+          <div class="slide-upload-actions"><button class="btn primary" id="uploadSlidesBtn" type="button" disabled>Upload selected slides</button><button class="btn" id="clearSlideSelectionBtn" type="button" hidden>Clear selection</button></div>
+          <p class="slide-message" id="slideMessage" role="status" aria-live="polite">Best results: choose a clear landscape photo. The 16:9 preview shows the exact crop.</p>
+        </div>
+        <div class="slide-current-panel">
+          <div class="slide-list-heading"><div><h3>Current slides</h3><p>These appear in order on the storefront. Removing a slide hides it from the shop.</p></div></div>
+          <div class="slide-setup-notice" id="slideSetupNotice" role="status" aria-live="polite" hidden></div>
+          <div class="slide-list" id="slideList"><div class="slide-empty">Loading homepage slides…</div></div>
+        </div>
       </div>
     </section>
     <section class="workspace">
@@ -269,6 +328,8 @@ const LEGACY_KEY='ultraBeautyAdminProducts_v1';
 let products=[];
 let pendingImageFile=null;
 let previewObjectUrl='';
+let slides=[];
+let pendingSlideUploads=[];
 const $=id=>document.getElementById(id);
 let client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;
 const money=n=>Number(n||0).toLocaleString('en-GB')+' IQD';
@@ -299,6 +360,101 @@ async function loadProducts(){
  const {data,error}=await client.from('products').select('*').order('updated_at',{ascending:false});
  if(error){toast('Could not load products. Check the setup SQL and admin access.');return}
  products=(data||[]).map(fromRow);render();updateLegacyButton()
+}
+function renderSlides(){
+ const list=$('slideList');$('slideCount').textContent=slides.length;list.replaceChildren();
+ if(!slides.length){const empty=document.createElement('div');empty.className='slide-empty';empty.textContent='No homepage slides yet. Choose images to add them.';list.appendChild(empty);return}
+ slides.forEach((slide,index)=>{
+  const card=document.createElement('article');card.className='slide-card';
+  const frame=document.createElement('div');frame.className='slide-card-frame';
+  const img=document.createElement('img');img.src=slide.image_url;img.alt='';img.loading='lazy';frame.appendChild(img);
+  const ratio=document.createElement('span');ratio.className='ratio-badge';ratio.textContent='16:9';frame.appendChild(ratio);
+  const meta=document.createElement('div');meta.className='slide-card-meta';
+  const title=document.createElement('strong');title.textContent='Slide '+(index+1);meta.appendChild(title);
+  const remove=document.createElement('button');remove.className='btn danger';remove.type='button';remove.textContent='Remove';remove.setAttribute('aria-label','Remove slide '+(index+1));remove.dataset.removeSlide=slide.id;meta.appendChild(remove);
+  card.append(frame,meta);list.appendChild(card);
+ });
+}
+async function loadSlides(){
+ const {data,error}=await client.from('storefront_slides').select('id,image_url,storage_path,sort_order,created_at').order('sort_order',{ascending:true}).order('created_at',{ascending:true});
+ if(error){
+  slides=[];renderSlides();$('slideSetupNotice').hidden=false;$('slideSetupNotice').textContent='To manage slides, first run supabase-carousel-setup.sql in your Supabase SQL Editor, then reload this page.';$('slideFiles').disabled=true;$('uploadSlidesBtn').disabled=true;return
+ }
+ slides=(data||[]).filter(s=>s&&s.id&&typeof s.image_url==='string'&&/^https:\/\//i.test(s.image_url));renderSlides();$('slideSetupNotice').hidden=true;$('slideFiles').disabled=false;
+}
+function clearPendingSlideSelection(){
+ pendingSlideUploads.forEach(item=>URL.revokeObjectURL(item.previewUrl));pendingSlideUploads=[];$('slideFiles').value='';renderSlidePreviews();
+}
+function renderSlidePreviews(){
+ const grid=$('slidePreviewGrid');grid.replaceChildren();grid.hidden=!pendingSlideUploads.length;
+ pendingSlideUploads.forEach((item,index)=>{
+  const card=document.createElement('article');card.className='slide-preview-card';
+  const frame=document.createElement('div');frame.className='slide-preview-frame';
+  const img=document.createElement('img');img.src=item.previewUrl;img.alt='16:9 crop preview';frame.appendChild(img);
+  const meta=document.createElement('div');meta.className='slide-preview-meta';
+  const name=document.createElement('span');name.className='slide-preview-name';name.textContent=item.originalName;meta.appendChild(name);
+  const remove=document.createElement('button');remove.type='button';remove.className='slide-preview-remove';remove.textContent='×';remove.setAttribute('aria-label','Remove from selection');remove.dataset.removePendingSlide=String(index);meta.appendChild(remove);
+  card.append(frame,meta);grid.appendChild(card);
+ });
+ $('uploadSlidesBtn').disabled=!pendingSlideUploads.length;$('clearSlideSelectionBtn').hidden=!pendingSlideUploads.length;
+}
+async function cropSlideImage(file){
+ if(!['image/jpeg','image/png','image/webp','image/avif'].includes(file.type)||file.size>20*1024*1024)throw new Error('Choose JPG, PNG, WebP or AVIF images under 20 MB.');
+ const bitmap=await createImageBitmap(file);
+ try{
+  if(bitmap.width<640||bitmap.height<360)throw new Error('Use images at least 640 × 360 pixels for a clear slide.');
+  const ratio=16/9,sourceRatio=bitmap.width/bitmap.height;
+  let sx=0,sy=0,sw=bitmap.width,sh=bitmap.height;
+  if(sourceRatio>ratio){sw=bitmap.height*ratio;sx=(bitmap.width-sw)/2}else{sh=bitmap.width/ratio;sy=(bitmap.height-sh)/2}
+  const canvas=document.createElement('canvas');canvas.width=1600;canvas.height=900;
+  const context=canvas.getContext('2d',{alpha:false});if(!context)throw new Error('Image preview is not available in this browser.');
+  context.drawImage(bitmap,sx,sy,sw,sh,0,0,1600,900);
+  const blob=await new Promise((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(new Error('Could not prepare this image.')),'image/jpeg',0.86));
+  return new File([blob],file.name.replace(/\.[^.]+$/,'')+'-16x9.jpg',{type:'image/jpeg',lastModified:Date.now()});
+ }finally{bitmap.close?.()}
+}
+async function prepareSlideSelection(event){
+ const files=[...(event.target.files||[])];clearPendingSlideSelection();if(!files.length)return;
+ $('slideMessage').textContent='Preparing 16:9 previews…';
+ const rejected=[];
+ for(const file of files){
+  try{const cropped=await cropSlideImage(file);pendingSlideUploads.push({file:cropped,previewUrl:URL.createObjectURL(cropped),originalName:file.name})}
+  catch(error){rejected.push(file.name+': '+(error.message||'Could not prepare image.'))}
+ }
+ $('slideFiles').value='';renderSlidePreviews();
+ $('slideMessage').textContent=pendingSlideUploads.length?pendingSlideUploads.length+' image(s) ready. Preview the crop, then upload.'+(rejected.length?' Skipped: '+rejected.join(' '):''):rejected.join(' ')||'Choose clear landscape images to begin.';
+}
+async function uploadSelectedSlides(){
+ if(!client||!pendingSlideUploads.length)return;
+ const button=$('uploadSlidesBtn');button.disabled=true;button.textContent='Uploading…';let completed=0;
+ try{
+  let nextOrder=slides.reduce((max,slide)=>Math.max(max,Number(slide.sort_order)||0),0)+1;
+  for(const item of pendingSlideUploads){
+   const path='slides/'+crypto.randomUUID()+'.jpg';
+   const {error:uploadError}=await client.storage.from('product-images').upload(path,item.file,{cacheControl:'3600',upsert:false,contentType:'image/jpeg'});
+   if(uploadError)throw new Error('Image upload failed. Check the product-images storage setup and admin access.');
+   const imageUrl=client.storage.from('product-images').getPublicUrl(path).data.publicUrl;
+   const {data,error}=await client.from('storefront_slides').insert({image_url:imageUrl,storage_path:path,sort_order:nextOrder}).select('id,image_url,storage_path,sort_order,created_at').single();
+   if(error){await client.storage.from('product-images').remove([path]);throw new Error('Could not save the slide. Check the carousel setup and admin access.')}
+   slides.push(data);nextOrder++;completed++;URL.revokeObjectURL(item.previewUrl);renderSlides();
+  }
+  pendingSlideUploads=[];$('slideFiles').value='';renderSlidePreviews();$('slideMessage').textContent='Slides uploaded. The storefront will show them on its next refresh.';toast(completed+' slide image(s) added.')
+ }catch(error){
+  pendingSlideUploads=pendingSlideUploads.slice(completed);renderSlidePreviews();$('slideMessage').textContent=(completed?completed+' slide(s) uploaded. ':'')+(error.message||'Upload failed.');toast(error.message||'Slide upload failed.')
+ }finally{button.textContent='Upload selected slides';button.disabled=!pendingSlideUploads.length}
+}
+async function removeSlideFromStorefront(id,button){
+ const slide=slides.find(item=>item.id===id);if(!slide)return;
+ if(!confirm('Remove this image from the storefront carousel?'))return;
+ button.disabled=true;
+ const {error}=await client.from('storefront_slides').delete().eq('id',slide.id);
+ if(error){button.disabled=false;toast('Could not remove this slide. Check admin access.');return}
+ slides=slides.filter(item=>item.id!==slide.id);renderSlides();
+ if(typeof slide.storage_path==='string'&&slide.storage_path.startsWith('slides/')){
+  const {error:storageError}=await client.storage.from('product-images').remove([slide.storage_path]);
+  if(storageError){toast('Slide removed from the shop, but its stored image could not be cleaned up.');return}
+ }
+ toast('Slide removed from the storefront.')
 }
 function showImage(src){
  const box=$('imagePreview');box.innerHTML='';
@@ -348,7 +504,7 @@ async function authorizeSession(session){
  const {data,error}=await client.from('admin_users').select('user_id').eq('user_id',session.user.id).maybeSingle();
  if(error||!data){await client.auth.signOut();products=[];render();$('managerApp').hidden=true;$('loginPanel').hidden=false;$('logoutBtn').hidden=true;$('authStatus').textContent='Product manager · IQD';$('loginMessage').textContent='This account is not approved yet. Add its user ID to public.admin_users, then sign in again.';return}
  $('loginPanel').hidden=true;$('managerApp').hidden=false;$('logoutBtn').hidden=false;$('authStatus').textContent=session.user.email||'Admin signed in';
- $('loginMessage').textContent='';await loadProducts()
+ $('loginMessage').textContent='';await Promise.all([loadProducts(),loadSlides()])
 }
 async function start(){
  if(!client){$('loginMessage').textContent='Supabase is not configured. Check supabase-config.js.';return}
@@ -421,6 +577,11 @@ $('importFile').addEventListener('change',async e=>{
  const file=e.target.files?.[0];if(!file)return;
  try{const data=JSON.parse(await file.text());if(!Array.isArray(data)||!data.every(p=>p&&typeof p==='object'))throw new Error('Choose a valid product backup JSON file.');if(!confirm('Import '+data.length+' product(s) into Supabase? Existing products with matching database IDs will be updated. Products without a database ID will be added as drafts.'))return;const n=await importBackupRows(data,false);toast(n+' product(s) imported.')}catch(err){toast(err.message||'That backup file could not be imported.')}finally{e.target.value=''}
 });
+$('slideFiles').addEventListener('change',prepareSlideSelection);
+$('clearSlideSelectionBtn').addEventListener('click',clearPendingSlideSelection);
+$('slidePreviewGrid').addEventListener('click',e=>{const button=e.target.closest('[data-remove-pending-slide]');if(!button)return;const index=Number(button.dataset.removePendingSlide),item=pendingSlideUploads[index];if(!item)return;URL.revokeObjectURL(item.previewUrl);pendingSlideUploads.splice(index,1);renderSlidePreviews()});
+$('uploadSlidesBtn').addEventListener('click',uploadSelectedSlides);
+$('slideList').addEventListener('click',e=>{const button=e.target.closest('[data-remove-slide]');if(button)removeSlideFromStorefront(button.dataset.removeSlide,button)});
 $('loginMessage').textContent='';
 start();
 window.addEventListener('ultra-beauty-supabase-ready',()=>{client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;$('loginMessage').textContent='';start()});
