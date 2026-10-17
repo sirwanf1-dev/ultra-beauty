@@ -13,7 +13,7 @@ The public storefront is static GitHub Pages and submits orders to the Supabase 
 1. The storefront submits the customer's name, phone, city, address, payment choice and product IDs/quantities to the `submit-order` Supabase Edge Function.
 2. The function validates stable product IDs against published products, re-reads server prices (never trusts browser totals), saves the order and generates a unique reference such as `UB-1000`.
 3. The function sends a full order summary by email through Resend.
-4. It sends a WhatsApp Business template message through Meta's WhatsApp Cloud API with order number, customer name and total.
+4. It sends a WhatsApp Business template message through Meta's WhatsApp Cloud API with customer name, mobile number, full delivery address and order reference.
 5. The admin dashboard will need a protected authenticated orders view; public users must never be able to read orders.
 
 ## Required authorizations — do not send credentials in chat
@@ -45,7 +45,7 @@ The public storefront is static GitHub Pages and submits orders to the Supabase 
   - `WHATSAPP_ORDER_TEMPLATE_NAME` (approved template name)
   - `WHATSAPP_TEMPLATE_LANGUAGE` (e.g. `en` or an approved Sorani template language code)
   - `ORDER_NOTIFICATION_WHATSAPP=9647706943110`
-- Create and get approval for a utility template with three body variables, in this exact order: order number, customer name, total. For example: “New Ultra Beauty order {{1}}. Customer: {{2}}. Total: {{3}}. Open the admin dashboard to view full details.”
+- Create and get approval for a utility template with four body variables, in this exact order: customer name, customer mobile number, full delivery address (address and city), and order reference. For example: “New Ultra Beauty order. Customer: {{1}}. Mobile: {{2}}. Delivery address: {{3}}. Reference: {{4}}.”
 - Meta can require template messages for business-initiated alerts. Do not assume a WhatsApp notification works until an approved template and real credentials have been tested.
 
 ### 4. Supabase Edge Function secrets and deployment
