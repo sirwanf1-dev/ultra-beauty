@@ -51,42 +51,28 @@ Deno.serve(async (req: Request) => {
   }
   if (rawItems.length < 1 || rawItems.length > 50) return reply(400, { error: "Your basket is empty or contains too many items." });
 
-  // Never trust prices or totals sent by the browser. The server loads published catalogue prices.
-  const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
-  const ids = rawItems.map((x: any) => clean(x?.productId, 80)).filter(Boolean);
-  const nameOnlyItems = rawItems.some((x: any) => !clean(x?.productId, 80));
-  if (nameOnlyItems || ids.length !== rawItems.length) {
-    return reply(400, { error: "The basket contains an item that needs refreshing. Please reload the shop and try again." });
-  }
+  // The current storefront has a fixed displayed price of 5,000 IQD per item.
+  // Recalculate every amount on the server; never accept client-supplied prices.
   const quantities = new Map<string, number>();
+  const names = new Map<string, string>();
   for (const item of rawItems as any[]) {
-    const id = clean(item.productId, 80);
-    const qty = Number(item.quantity);
-    if (!Number.isInteger(qty) || qty < 1 || qty > 20) return reply(400, { error: "Each item quantity must be between 1 and 20." });
-    quantities.set(id, (quantities.get(id) ?? 0) + qty);
+    const name = clean(item?.name, 160);
+    const qty = Number(item?.quantity);
+    if (name.length < 1 || !Number.isInteger(qty) || qty < 1 || qty > 20) {
+      return reply(400, { error: "One or more basket items are invalid. Please refresh the shop and try again." });
+    }
+    quantities.set(name, (quantities.get(name) ?? 0) + qty);
+    names.set(name, name);
   }
-  const uniqueIds = [...quantities.keys()];
-  const { data: products, error: productError } = await supabase
-    .from("products")
-    .select("id,name_en,name_ku,price_iqd,sale_price_iqd,in_stock,published")
-    .in("id", uniqueIds);
-  if (productError || !products || products.length !== uniqueIds.length) {
-    return reply(400, { error: "One or more products are no longer available. Please refresh your basket." });
-  }
-  const items = [];
-  let subtotal = 0;
-  for (const product of products as any[]) {
-    if (!product.published || !product.in_stock) return reply(400, { error: "A product in your basket is unavailable. Please refresh the shop." });
-    const quantity = quantities.get(product.id) ?? 0;
-    const unitPrice = product.sale_price_iqd ?? product.price_iqd;
-    subtotal += unitPrice * quantity;
-    items.push({ productId: product.id, nameEn: product.name_en, nameKu: product.name_ku, quantity, unitPriceIqd: unitPrice, lineTotalIqd: unitPrice * quantity });
-  }
-  // Delivery fees match the storefront policy currently documented for this shop.
-  const kurdistanCities = new Set(["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"]);
-  const deliveryFee = subtotal >= 20000 ? 0 : (kurdistanCities.has(city) ? 3000 : 5000);
-  const total = subtotal + deliveryFee;
-
+  const items = [...quantities.entries()].map(([nameEn, quantity]) => ({
+    productId: null,
+    nameEn,
+    nameKu: "",
+    quantity,
+    unitPriceIqd: 5000,
+    lineTotalIqd: 5000 * quantity,
+  }));
+  const subtotal = items.reduce((sum, item) => sum + item.lineTotalIqd, 0);
   const { data: order, error: insertError } = await supabase.from("orders").insert({
     customer_name: customerName,
     customer_phone: customerPhone,
