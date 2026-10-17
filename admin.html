@@ -111,7 +111,7 @@ let products=[];
 let pendingImageFile=null;
 let previewObjectUrl='';
 const $=id=>document.getElementById(id);
-const client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;
+let client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;
 const money=n=>Number(n||0).toLocaleString('en-GB')+' IQD';
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
 function safeText(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -240,7 +240,9 @@ $('importFile').addEventListener('change',async e=>{
  try{const data=JSON.parse(await file.text());if(!Array.isArray(data)||!data.every(p=>p&&typeof p==='object'))throw new Error('Choose a valid product backup JSON file.');if(!confirm('Import '+data.length+' product(s) into Supabase? Existing products with matching database IDs will be updated. Products without a database ID will be added as drafts.'))return;const n=await importBackupRows(data,false);toast(n+' product(s) imported.')}catch(err){toast(err.message||'That backup file could not be imported.')}finally{e.target.value=''}
 });
 loadProducts=loadProducts;
+$('loginMessage').textContent='';
 start();
+window.addEventListener('ultra-beauty-supabase-ready',()=>{client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;$('loginMessage').textContent='';start()});
 
 </script>
 </body></html>
