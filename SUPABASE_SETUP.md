@@ -39,3 +39,11 @@ Public visitors can read published products and view product images. Product cre
 The database stores English and Sorani names and descriptions, category, regular and sale prices in IQD, image URL, stock status, and publication status. The database rejects negative prices and sale prices that are not below the regular price.
 
 Order storage and the `submit-order` Edge Function are separate setup steps. Do not place service-role keys, payment credentials, customer data or passwords in public GitHub files or chat.
+
+## Manage homepage slides
+
+The homepage carousel is shared through Supabase. After the original setup is in place, run `supabase-carousel-setup.sql` once in the project's SQL Editor. It creates a public-read, admin-write slide table and adds the four images already used by the storefront, so you can manage them from the Product Manager.
+
+In `admin.html`, sign in and use **Homepage slides** to add or remove carousel images. The upload preview shows a centered 16:9 crop. Uploaded files are converted to 1600 × 900 JPEGs before saving. Removing an uploaded slide removes it from the carousel and cleans up its slide image; the original four remote images are only removed from the carousel list.
+
+The migration is safe to re-run. It only adds the carousel table, its row-level security policies and the existing slide entries; it does not change product or order records. The storefront keeps its built-in carousel if the migration has not been applied yet.
