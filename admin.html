@@ -168,9 +168,10 @@ async function saveProductRecord(raw,id,existing){
  render();updateLegacyButton();return saved
 }
 async function authorizeSession(session){
- $('loginPanel').hidden=true;$('managerApp').hidden=false;$('logoutBtn').hidden=false;$('authStatus').textContent=session.user.email||'Admin signed in';
+ $('loginMessage').textContent='Checking admin access…';
  const {data,error}=await client.from('admin_users').select('user_id').eq('user_id',session.user.id).maybeSingle();
  if(error||!data){await client.auth.signOut();products=[];render();$('managerApp').hidden=true;$('loginPanel').hidden=false;$('logoutBtn').hidden=true;$('authStatus').textContent='Product manager · IQD';$('loginMessage').textContent='This account is not approved yet. Add its user ID to public.admin_users, then sign in again.';return}
+ $('loginPanel').hidden=true;$('managerApp').hidden=false;$('logoutBtn').hidden=false;$('authStatus').textContent=session.user.email||'Admin signed in';
  $('loginMessage').textContent='';await loadProducts()
 }
 async function start(){
@@ -239,7 +240,6 @@ $('importFile').addEventListener('change',async e=>{
  const file=e.target.files?.[0];if(!file)return;
  try{const data=JSON.parse(await file.text());if(!Array.isArray(data)||!data.every(p=>p&&typeof p==='object'))throw new Error('Choose a valid product backup JSON file.');if(!confirm('Import '+data.length+' product(s) into Supabase? Existing products with matching database IDs will be updated. Products without a database ID will be added as drafts.'))return;const n=await importBackupRows(data,false);toast(n+' product(s) imported.')}catch(err){toast(err.message||'That backup file could not be imported.')}finally{e.target.value=''}
 });
-loadProducts=loadProducts;
 $('loginMessage').textContent='';
 start();
 window.addEventListener('ultra-beauty-supabase-ready',()=>{client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;$('loginMessage').textContent='';start()});
