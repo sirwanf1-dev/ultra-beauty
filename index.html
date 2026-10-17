@@ -1117,7 +1117,7 @@ function renderGuestOrder(){
 function updateGuestDelivery(){
  const city=document.getElementById("guestDeliveryCity");if(!city)return;
  const fee=city.selectedOptions[0]?.dataset.region==="kurdistan"?3000:5000;
- const subtotal=cart.reduce((n,x)=>n+x.qty*5000,0);
+ const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0);
  document.getElementById("guestDeliveryFee").textContent=fee.toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
  document.getElementById("guestCartTotal").textContent=(subtotal+fee).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
 }
@@ -1166,8 +1166,8 @@ document.getElementById("createOrderSummary").addEventListener("click",async()=>
   const box=document.getElementById("orderSummaryContent");box.innerHTML="";
   box.append(makeSummaryRow(lang==="ku"?"ژمارەی داواکاری":"Order number",result.orderNumber||"Received"),makeSummaryRow(lang==="ku"?"ناوی کڕیار":"Customer name",name),makeSummaryRow(lang==="ku"?"ژمارەی تەلەفۆن":"Phone number",phone),makeSummaryRow(lang==="ku"?"شار":"Delivery city",city));
   const itemsTitle=document.createElement("div");itemsTitle.className="summary-row";itemsTitle.style.fontWeight="800";itemsTitle.textContent=lang==="ku"?"بەرهەمەکان":"Items";box.append(itemsTitle);
-  cart.forEach(item=>{const row=document.createElement("div");row.className="summary-item";row.textContent=item.name+" × "+item.qty+" — "+(5000*item.qty).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");box.append(row);});
-  const subtotal=cart.reduce((n,x)=>n+x.qty*5000,0),fee=subtotal>=20000?0:(cityEl.selectedOptions[0]?.dataset.region==="kurdistan"?3000:5000),total=subtotal+fee;
+  cart.forEach(item=>{const row=document.createElement("div");row.className="summary-item";row.textContent=item.name+" × "+item.qty+" — "+(unitPrice(item.name)*item.qty).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");box.append(row);});
+  const subtotal=Number(result.subtotalIqd),fee=Number(result.deliveryFeeIqd),total=Number(result.totalIqd);
   box.append(makeSummaryRow(lang==="ku"?"ناونیشان":"Delivery address",address),makeSummaryRow(lang==="ku"?"شێوازی پارەدان":"Payment method",paymentMethod==="fib_manual"?"FIB transfer":"Cash on delivery"),makeSummaryRow(lang==="ku"?"کۆی بەرهەمەکان":"Subtotal",subtotal.toLocaleString("en-US")+" IQD"),makeSummaryRow(lang==="ku"?"کرێی گەیاندن":"Delivery fee",(fee===0?"Free":fee.toLocaleString("en-US")+" IQD")));
   const grand=document.createElement("div");grand.className="summary-total";const gl=document.createElement("span");gl.textContent=lang==="ku"?"کۆی گشتی":"TOTAL";const gv=document.createElement("strong");gv.textContent=total.toLocaleString("en-US")+" IQD";grand.append(gl,gv);box.append(grand);
   document.getElementById("orderSummaryWrap").hidden=false;
