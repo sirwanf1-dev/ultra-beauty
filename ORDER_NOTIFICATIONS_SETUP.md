@@ -29,10 +29,11 @@ The public storefront is static GitHub Pages and submits orders to the Supabase 
 ### 2. Email with Resend
 
 - Create/authorize a Resend account at https://resend.com/.
-- Verify a sender domain/address according to Resend's current requirements. The onboarding sender is for testing only and may only deliver to the account's verified address.
+- For reliable production sending, verify a domain you control in Resend and use a sender address on that domain.
+- If you do not have a domain, you can test with Resend's shared `onboarding@resend.dev` sender by leaving `RESEND_FROM_EMAIL` unset; the function uses it as its default. This sender is restricted to testing and the Resend account's own email address. Since this project's notification recipient is `sirwanf1@gmail.com`, the test path requires the Resend account to use that same email. It is not a production sender.
 - Add secrets to the Supabase Edge Function:
   - `RESEND_API_KEY`
-  - `RESEND_FROM_EMAIL` (verified sender)
+  - `RESEND_FROM_EMAIL` (optional for the test sender; use a verified sender for production)
   - `ORDER_NOTIFICATION_EMAIL=sirwanf1@gmail.com`
 
 ### 3. WhatsApp Business via Meta Cloud API
