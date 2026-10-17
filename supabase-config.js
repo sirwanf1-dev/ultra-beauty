@@ -7,9 +7,14 @@ window.ULTRA_BEAUTY_SUPABASE_CLIENT = null;
 (function () {
   function initialiseSupabase() {
     if (!window.supabase || !window.supabase.createClient) return;
+    const projectUrl = String(window.ULTRA_BEAUTY_SUPABASE_URL || "").trim();
+    const publishableKey = String(window.ULTRA_BEAUTY_SUPABASE_PUBLISHABLE_KEY || "").trim();
+    const missingKey = !publishableKey || publishableKey.length < 30 ||
+      /placeholder|your[_ -]?supabase|paste|replace|example|<|>/i.test(publishableKey);
+    if (!/^https:\/\/[^/]+\.supabase\.co$/i.test(projectUrl) || missingKey) return;
     window.ULTRA_BEAUTY_SUPABASE_CLIENT = window.supabase.createClient(
-      window.ULTRA_BEAUTY_SUPABASE_URL,
-      window.ULTRA_BEAUTY_SUPABASE_PUBLISHABLE_KEY,
+      projectUrl,
+      publishableKey,
       { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
     );
     window.dispatchEvent(new CustomEvent("ultra-beauty-supabase-ready"));
