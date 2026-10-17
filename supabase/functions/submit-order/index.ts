@@ -56,10 +56,12 @@ Deno.serve(async (req: Request) => {
   for (const item of rawItems as any[]) {
     const name = clean(item?.name, 160);
     const qty = Number(item?.quantity);
-    if (!name || !Number.isInteger(qty) || qty < 1 || qty > 20) {
+    if (!name || !Number.isInteger(qty) || qty < 1 || qty > 99) {
       return reply(400, { error: "One or more basket items are invalid. Please refresh the shop and try again." });
     }
-    quantities.set(name, (quantities.get(name) ?? 0) + qty);
+    const combinedQuantity = (quantities.get(name) ?? 0) + qty;
+    if (combinedQuantity > 99) return reply(400, { error: "A basket item cannot exceed 99 units." });
+    quantities.set(name, combinedQuantity);
   }
 
   const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
@@ -81,7 +83,7 @@ Deno.serve(async (req: Request) => {
       return reply(400, { error: `“${name}” is not currently available to order. Please contact Ultra Beauty.` });
     }
     const unitPriceIqd = Number(product.sale_price_iqd ?? product.price_iqd);
-    if (!Number.isInteger(unitPriceIqd) || unitPriceIqd < 0) {
+    if (!Number.isInteger(unitPriceIqd) || unitPriceIqd < 0 || unitPriceIqd * quantity > 2147483647) {
       return reply(400, { error: `The price for “${name}” is not configured correctly yet. Please contact Ultra Beauty.` });
     }
     items.push({
@@ -97,6 +99,9 @@ Deno.serve(async (req: Request) => {
   const kurdistanCities = new Set(["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"]);
   const deliveryFee = kurdistanCities.has(city) ? 3000 : 5000;
   const total = subtotal + deliveryFee;
+  if (!Number.isSafeInteger(total) || total > 2147483647) {
+    return reply(400, { error: "Your order total exceeds the supported amount. Please contact Ultra Beauty." });
+  }
   const { data: order, error: insertError } = await supabase.from("orders").insert({
     customer_name: customerName,
     customer_phone: customerPhone,
