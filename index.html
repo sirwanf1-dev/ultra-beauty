@@ -1394,7 +1394,7 @@ const guestItemRemoveDialog=document.getElementById("guestItemRemoveDialog");
 document.getElementById("cancelGuestItemRemoval").addEventListener("click",()=>guestItemRemoveDialog.close("cancel"));
 document.getElementById("confirmGuestItemRemoval").addEventListener("click",()=>{
  const index=cart.findIndex(item=>item.name===pendingGuestRemoveName);
- if(index>=0){cart.splice(index,1);persistCart();renderCart();renderProductControls();renderGuestOrder();}
+ if(index>=0){cart.splice(index,1);persistCart();renderCart();renderGuestOrder();}
  guestItemRemoveDialog.close("removed");
 });
 guestItemRemoveDialog.addEventListener("close",()=>{
@@ -1420,7 +1420,6 @@ function renderGuestOrder(){
   remove.addEventListener("click",()=>openGuestRemoveDialog(item.name,remove));
   row.append(img,info,price,remove);list.append(row);
  });
- const submit=document.getElementById("createOrderSummary");if(submit)submit.disabled=!cart.length;
  updateGuestDelivery();
 }
 function updateGuestDelivery(){
