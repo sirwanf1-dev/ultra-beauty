@@ -3,7 +3,7 @@
 -- Orders are written by the submit-order Edge Function using the server-side service role.
 -- Do not grant anonymous users SELECT access to orders or order_items.
 
-create sequence if not exists public.ultra_beauty_order_number_seq start 1001;
+create sequence if not exists public.ultra_beauty_order_number_seq start 1000;
 
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),
