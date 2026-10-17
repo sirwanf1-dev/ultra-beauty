@@ -10,7 +10,7 @@ Products entered in the older dashboard are stored only in that browser. **Do no
 
 1. Open the Ultra Beauty Supabase project and choose **SQL Editor**.
 2. Run the repository file `supabase-setup.sql`. It creates the products table, admin access policies and the `product-images` bucket.
-3. In **Project Settings → API**, copy the **publishable key** (or legacy **anon** key). In `supabase-config.js`, replace the placeholder value of `ULTRA_BEAUTY_SUPABASE_PUBLISHABLE_KEY` with that key. The project URL is already set in the file.
+3. The project's browser-safe publishable key and URL are already configured in `supabase-config.js`. If that key is rotated later, update it with the new publishable key only. Never use a **service_role** or **secret** key in any browser file.
 4. Never use a **service_role** or **secret** key in `supabase-config.js`, HTML or any browser code. The browser key is public; row-level security protects the data.
 
 ## Approve your admin account
