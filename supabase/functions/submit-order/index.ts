@@ -51,47 +51,67 @@ Deno.serve(async (req: Request) => {
   }
   if (rawItems.length < 1 || rawItems.length > 50) return reply(400, { error: "Your basket is empty or contains too many items." });
 
-  // Prices come from the server-side products catalogue, never from browser totals.
-  const quantities = new Map<string, number>();
+  // Prices always come from published Supabase products, never from browser totals.
+  // Prefer stable product UUIDs; accept name_en only for older cached storefront pages.
+  type RequestedItem = { productId?: string; name?: string; quantity: number };
+  const requested = new Map<string, RequestedItem>();
   for (const item of rawItems as any[]) {
+    const rawProductId = clean(item?.productId, 36).toLowerCase();
+    const productId = rawProductId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(rawProductId) ? rawProductId : "";
     const name = clean(item?.name, 160);
     const qty = Number(item?.quantity);
-    if (!name || !Number.isInteger(qty) || qty < 1 || qty > 99) {
-      return reply(400, { error: "One or more basket items are invalid. Please refresh the shop and try again." });
+    if ((rawProductId && !productId) || (!productId && !name) || !Number.isInteger(qty) || qty < 1 || qty > 99) {
+      return reply(400, { error: "One or more basket items are invalid. Please reload the shop and try again." });
     }
-    const combinedQuantity = (quantities.get(name) ?? 0) + qty;
+    const key = productId ? `id:${productId}` : `name:${name}`;
+    const previous = requested.get(key);
+    const combinedQuantity = (previous?.quantity ?? 0) + qty;
     if (combinedQuantity > 99) return reply(400, { error: "A basket item cannot exceed 99 units." });
-    quantities.set(name, combinedQuantity);
+    requested.set(key, { ...(productId ? { productId } : { name }), quantity: combinedQuantity });
   }
 
   const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
-  const requestedNames = [...quantities.keys()];
-  const { data: products, error: productsError } = await supabase
-    .from("products")
-    .select("id,name_en,name_ku,price_iqd,sale_price_iqd,in_stock,published")
-    .in("name_en", requestedNames)
-    .eq("published", true);
-  if (productsError) {
-    console.error("Product price lookup failed", productsError.message);
-    return reply(500, { error: "We could not verify current product prices. Please try again later." });
+  const requestedIds = [...requested.values()].flatMap(item => item.productId ? [item.productId] : []);
+  const requestedNames = [...requested.values()].flatMap(item => item.name ? [item.name] : []);
+  const productColumns = "id,name_en,name_ku,price_iqd,sale_price_iqd,in_stock,published";
+  const productRows: any[] = [];
+  if (requestedIds.length) {
+    const { data, error } = await supabase.from("products").select(productColumns).in("id", requestedIds).eq("published", true);
+    if (error) {
+      console.error("Product ID lookup failed", error.message);
+      return reply(500, { error: "We could not verify current product prices. Please try again later." });
+    }
+    productRows.push(...(data ?? []));
   }
+  if (requestedNames.length) {
+    const { data, error } = await supabase.from("products").select(productColumns).in("name_en", requestedNames).eq("published", true);
+    if (error) {
+      console.error("Product name lookup failed", error.message);
+      return reply(500, { error: "We could not verify current product prices. Please try again later." });
+    }
+    productRows.push(...(data ?? []));
+  }
+  const uniqueProducts = [...new Map(productRows.map(product => [product.id, product])).values()];
+  const productById = new Map<string, any>(uniqueProducts.map(product => [product.id, product]));
   const productByName = new Map<string, any>();
-  for (const product of products ?? []) {
+  for (const product of uniqueProducts) {
+    if (!requestedNames.includes(product.name_en)) continue;
     if (productByName.has(product.name_en)) {
       console.error("Ambiguous product name in catalogue", product.name_en);
-      return reply(500, { error: "The product catalogue contains duplicate names. Please contact Ultra Beauty." });
+      return reply(500, { error: "The product catalogue contains duplicate names. Please refresh the basket or contact Ultra Beauty." });
     }
     productByName.set(product.name_en, product);
   }
   const items: any[] = [];
-  for (const [name, quantity] of quantities.entries()) {
-    const product: any = productByName.get(name);
+  for (const requestedItem of requested.values()) {
+    const product: any = requestedItem.productId ? productById.get(requestedItem.productId) : productByName.get(requestedItem.name);
+    const quantity = requestedItem.quantity;
     if (!product || !product.in_stock) {
-      return reply(400, { error: `“${name}” is not currently available to order. Please contact Ultra Beauty.` });
+      return reply(400, { error: "A basket product is no longer published or in stock. Please reload the shop and try again." });
     }
     const unitPriceIqd = Number(product.sale_price_iqd ?? product.price_iqd);
     if (!Number.isInteger(unitPriceIqd) || unitPriceIqd < 0 || unitPriceIqd * quantity > 2147483647) {
-      return reply(400, { error: `The price for “${name}” is not configured correctly yet. Please contact Ultra Beauty.` });
+      return reply(400, { error: `The price for “${product.name_en}” is not configured correctly yet. Please contact Ultra Beauty.` });
     }
     items.push({
       productId: product.id,
@@ -104,7 +124,7 @@ Deno.serve(async (req: Request) => {
   }
   const subtotal = items.reduce((sum, item) => sum + item.lineTotalIqd, 0);
   const kurdistanCities = new Set(["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"]);
-  const deliveryFee = kurdistanCities.has(city) ? 3000 : 5000;
+  const deliveryFee = subtotal > 20000 ? 0 : (kurdistanCities.has(city) ? 3000 : 5000);
   const total = subtotal + deliveryFee;
   if (!Number.isSafeInteger(total) || total > 2147483647) {
     return reply(400, { error: "Your order total exceeds the supported amount. Please contact Ultra Beauty." });
@@ -175,7 +195,7 @@ Deno.serve(async (req: Request) => {
   const waPhoneNumberId = Deno.env.get("WHATSAPP_PHONE_NUMBER_ID");
   const waTemplate = Deno.env.get("WHATSAPP_ORDER_TEMPLATE_NAME");
   const waLanguage = Deno.env.get("WHATSAPP_TEMPLATE_LANGUAGE") ?? "en";
-  const waRecipient = Deno.env.get("ORDER_NOTIFICATION_WHATSAPP") ?? "964706943110";
+  const waRecipient = (Deno.env.get("ORDER_NOTIFICATION_WHATSAPP") ?? "9647706943110").replace(/\D/g, "");
   if (waToken && waPhoneNumberId && waTemplate) {
     try {
       const response = await fetch(`https://graph.facebook.com/v21.0/${waPhoneNumberId}/messages`, {
@@ -212,6 +232,7 @@ Deno.serve(async (req: Request) => {
   // Do not report the order as failed if it was saved but a notification provider failed.
   return reply(201, {
     ok: true,
+    orderReference: order.order_number,
     orderNumber: order.order_number,
     subtotalIqd: subtotal,
     deliveryFeeIqd: deliveryFee,
