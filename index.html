@@ -2,8 +2,11 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
-<meta name="build-version" content="2026-10-17-09-orders">
+<meta name="build-version" content="2026-10-17-10-clear-checkout">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <title>Ultra Beauty | Beauty & Personal Care</title>
 <style>
 :root{--gold:#e8a0bc;--gold-dark:#8f174c;--ink:#23151d;--muted:#7c7078;--line:#eadde4;--paper:#f4f4f8;--soft:#fff1f6;--brand:#8f174c;--brand-soft:#f8e7ef}
@@ -1127,6 +1130,46 @@ a,button{touch-action:manipulation}
 
 
 .order-reference-row{margin:8px 0 12px;padding:14px 15px!important;border:1px solid #efbfd0!important;border-radius:12px;background:#fff0f5;font-size:15px!important;color:#8f174c;font-weight:800}.order-reference-row strong{font-size:17px;color:#8f174c;letter-spacing:.03em;font-variant-numeric:tabular-nums}.whatsapp-order-followup{background:#15945b!important;color:#fff!important}
+<style id="website-checkout-polish">
+html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-brand):not(.summary-brand){font-family:"Noto Sans Arabic",Tahoma,Arial,sans-serif!important}
+#paymentPage,#guestOrderForm{width:calc(100% - 24px);max-width:700px!important;margin:20px auto 100px!important;padding:clamp(18px,4vw,30px)!important;border:1px solid #f0dce5!important;border-radius:24px!important;background:linear-gradient(180deg,#fff 0%,#fffafd 100%)!important;box-shadow:0 18px 44px #5c173112}
+#paymentPage[hidden],#guestOrderForm[hidden],#orderSummaryWrap[hidden],#fibPaymentHelp[hidden]{display:none!important}
+.checkout-step{display:flex;align-items:center;gap:9px;width:max-content;max-width:100%;margin:0 0 16px;padding:7px 12px;border:1px solid #f2dce5;border-radius:999px;background:#fff5f8;color:#8f174c;font-size:12px;font-weight:800}
+.checkout-step-number{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#8f174c;color:#fff;font-variant-numeric:tabular-nums}
+#guestOrderForm h1{margin:8px 0 14px;color:#321322;font-size:clamp(23px,5vw,30px);line-height:1.35}
+.guest-order-instruction{margin:12px 0 18px;padding:15px 17px;border:1px solid #f3d3df;border-inline-start:4px solid #c92f61;border-radius:15px;background:#fff4f7;color:#543140;font-size:14px;font-weight:600;line-height:1.8;box-shadow:none}
+#paymentPage .fib-mark{display:flex;align-items:center;gap:14px;margin:16px 0;padding:15px;border:1px solid #f0dce4;border-radius:16px;background:#fff9fb}
+#paymentPage .fib-mark strong,#paymentPage .fib-mark small{display:block;line-height:1.7}
+#paymentPage .fib-mark strong{color:#8f174c;font-size:15px}
+#paymentPage .fib-mark small{color:#695662;font-size:13px}
+.checkout-website-note{margin:10px 3px 0;color:#75616a;font-size:12px;line-height:1.65}
+#paymentPage .checkout-continue-button,#guestOrderForm .checkout-submit-button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;margin-top:15px;padding:14px 18px;border:0;border-radius:16px;background:linear-gradient(135deg,#c92f61,#a51c51)!important;color:#fff!important;font-size:16px;font-weight:800;box-shadow:0 8px 18px #c92f612b;transition:transform .16s ease,box-shadow .16s ease}
+#paymentPage .checkout-continue-button svg{width:20px;height:20px;flex:none}
+#paymentPage .checkout-continue-button:hover,#guestOrderForm .checkout-submit-button:hover{transform:translateY(-1px);box-shadow:0 11px 24px #c92f6138}
+#guestOrderForm .delivery-box{margin:0 0 15px;padding:17px;border:1px solid #f0dce4;border-radius:17px;background:#fff}
+#guestOrderForm .delivery-box h2{margin:0 0 12px;color:#3a1b2a;font-size:18px}
+#guestOrderForm .delivery-box label{display:block;margin:12px 0 7px;color:#5c4650;font-size:13px;font-weight:700}
+#guestOrderForm .delivery-box input,#guestOrderForm .delivery-box textarea,#guestOrderForm .delivery-box select{box-sizing:border-box;width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #e6ccd6;border-radius:12px;background:#fff;color:#23151d;font:inherit;font-size:15px}
+#guestOrderForm .delivery-box textarea{min-height:90px;resize:vertical}
+#guestOrderForm .delivery-box input:focus,#guestOrderForm .delivery-box textarea:focus,#guestOrderForm .delivery-box select:focus{outline:3px solid #c92f6122;border-color:#c92f61}
+.fib-payment-help{margin:12px 0 15px;padding:14px 16px;border:1px solid #e4d8f7;border-radius:15px;background:#f8f4ff;color:#49366c;line-height:1.75}
+.fib-payment-help strong{display:block;margin-bottom:4px;color:#57358a;font-size:14px}
+.fib-payment-help p{margin:0;font-size:13px}
+#guestOrderForm .order-total{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:15px 0;padding:16px;border:1px solid #f5d4df;border-radius:16px;background:#fff1f5}
+#guestOrderForm .order-total strong{color:#b21f54;font-size:22px;font-variant-numeric:tabular-nums}
+#orderSubmitStatus{padding:14px!important;border-radius:12px!important;font-size:14px;line-height:1.65}
+#orderSummaryCard{padding:clamp(18px,4vw,26px);border:1px solid #f0dce5;border-radius:20px;background:#fff;box-shadow:0 10px 28px #6e163014}
+#orderConfirmationTitle{margin:12px 0 16px;color:#311523;font-size:23px;line-height:1.4}
+#orderSummaryContent .order-reference-row{border:1px solid #ebbdcf;border-radius:14px;background:#fff3f7}
+#orderSummaryContent .order-reference-row strong{font-size:20px;letter-spacing:.04em}
+#orderSummaryCard .summary-footer{padding:13px 14px;border-radius:13px;background:#fff5f8;color:#654554;line-height:1.7}
+.screenshot-help{margin:12px 2px;color:#75616a;font-size:13px;line-height:1.7}
+.summary-contact-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.summary-contact-actions .pay-link{display:flex;align-items:center;justify-content:center;min-height:50px;margin:0;padding:12px 14px;border-radius:13px;color:#fff!important;text-align:center;font-weight:800}
+.summary-contact-actions .whatsapp-order-followup{background:#15945b!important}
+.summary-contact-actions .instagram-order-followup{background:linear-gradient(135deg,#833ab4,#c13584,#e1306c)!important}
+@media(max-width:560px){#paymentPage,#guestOrderForm{width:calc(100% - 16px);margin:10px auto 92px!important;padding:16px!important;border-radius:20px!important}.summary-contact-actions{grid-template-columns:1fr}.guest-order-item-price{white-space:normal;text-align:end}}
+@media(prefers-reduced-motion:reduce){#paymentPage .checkout-continue-button,#guestOrderForm .checkout-submit-button{transition:none}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
@@ -1189,6 +1232,7 @@ a,button{touch-action:manipulation}
 <section class="payment-page" id="favoritesPage"><button class="pay-back" id="backFromFavorites" data-en="← Continue shopping" data-ku="← بەردەوام بە لە کڕین">← Continue shopping</button><h1 data-en="Your favourites" data-ku="دڵخوازەکانت">Your favourites</h1><div id="favoriteItems" class="favorite-grid"></div></section>
 <section class="search-page" id="searchPage"><button class="pay-back" id="closeSearch" data-en="← Close search" data-ku="← داخستن">← Close search</button><h1 data-en="Search products" data-ku="گەڕان بۆ بەرهەم">Search products</h1><label class="search-field"><span class="ui-icon-wrap" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><input id="productSearchInput" type="search" placeholder="Search products..." autocomplete="off" data-placeholder-en="Search products..." data-placeholder-ku="گەڕان بۆ بەرهەم..." /><button id="clearSearch" type="button" aria-label="Clear search"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></label><p id="searchStatus" class="search-status"></p><div id="searchResults" class="search-results"></div></section>
 <section class="payment-page" id="paymentPage">
+ <div class="checkout-step"><span class="checkout-step-number">1</span><span data-en="Review your basket" data-ku="پێداچوونەوە بە سەبەتە">Review your basket</span></div>
  <div id="cartItems"></div>
  <div class="delivery-box checkout-delivery-part">
   <h2 data-en="Delivery location" data-ku="شوێنی گەیاندن">Delivery location</h2>
@@ -1204,14 +1248,15 @@ a,button{touch-action:manipulation}
   <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="deliveryFee">3,000 دینار</strong></div>
  </div>
  <div class="order-total"><span data-en="Order total" data-ku="کۆی داواکاری">Order total</span><strong id="cartTotal">0 دینار</strong></div>
- <div class="fib-mark"><div class="fib-symbol">FIB</div><div><strong data-en="First Iraqi Bank (FIB)" data-ku="یەکەم بانکی عێراق (FIB)">First Iraqi Bank (FIB)</strong><small data-en="Payment details will be confirmed after you contact us" data-ku="زانیاری پارەدان دوای پەیوەندیکردنت پشتڕاست دەکرێتەوە">Payment details will be confirmed after you contact us</small></div></div>
- <button type="button" id="openGuestOrder" class="pay-link instagram instagram-order-button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg><span data-en="Order on Instagram" data-ku="لە ئینستاگرام داوا بکە">Order on Instagram</span></button>
- <p class="instagram-note" data-en="Don't want to create an account? That's fine. You can place your order through Instagram without creating an account on this website." data-ku="نامەوێت هەژمار دروست بکەیت؟ کێشە نییە. دەتوانیت بەبێ دروستکردنی هەژمار لەم ماڵپەڕە، لە ڕێگەی ئینستاگرام داوا بکەیت.">Don't want to create an account? That's fine. You can place your order through Instagram without creating an account on this website.</p>
+ <div class="fib-mark"><div class="fib-symbol">FIB</div><div><strong data-en="We accept FIB" data-ku="پارەدان بە FIB قبووڵ دەکەین">We accept FIB</strong><small data-en="Submit your order here first. Then message us with your order reference to get FIB payment details." data-ku="یەکەم داواکارییەکەت لێرە تۆمار بکە. پاشان ژمارەی داواکارییەکەت بە واتساپ یان ئینستاگرام بنێرە بۆ وەرگرتنی وردەکاری پارەدان بە FIB.">Submit your order here first. Then message us with your order reference to get FIB payment details.</small></div></div>
+ <button type="button" id="openGuestOrder" class="pay-link checkout-continue-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Continue to delivery details" data-ku="بەردەوام بە بۆ زانیاری گەیاندن">Continue to delivery details</span></button>
+ <p class="checkout-website-note" data-en="Your order is placed on this website. Instagram is only for questions or FIB payment details." data-ku="داواکارییەکەت لەم ماڵپەڕە تۆمار دەکەیت. ئینستاگرام تەنها بۆ پرسیار یان وەرگرتنی وردەکاری پارەدان بە FIB ـە.">Your order is placed on this website. Instagram is only for questions or FIB payment details.</p>
 </section>
 <section class="payment-page guest-order-page" id="guestOrderForm" hidden>
- <button type="button" id="backToGuestCart" class="pay-back" data-en="← Back to checkout" data-ku="← گەڕانەوە بۆ پارەدان">← Back to checkout</button>
- <h1 data-en="Instagram order details" data-ku="وردەکاریی داواکاری ئینستاگرام">Instagram order details</h1>
- <div class="guest-order-instruction" data-en="Complete your name and phone number. Check the items and delivery city, then prepare your order summary, take a screenshot and send it to us on Instagram." data-ku="ناو و ژمارەی تەلەفۆنت پڕ بکەرەوە. بەرهەمەکان و شارەکەی گەیاندن بپشکنە، پاشان پوختەی داواکاری ئامادە بکە، وێنەی شاشە بگرە و لە ئینستاگرام بۆمان بینێرە.">Complete your name and phone number. Check the items and delivery city, then prepare your order summary, take a screenshot and send it to us on Instagram.</div>
+ <button type="button" id="backToGuestCart" class="pay-back" data-en="← Back to basket" data-ku="← گەڕانەوە بۆ سەبەتە">← Back to basket</button>
+ <div class="checkout-step"><span class="checkout-step-number">2</span><span data-en="Delivery and payment" data-ku="گەیاندن و پارەدان">Delivery and payment</span></div>
+ <h1 data-en="Complete your website order" data-ku="داواکارییەکەت لێرە تۆمار بکە">Complete your website order</h1>
+ <div class="guest-order-instruction" data-en="Enter your name, mobile number and delivery address. Choose FIB or cash on delivery, then submit your order here. Your order reference will appear after it is saved." data-ku="ناو، ژمارەی مۆبایل و ناونیشانی گەیاندنت بنووسە. FIB یان پارەدان لە کاتی گەیاندن هەڵبژێرە و داواکارییەکەت لێرە تۆمار بکە. دوای پاشەکەوتکردن، ژمارەی داواکارییەکەت دەردەکەوێت.">Enter your name, mobile number and delivery address. Choose FIB or cash on delivery, then submit your order here. Your order reference will appear after it is saved.</div>
  <div id="guestOrderItems" class="guest-order-items"></div>
  <div class="delivery-box customer-details-box">
   <h2 data-en="Your details" data-ku="وردەکارییەکانت">Your details</h2>
@@ -1238,15 +1283,22 @@ a,button{touch-action:manipulation}
    <option value="fib_manual" data-en="FIB transfer (confirm details with us)" data-ku="گواستنەوەی FIB (وردەکاری لەگەڵمان پشتڕاست بکەرەوە)">FIB transfer (confirm details with us)</option>
    <option value="cash_on_delivery" data-en="Cash on delivery" data-ku="پارەدان لە کاتی گەیاندن">Cash on delivery</option>
   </select>
+  <div id="fibPaymentHelp" class="fib-payment-help">
+   <strong data-en="Paying with FIB?" data-ku="بە FIB پارە دەدەیت؟">Paying with FIB?</strong>
+   <p data-en="After submitting your order here, message us on WhatsApp or Instagram with your order reference. We will send you the FIB payment details." data-ku="دوای تۆمارکردنی داواکاری لێرە، لە واتساپ یان ئینستاگرام بە ژمارەی داواکارییەکەت پەیوەندیمان پێوە بکە. وردەکاری پارەدان بە FIB بۆت دەنێرین.">After submitting your order here, message us on WhatsApp or Instagram with your order reference. We will send you the FIB payment details.</p>
+  </div>
   <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="guestDeliveryFee">3,000 IQD</strong></div>
  </div>
  <div class="order-total"><span data-en="Order total" data-ku="کۆی داواکاری">Order total</span><strong id="guestCartTotal">0 IQD</strong></div>
- <button class="pay-link instagram instagram-order-button" id="createOrderSummary" type="button"><span data-en="Place order" data-ku="داواکاری تۆمار بکە">Place order</span></button>
+ <button class="pay-link checkout-submit-button" id="createOrderSummary" type="button"><span data-en="Submit my order" data-ku="داواکارییەکەم تۆمار بکە">Submit my order</span></button>
  <p id="orderSubmitStatus" role="status" aria-live="polite" hidden></p>
  <div id="orderSummaryWrap" class="order-summary-wrap" hidden>
-  <div id="orderSummaryCard" class="order-summary-card"><div class="summary-brand">ultra <span>beauty</span></div><h2 data-en="Order summary" data-ku="پوختەی داواکاری">Order summary</h2><div id="orderSummaryContent"></div><p class="summary-footer" data-en="Please confirm availability and final order with Ultra Beauty on Instagram." data-ku="تکایە بەردەستبوون و داواکاری کۆتایی لە ئینستاگرام لەگەڵ Ultra Beauty پشتڕاست بکەرەوە.">Please confirm availability and final order with Ultra Beauty on Instagram.</p></div>
-  <p class="screenshot-help" data-en="Keep this reference. Share it with us if you contact us about your order." data-ku="ژمارەی داواکارییەکەت هەڵبگرە؛ ئەگەر لەبارەی داواکارییەکەت پەیوەندیمان پێوە کرد، بۆمان بنێرە.">Keep this reference. Share it with us if you contact us about your order.</p>
-  <a class="pay-link whatsapp-order-followup" id="orderFollowupWhatsApp" href="#" target="_blank" rel="noopener noreferrer" hidden><span data-en="Ask about this order on WhatsApp" data-ku="پرسیارکردن لەبارەی ئەم داواکارییە لە واتساپ">Ask about this order on WhatsApp</span></a>
+  <div id="orderSummaryCard" class="order-summary-card"><div class="summary-brand">ultra <span>beauty</span></div><h2 id="orderConfirmationTitle">Order status</h2><div id="orderSummaryContent"></div><p class="summary-footer" data-en="For FIB payment, message us on WhatsApp or Instagram and include your order reference." data-ku="بۆ پارەدان بە FIB، لە واتساپ یان ئینستاگرام پەیوەندیمان پێوە بکە و ژمارەی داواکارییەکەت بنێرە.">For FIB payment, message us on WhatsApp or Instagram and include your order reference.</p></div>
+  <p class="screenshot-help" data-en="Your WhatsApp message includes your details. If you contact us on Instagram, include the order reference shown above." data-ku="پەیامی واتساپ وردەکارییەکانت لەخۆ دەگرێت. ئەگەر لە ئینستاگرام پەیوەندیمان پێوە دەکەیت، ژمارەی داواکارییەکەی سەرەوە بنێرە.">Your WhatsApp message includes your details. If you contact us on Instagram, include the order reference shown above.</p>
+  <div class="summary-contact-actions">
+   <a class="pay-link whatsapp-order-followup" id="orderFollowupWhatsApp" href="#" target="_blank" rel="noopener noreferrer" hidden><span data-en="Send details on WhatsApp" data-ku="ناردنی وردەکارییەکان بە واتساپ">Send details on WhatsApp</span></a>
+   <a class="pay-link instagram-order-followup" id="orderFollowupInstagram" href="https://www.instagram.com/ultra____beauty/" target="_blank" rel="noopener noreferrer" hidden><span data-en="Message us on Instagram" data-ku="پەیاممان بۆ بنێرە لە ئینستاگرام">Message us on Instagram</span></a>
+  </div>
  </div>
 </section>
 <footer><div class="footer-inner"><div class="footer-brand">Ultra <span>Beauty</span></div><div data-en="Beauty, skincare & more — made simple." data-ku="جوانکاری، چاودێری پێست و زیاتر">Beauty, skincare & more — made simple.</div><div>© Ultra Beauty</div></div></footer>
@@ -1342,11 +1394,11 @@ document.getElementById("createOrderSummary").addEventListener("click",async()=>
   box.append(makeSummaryRow(lang==="ku"?"ناونیشان":"Delivery address",address),makeSummaryRow(lang==="ku"?"شێوازی پارەدان":"Payment method",paymentMethod==="fib_manual"?"FIB transfer":"Cash on delivery"),makeSummaryRow(lang==="ku"?"کۆی بەرهەمەکان":"Subtotal",subtotal.toLocaleString("en-US")+" IQD"),makeSummaryRow(lang==="ku"?"کرێی گەیاندن":"Delivery fee",(fee===0?"Free":fee.toLocaleString("en-US")+" IQD")));
   const grand=document.createElement("div");grand.className="summary-total";const gl=document.createElement("span");gl.textContent=lang==="ku"?"کۆی گشتی":"TOTAL";const gv=document.createElement("strong");gv.textContent=total.toLocaleString("en-US")+" IQD";grand.append(gl,gv);box.append(grand);
   document.getElementById("orderSummaryWrap").hidden=false;
-  const emailSent=result.notification?.email==="sent",whatsappSent=result.notification?.whatsapp==="sent",notificationsSent=emailSent&&whatsappSent;const oldFooter=document.querySelector("#orderSummaryCard .summary-footer");if(oldFooter)oldFooter.textContent=notificationsSent?(lang==="ku"?"داواکارییەکەت تۆمار کرا و هەواڵی ئیمەیڵ و واتساپ نێردرا. بۆ شوێنکەوتنی داواکارییەکەت ئەم ژمارەیە هەڵبگرە.":"Order saved. Email and WhatsApp alerts were sent. Keep this reference for follow-up."):(lang==="ku"?"داواکارییەکەت تۆمار کرا، بەڵام هەموو هەواڵدانەکان پشتڕاست نەکرانەوە. ژمارەی داواکارییەکەت هەڵبگرە و بۆ نوێکردنەوە لە واتساپ پەیوەندیمان پێوە بکە.":"Order saved, but not all alerts were confirmed. Keep this reference and contact us on WhatsApp for an update.");
-  const followup=document.getElementById("orderFollowupWhatsApp");if(followup){followup.href="https://wa.me/"+CART_PHONE+"?text="+encodeURIComponent((lang==="ku"?"سڵاو، تکایە لەبارەی داواکاری ":"Hello, please help me with order ")+orderReference);followup.hidden=false;}
-  status.hidden=false;status.textContent=lang==="ku"?"داواکاری تۆمار کرا. ژمارە: "+orderReference:"Order submitted successfully. Reference: "+orderReference;
-  status.style.cssText="display:block;margin:12px 0;padding:12px;border-radius:10px;background:#e8f7ed;color:#176534;font-weight:700";
-  button.querySelector("span").textContent=lang==="ku"?"تۆمار کرا":"Order submitted";
+  const emailSent=result.notification?.email==="sent",whatsappSent=result.notification?.whatsapp==="sent",notificationSent=emailSent||whatsappSent;const confirmTitle=document.getElementById("orderConfirmationTitle");if(confirmTitle)confirmTitle.textContent=notificationSent?(lang==="ku"?"داواکاری پشتڕاست کرایەوە":"Order confirmed"):(lang==="ku"?"داواکاری پاشەکەوت کرا - پەیوەندیمان پێوە بکە":"Order saved - please contact us");const oldFooter=document.querySelector("#orderSummaryCard .summary-footer");if(oldFooter)oldFooter.textContent=notificationSent?(emailSent&&whatsappSent?(lang==="ku"?"داواکارییەکەت تۆمار کرا و ئاگادارکردنەوەی دوکان بە ئیمەیڵ و واتساپ نێردرا. ژمارەکە هەڵبگرە.":"Your order is placed. Shop notifications were sent by email and WhatsApp. Keep your reference."):emailSent?(lang==="ku"?"داواکارییەکەت تۆمار کرا و ئاگادارکردنەوەی دوکان بە ئیمەیڵ نێردرا. ژمارەکە هەڵبگرە.":"Your order is placed. An email notification was sent to the shop. Keep your reference."):(lang==="ku"?"داواکارییەکەت تۆمار کرا و ئاگادارکردنەوەی دوکان بە واتساپ نێردرا. ژمارەکە هەڵبگرە.":"Your order is placed. A WhatsApp notification was sent to the shop. Keep your reference.")):(lang==="ku"?"داواکارییەکەت پاشەکەوت کرا، بەڵام نەتوانرا نێردرانی ئاگادارکردنەوە بۆ دوکان پشتڕاست بکرێتەوە. دوبارە داواکارییەکە تۆمار مەکە؛ بە ژمارەکە پەیوەندیمان پێوە بکە.":"Your order is saved, but we could not confirm a shop alert. Do not submit it again. Contact us using this reference.");
+  const followup=document.getElementById("orderFollowupWhatsApp");if(followup){const waMessage=(lang==="ku"?"سڵاو، وردەکاری داواکارییەکەم ئەمانەن:":"Hello, here are my order details:")+"\n"+(lang==="ku"?"ژمارەی داواکاری: ":"Reference: ")+orderReference+"\n"+(lang==="ku"?"ناو: ":"Name: ")+name+"\n"+(lang==="ku"?"ژمارەی مۆبایل: ":"Mobile: ")+phone+"\n"+(lang==="ku"?"ناونیشان: ":"Address: ")+address+", "+city+(paymentMethod==="fib_manual"?(lang==="ku"?"\nپارەدان بە FIB ـە؛ تکایە وردەکاری پارەدان بنێرە.":"\nI will pay by FIB. Please send me the payment details."):"");followup.href="https://wa.me/"+CART_PHONE+"?text="+encodeURIComponent(waMessage);followup.hidden=false;}const instagramFollowup=document.getElementById("orderFollowupInstagram");if(instagramFollowup)instagramFollowup.hidden=false;
+  status.hidden=false;status.textContent=notificationSent?(lang==="ku"?"داواکارییەکەت بە سەرکەوتوویی تۆمار کرا. ژمارە: ":"Your order was placed successfully. Reference: ")+orderReference:(lang==="ku"?"داواکارییەکەت پاشەکەوت کرا، بەڵام ئاگادارکردنەوە پشتڕاست نەکراوەتەوە. تکایە پێش تۆمارکردنی داواکارییەکی تر پەیوەندیمان پێوە بکە. ژمارە: ":"Your order is saved, but the shop alert was not confirmed. Please contact us before placing another order. Reference: ")+orderReference;
+  status.style.cssText=notificationSent?"display:block;margin:12px 0;padding:14px;border-radius:12px;background:#eaf8f0;color:#176534;font-weight:700;line-height:1.6":"display:block;margin:12px 0;padding:14px;border-radius:12px;background:#fff6df;color:#795b18;font-weight:700;line-height:1.6";
+  button.querySelector("span").textContent=lang==="ku"?"داواکاری تۆمار کرا":"Order placed";
   button.disabled=true;button.style.opacity="1";
   cart.splice(0,cart.length);persistCart();renderCart();renderProductControls();
  }catch(error){
@@ -1356,6 +1408,8 @@ document.getElementById("createOrderSummary").addEventListener("click",async()=>
  }
 });
 document.getElementById("deliveryCity").addEventListener("change",()=>{renderCart();});
+function updateFibPaymentHelp(){const help=document.getElementById("fibPaymentHelp"),method=document.getElementById("orderPaymentMethod");if(help&&method)help.hidden=method.value!=="fib_manual";}
+document.getElementById("orderPaymentMethod")?.addEventListener("change",updateFibPaymentHelp);updateFibPaymentHelp();
 function hideViews(){["homeMain","paymentPage","guestOrderForm","favoritesPage","searchPage"].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display="none";if(id==="guestOrderForm")el.hidden=true;}});document.getElementById("productDetailPage")?.classList.remove("visible");}
 function openPayment(){hideViews();document.getElementById("paymentPage").style.display="block";renderCart();window.scrollTo({top:0,left:0,behavior:"auto"});}
 function openFavorites(){hideViews();document.getElementById("favoritesPage").style.display="block";renderFavorites();window.scrollTo({top:0,left:0,behavior:"auto"});}
