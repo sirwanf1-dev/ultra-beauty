@@ -75,7 +75,14 @@ Deno.serve(async (req: Request) => {
     console.error("Product price lookup failed", productsError.message);
     return reply(500, { error: "We could not verify current product prices. Please try again later." });
   }
-  const productByName = new Map((products ?? []).map((p: any) => [p.name_en, p]));
+  const productByName = new Map<string, any>();
+  for (const product of products ?? []) {
+    if (productByName.has(product.name_en)) {
+      console.error("Ambiguous product name in catalogue", product.name_en);
+      return reply(500, { error: "The product catalogue contains duplicate names. Please contact Ultra Beauty." });
+    }
+    productByName.set(product.name_en, product);
+  }
   const items: any[] = [];
   for (const [name, quantity] of quantities.entries()) {
     const product: any = productByName.get(name);
