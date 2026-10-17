@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="ckb" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
-<meta name="build-version" content="2026-10-16-01store-rebuild">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
+<meta name="build-version" content="2026-10-17-02-design-system">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
 <title>Ultra Beauty | Beauty & Personal Care</title>
 <style>
@@ -967,6 +967,115 @@ footer{background:#fff!important;padding:22px 14px!important}
 .product-bottom .addbtn{min-width:0}
 @media(max-width:760px){.product-card{padding-bottom:10px!important}.product-bottom .inline-cart-controls .qty-btn{width:27px!important;height:27px!important;min-width:27px!important;max-width:27px!important;flex-basis:27px!important}.product-bottom .inline-cart-controls .qty-number{font-size:14px!important}}
 
+
+/* Unified Ultra Beauty visual system */
+:root{--gold:#8f174c;--gold-dark:#6c1038;--ink:#251c24;--muted:#746b73;--line:#eadfe5;--paper:#faf7f9;--soft:#fbedf3;--brand:#8f174c;--brand-soft:#f8e7ef}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif!important;background:#faf7f9!important;color:var(--ink)!important;font-size:14px}
+button,input,select,textarea{font-family:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #bc628766!important;outline-offset:2px}
+.topbar{direction:ltr!important;height:74px!important;padding:8px clamp(14px,3vw,30px)!important;gap:14px!important}
+.brand-side{display:flex!important;direction:ltr!important;align-items:center!important;gap:10px!important;min-width:0!important;order:0!important}
+.brand-side>.logo.wordmark{order:0!important;width:auto!important;max-width:none!important;min-width:0!important;flex:0 0 auto!important;display:flex!important;direction:ltr!important;justify-content:flex-start!important;align-items:center!important;text-align:left!important}
+.brand-side>.menu-btn{order:1!important;flex:0 0 42px!important;width:42px!important;height:42px!important}
+.topbar-spacer{order:1!important;flex:1 1 auto!important;min-width:0!important}
+.topbar>.iconrow{order:2!important;direction:ltr!important;display:flex!important;align-items:center!important;gap:7px!important}
+.brand-name,.footer-brand,.menu-page-brand{direction:ltr!important;unicode-bidi:isolate!important;text-align:left!important;white-space:nowrap}
+.brand-name{font-family:Georgia,"Times New Roman",serif!important;font-size:clamp(22px,2.5vw,29px)!important;line-height:1!important;letter-spacing:-.7px!important;color:#28151f!important;font-weight:700!important}
+.brand-name span,.footer-brand span,.menu-page-brand b{color:#8f174c!important}
+.iconbtn{width:42px!important;height:42px!important;flex:0 0 42px!important;border-radius:12px!important;display:grid!important;place-items:center!important;color:#45333e!important;transition:background .16s ease,color .16s ease,transform .16s ease!important}
+.iconbtn:hover{background:#fbedf3!important;color:#8f174c!important}
+.iconbtn svg,.mobile-bottom-nav svg,.ui-icon{width:21px!important;height:21px!important;display:block!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.searchbtn{width:42px!important;height:42px!important;border:1px solid #e7dce2!important;border-radius:12px!important}
+.category-nav{padding:7px clamp(14px,3vw,30px) 11px!important;gap:7px!important}
+.navtab,.trend-tabs button{min-height:40px!important;padding:9px 16px!important;border:1px solid transparent!important;border-radius:999px!important;font-family:inherit!important;font-size:13px!important;font-weight:700!important;line-height:1.2!important}
+.navtab.active,.trend-tabs button.active{background:#8f174c!important;color:#fff!important;border-color:#8f174c!important;box-shadow:0 4px 12px #8f174c20!important}
+.page{max-width:1280px!important;padding-left:clamp(14px,3vw,30px)!important;padding-right:clamp(14px,3vw,30px)!important}
+.section-title,.product-detail-title,.payment-page h1,#favoritesPage h1,#searchPage h1,.menu-page-heading h1{font-family:Georgia,"Times New Roman",serif!important;font-weight:500!important;letter-spacing:-.35px!important;color:#2a1c25!important;line-height:1.18!important}
+.section-title{font-size:clamp(21px,2.4vw,26px)!important}
+.section-sub,.product-detail-description,.payment-page p,.menu-page-heading p{color:#746b73!important;line-height:1.6!important}
+.product-track{gap:18px!important}
+.product-card{border:1px solid #ecdee5!important;border-radius:16px!important;background:#fff!important;box-shadow:0 5px 19px #3215230a!important;overflow:hidden!important;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease!important}
+.product-card:hover{transform:translateY(-2px)!important;border-color:#d8adbf!important;box-shadow:0 10px 25px #32152313!important}
+.product-image{height:auto!important;aspect-ratio:.94!important;background:#f7f1f4!important}
+.product-image img{object-fit:cover!important}
+.product-brand{font-family:inherit!important;font-size:10px!important;letter-spacing:.1em!important;color:#8d687a!important}
+.product-name{font-family:inherit!important;font-size:clamp(14px,1.25vw,16px)!important;line-height:1.4!important;min-height:2.8em!important;font-weight:700!important;color:#2b2028!important;overflow-wrap:anywhere!important}
+.product-bottom{gap:8px!important}
+.price{color:#7f1748!important;font-size:clamp(15px,1.7vw,20px)!important;font-variant-numeric:tabular-nums!important}
+.price-note{color:#746b73!important}
+.addbtn{width:42px!important;height:42px!important;border-radius:12px!important;background:#8f174c!important;box-shadow:none!important}
+.addbtn:hover{background:#6c1038!important}
+.quantity-controls{gap:5px!important}
+.qty-btn{width:34px!important;height:34px!important;min-width:34px!important;max-width:34px!important;flex-basis:34px!important;border-radius:10px!important;background:#8f174c!important;color:#fff!important;border:0!important}
+.qty-number{color:#6c1038!important;font-variant-numeric:tabular-nums!important}
+.heart{width:40px!important;height:40px!important;border-radius:50%!important;background:#fff!important;color:#8f174c!important;box-shadow:0 3px 12px #27131d12!important}
+.heart svg{width:21px!important;height:21px!important}
+.showcase-window,.hero-window{border-radius:16px!important}
+.showcase-slide{border-radius:13px!important}
+.showcase-arrow,.slide-arrow{width:40px!important;height:40px!important;border-radius:50%!important;font-size:18px!important;line-height:1!important;display:grid!important;place-items:center!important}
+.showcase-arrow svg,.slide-arrow svg{width:20px!important;height:20px!important}
+.hero-slide{border-radius:16px!important;overflow:hidden!important}
+.hero-copy h1{font-family:Georgia,"Times New Roman",serif!important;color:#2a1c25!important;line-height:1.1!important}
+.hero-copy p{font-family:inherit!important;color:#615660!important;line-height:1.65!important}
+.goldlink{min-height:42px!important;border-radius:11px!important;background:#8f174c!important;color:#fff!important;padding:12px 17px!important}
+.benefit{border-color:#ecdee5!important;border-radius:15px!important;background:#fff!important}
+.benefit-icon{width:42px!important;height:42px!important;flex:0 0 42px!important;border-radius:13px!important;background:#fbedf3!important;color:#8f174c!important;font-size:19px!important}
+.menu-page-icon{width:44px!important;height:44px!important;flex-basis:44px!important;border-radius:13px!important;background:#fbedf3!important;color:#8f174c!important}
+.menu-page-top{direction:ltr!important}
+.menu-page-brand{font-family:Georgia,"Times New Roman",serif!important;font-size:22px!important}
+.search-field{min-height:48px!important;border-radius:13px!important;background:#fff!important;border-color:#eadfe5!important;box-shadow:none!important}
+.search-field>span.ui-icon-wrap{display:grid!important;place-items:center!important;width:24px!important;height:24px!important;flex:0 0 24px!important;color:#8f174c!important}
+.search-field .ui-icon{width:20px!important;height:20px!important}
+.search-field input{font-family:inherit!important;font-size:15px!important}
+#clearSearch{width:34px!important;height:34px!important;border-radius:10px!important;background:#fbedf3!important;color:#8f174c!important;border:0!important}
+.pay-back,.pay-link,.pay-actions button,.product-detail-back,.product-detail-add,.product-detail-whatsapp{min-height:42px!important;border-radius:12px!important;font-family:inherit!important}
+.payment-page,.search-page,.favorite-page{border-radius:18px!important;border-color:#eadfe5!important;box-shadow:0 8px 24px #32152309!important}
+.payment-page input,.payment-page select,.search-page input{min-height:44px!important;border-radius:10px!important;border-color:#e5d9df!important}
+.footer-inner{direction:ltr!important}
+.footer-brand{font-family:Georgia,"Times New Roman",serif!important;font-size:22px!important}
+.wa{width:50px!important;height:50px!important;border-radius:50%!important;background:#16844b!important}
+.wa svg{width:26px!important;height:26px!important}
+.mobile-bottom-nav{height:68px!important;border-top:1px solid #eadfe5!important;background:#fff!important;box-shadow:0 -5px 20px #3215230c!important}
+.mobile-bottom-nav button{min-width:0!important;gap:3px!important;color:#67535e!important}
+.mobile-bottom-nav button .nav-icon{width:24px!important;height:24px!important;display:grid!important;place-items:center!important;color:#8f174c!important}
+.mobile-bottom-nav button .nav-icon svg{width:22px!important;height:22px!important}
+.mobile-bottom-nav button small{font-family:inherit!important;font-size:10px!important;font-weight:700!important;line-height:1.2!important;color:inherit!important}
+.mobile-bottom-nav button i{width:auto!important;min-width:17px!important;height:17px!important;left:calc(50% + 8px)!important;top:4px!important;border-radius:999px!important;background:#8f174c!important;color:#fff!important;font-family:inherit!important;font-style:normal!important;font-size:9px!important;line-height:17px!important}
+[dir=rtl] .mobile-bottom-nav button i{left:auto!important;right:calc(50% + 8px)!important}
+a,button{touch-action:manipulation}
+@media(max-width:760px){
+ body{padding-bottom:calc(70px + env(safe-area-inset-bottom))!important}
+ .topbar{height:66px!important;padding:6px 12px!important;gap:8px!important}
+ .brand-side{gap:8px!important}
+ .brand-side>.menu-btn{width:40px!important;height:40px!important;flex-basis:40px!important}
+ .brand-name{font-size:22px!important}
+ .topbar>.iconrow{gap:3px!important}
+ .iconbtn,.searchbtn{width:40px!important;height:40px!important;flex-basis:40px!important}
+ .iconbtn svg{width:20px!important;height:20px!important}
+ .category-nav{padding:3px 12px 9px!important;gap:4px!important}
+ .navtab,.trend-tabs button{min-height:38px!important;padding:8px 13px!important;font-size:12px!important}
+ .page{padding-left:12px!important;padding-right:12px!important}
+ .product-track{gap:15px 11px!important}
+ .product-image{aspect-ratio:.95!important}
+ .mobile-bottom-nav{height:calc(66px + env(safe-area-inset-bottom))!important;padding-bottom:env(safe-area-inset-bottom)!important}
+ .wa{bottom:calc(78px + env(safe-area-inset-bottom))!important}
+ .footer-inner{gap:10px!important}
+ .product-detail-page{border-radius:0!important}
+}
+@media(min-width:761px){
+ .topbar{height:78px!important}
+ .product-track{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .product-track:has(.product-card:only-child){grid-template-columns:minmax(0,420px)!important;justify-content:center!important}
+}
+@media(max-width:760px){
+ .product-track:has(.product-card:only-child){grid-template-columns:minmax(0,1fr)!important;justify-content:center!important}
+ .product-track:has(.product-card:only-child) .product-card{width:100%!important;max-width:430px!important;margin-inline:auto!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
@@ -976,8 +1085,8 @@ footer{background:#fff!important;padding:22px 14px!important}
 <header>
  <div class="topbar">
   <div class="brand-side">
-   <button class="iconbtn menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
    <a class="logo wordmark" href="#homeMain" aria-label="Ultra Beauty home"><span class="brand-name">Ultra <span>Beauty</span></span></a>
+   <button class="iconbtn menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
   </div>
   <div class="topbar-spacer" aria-hidden="true"></div>
   <div class="iconrow">
@@ -1014,7 +1123,7 @@ footer{background:#fff!important;padding:22px 14px!important}
 </section>
 </header>
 <main id="homeMain">
- <section class="page featured showcase" aria-label="New beauty products"><div class="showcase-window"><div class="showcase-track"><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1000&q=85" alt="New perfumes"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1000&q=85" alt="New skincare products"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1000&q=85" alt="New makeup products"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1000&q=85" alt="Beauty products"></div></div></div><button class="showcase-arrow showcase-prev" aria-label="Previous image">‹</button><button class="showcase-arrow showcase-next" aria-label="Next image">›</button><div class="showcase-dots"><button class="active" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button><button aria-label="Slide 4"></button></div></section>
+ <section class="page featured showcase" aria-label="New beauty products"><div class="showcase-window"><div class="showcase-track"><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1000&q=85" alt="New perfumes"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1000&q=85" alt="New skincare products"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1000&q=85" alt="New makeup products"></div><div class="showcase-slide"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1000&q=85" alt="Beauty products"></div></div></div><button class="showcase-arrow showcase-prev" aria-label="Previous image"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="showcase-arrow showcase-next" aria-label="Next image"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button><div class="showcase-dots"><button class="active" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button><button aria-label="Slide 4"></button></div></section>
 
  <section class="page trending" id="trending"><div class="section-head"><div><h2 class="section-title" data-en="Trending Products" data-ku="بەرهەمە باوەکان">Trending Products</h2><p class="section-sub" data-en="Discover beauty favourites for every day." data-ku="بەرهەمە دڵخوازەکانی جوانکاری بۆ هەموو ڕۆژێک ببینە.">Discover beauty favourites for every day.</p></div><a class="viewall" href="#trending" data-en="View All" data-ku="هەمووی ببینە">View All <b>›</b></a></div><div class="trend-tabs"><button class="active" data-filter="all" data-en="All" data-ku="هەموو">All</button><button data-filter="women" data-en="Women" data-ku="ژنانه">Women</button><button data-filter="men" data-en="Men" data-ku="پیاوان">Men</button><button data-filter="perfumes" data-en="Perfumes" data-ku="بۆن">Perfumes</button></div><div class="product-track">
   <article class="product-card" hidden data-category="women skincare"><div class="product-image"><img loading="lazy" src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=85" alt="Skincare collection"><button class="heart" aria-label="Favourite"><svg viewBox="0 0 24 24"><path d="M20.5 8.8c0 5-8.5 10-8.5 10s-8.5-5-8.5-10a4.4 4.4 0 0 1 8.5-1.4 4.4 4.4 0 0 1 8.5 1.4Z"/></svg></button></div><div class="product-brand">SKINCARE</div><h3 class="product-name" data-en="Skincare Collection" data-ku="کۆمەڵەی چاودێری پێست">Skincare Collection</h3><div class="product-bottom"><div class="price-stack"><div class="price"><span class="sale-price">5,000</span> <span class="currency" data-en="IQD" data-ku="دینار">دینار</span></div><div class="old-price"><s>7,000</s> <span data-en="IQD" data-ku="دینار">دینار</span></div></div><button class="addbtn" aria-label="Add to bag" data-product="Skincare Collection">+</button></div></article>
@@ -1025,9 +1134,9 @@ footer{background:#fff!important;padding:22px 14px!important}
 
  <section class="page benefits"><div class="benefit"><div class="benefit-icon">✦</div><div><strong data-en="Beauty favourites" data-ku="بەرهەمە دڵخوازەکانی جوانکاری">Beauty favourites</strong><small data-en="A considered beauty collection" data-ku="کۆمەڵەیەکی هەڵبژێردراوی جوانکاری">A considered beauty collection</small></div></div><div class="benefit"><div class="benefit-icon">⌖</div><div><strong data-en="Serving Iraq & Kurdistan" data-ku="خزمەتگوزاری عێراق و کوردستان">Serving Iraq & Kurdistan</strong><small data-en="Ask us about delivery" data-ku="دەربارەی گەیاندن پرسیار بکە">Ask us about delivery</small></div></div><div class="benefit"><div class="benefit-icon">♡</div><div><strong data-en="Here to help" data-ku="ئێمە لێرەین بۆ یارمەتیدان">Here to help</strong><small data-en="Contact us with product questions" data-ku="بۆ پرسیاری بەرهەم پەیوەندیمان پێوە بکە">Contact us with product questions</small></div></div></section>
 </main>
-<nav class="mobile-bottom-nav" aria-label="Quick navigation"><button type="button" data-goto="homeMain"><span>⌂</span><small data-en="Home" data-ku="سەرەتا">سەرەتا</small></button><button type="button" data-goto="trending"><span>▦</span><small data-en="Shop" data-ku="کڕین">کڕین</small></button><button type="button" id="bottomCart"><span class="bag-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span><small data-en="Bag" data-ku="سەبەتە">سەبەتە</small><i id="bottomCartCount">0</i></button><button type="button" id="bottomSearch"><span>⌕</span><small data-en="Search" data-ku="گەڕان">گەڕان</small></button></nav>
+<nav class="mobile-bottom-nav" aria-label="Quick navigation"><button type="button" data-goto="homeMain"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><small data-en="Home" data-ku="سەرەتا">سەرەتا</small></button><button type="button" data-goto="trending"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><small data-en="Shop" data-ku="کڕین">کڕین</small></button><button type="button" id="bottomCart"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span><small data-en="Bag" data-ku="سەبەتە">سەبەتە</small><i id="bottomCartCount">0</i></button><button type="button" id="bottomSearch"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><small data-en="Search" data-ku="گەڕان">گەڕان</small></button></nav>
 <section class="payment-page" id="favoritesPage"><button class="pay-back" id="backFromFavorites" data-en="← Continue shopping" data-ku="← بەردەوام بە لە کڕین">← Continue shopping</button><h1 data-en="Your favourites" data-ku="دڵخوازەکانت">Your favourites</h1><div id="favoriteItems" class="favorite-grid"></div></section>
-<section class="search-page" id="searchPage"><button class="pay-back" id="closeSearch" data-en="← Close search" data-ku="← داخستن">← Close search</button><h1 data-en="Search products" data-ku="گەڕان بۆ بەرهەم">Search products</h1><label class="search-field"><span aria-hidden="true">⌕</span><input id="productSearchInput" type="search" placeholder="Search products..." autocomplete="off" data-placeholder-en="Search products..." data-placeholder-ku="گەڕان بۆ بەرهەم..." /><button id="clearSearch" type="button" aria-label="Clear search">×</button></label><p id="searchStatus" class="search-status"></p><div id="searchResults" class="search-results"></div></section>
+<section class="search-page" id="searchPage"><button class="pay-back" id="closeSearch" data-en="← Close search" data-ku="← داخستن">← Close search</button><h1 data-en="Search products" data-ku="گەڕان بۆ بەرهەم">Search products</h1><label class="search-field"><span class="ui-icon-wrap" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><input id="productSearchInput" type="search" placeholder="Search products..." autocomplete="off" data-placeholder-en="Search products..." data-placeholder-ku="گەڕان بۆ بەرهەم..." /><button id="clearSearch" type="button" aria-label="Clear search">×</button></label><p id="searchStatus" class="search-status"></p><div id="searchResults" class="search-results"></div></section>
 <section class="payment-page" id="paymentPage">
  <div id="cartItems"></div>
  <div class="delivery-box checkout-delivery-part">
@@ -1196,8 +1305,8 @@ document.getElementById("closeSearch").addEventListener("click",()=>{hideViews()
 document.getElementById("backFromFavorites").addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});
 function openPayment(){hideViews();document.getElementById("paymentPage").style.display="block";renderCart();window.scrollTo({top:0,left:0,behavior:"auto"});}document.getElementById("cartBtn").addEventListener("click",openPayment);document.getElementById("bottomCart")?.addEventListener("click",openPayment);document.getElementById("bottomSearch")?.addEventListener("click",openSearch);function goHome(){hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";window.scrollTo({top:0,left:0,behavior:"smooth"});history.replaceState(null,"",location.pathname+location.search);}
 document.querySelector(".logo.wordmark")?.addEventListener("click",e=>{e.preventDefault();goHome();});
-document.querySelectorAll(".mobile-bottom-nav [data-goto]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.goto==="homeMain"){goHome();return;}hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";document.getElementById(b.dataset.goto)?.scrollIntoView({behavior:"smooth",block:"start"});}));document.getElementById("backToShop")?.addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});const showcase=document.querySelector(".showcase");if(showcase){const track=showcase.querySelector(".showcase-track");const slides=[...showcase.querySelectorAll(".showcase-slide")];const dots=[...showcase.querySelectorAll(".showcase-dots button")];let current=0;function showShowcase(n){current=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle("active",i===current));dots.forEach((d,i)=>d.classList.toggle("active",i===current));const slide=slides[current];const offset=slide.offsetLeft-(track.parentElement.clientWidth-slide.clientWidth)/2;track.style.transform="translateX("+-offset+"px)";}function restartShowcase(){clearInterval(timer);timer=setInterval(()=>showShowcase(current+1),3500);}showcase.querySelector(".showcase-prev").addEventListener("click",()=>{showShowcase(current-1);restartShowcase();});showcase.querySelector(".showcase-next").addEventListener("click",()=>{showShowcase(current+1);restartShowcase();});dots.forEach((d,i)=>d.addEventListener("click",()=>{showShowcase(i);restartShowcase();}));let timer=setInterval(()=>showShowcase(current+1),3500);window.addEventListener("resize",()=>showShowcase(current));showShowcase(0);}let lang='ku';function setLang(next){lang=next;document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.getElementById('langBtn').setAttribute('aria-label',lang==='en'?'Switch to Kurdish':'Switch to English');}
-document.getElementById('langBtn').addEventListener('click',()=>setLang(lang==='en'?'ku':'en'));setLang('ku');
+document.querySelectorAll(".mobile-bottom-nav [data-goto]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.goto==="homeMain"){goHome();return;}hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";document.getElementById(b.dataset.goto)?.scrollIntoView({behavior:"smooth",block:"start"});}));document.getElementById("backToShop")?.addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});const showcase=document.querySelector(".showcase");if(showcase){const track=showcase.querySelector(".showcase-track");const slides=[...showcase.querySelectorAll(".showcase-slide")];const dots=[...showcase.querySelectorAll(".showcase-dots button")];let current=0;function showShowcase(n){current=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle("active",i===current));dots.forEach((d,i)=>d.classList.toggle("active",i===current));const slide=slides[current];const offset=slide.offsetLeft-(track.parentElement.clientWidth-slide.clientWidth)/2;track.style.transform="translateX("+-offset+"px)";}function restartShowcase(){clearInterval(timer);timer=setInterval(()=>showShowcase(current+1),3500);}showcase.querySelector(".showcase-prev").addEventListener("click",()=>{showShowcase(current-1);restartShowcase();});showcase.querySelector(".showcase-next").addEventListener("click",()=>{showShowcase(current+1);restartShowcase();});dots.forEach((d,i)=>d.addEventListener("click",()=>{showShowcase(i);restartShowcase();}));let timer=setInterval(()=>showShowcase(current+1),3500);window.addEventListener("resize",()=>showShowcase(current));showShowcase(0);}let lang=(()=>{try{return localStorage.getItem('ultraBeautyLanguage')==='en'?'en':'ku'}catch{return'ku'}})();function setLang(next){lang=next;try{localStorage.setItem('ultraBeautyLanguage',lang)}catch{};document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.getElementById('langBtn').setAttribute('aria-label',lang==='en'?'Switch to Kurdish':'Switch to English');}
+document.getElementById('langBtn').addEventListener('click',()=>setLang(lang==='en'?'ku':'en'));setLang(lang);
 const announcementMessages=[
  {en:"FREE DELIVERY ON ORDERS OVER 20,000 IQD",ku:"گەیاندنی بەخۆڕایی بۆ داواکارییەکانی زیاتر لە ٢٠٬٠٠٠ دینار"},
  {en:"SPECIAL REQUEST? CONTACT US ON WHATSAPP",ku:"داواکاری تایبەتت هەیە؟ لە واتساپ پەیوەندیمان پێوە بکە"},
