@@ -2,7 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
-<meta name="build-version" content="2026-10-17-02-design-system">
+<meta name="build-version" content="2026-10-17-03-finish">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
 <title>Ultra Beauty | Beauty & Personal Care</title>
 <style>
@@ -1088,6 +1088,31 @@ a,button{touch-action:manipulation}
 .menu-instagram-mark .ui-icon{width:25px!important;height:25px!important}
 .search-field #clearSearch .ui-icon{width:17px!important;height:17px!important}
 .benefit-icon .ui-icon{width:20px!important;height:20px!important}
+
+
+/* Consistent shop actions and search controls */
+#searchPage .pay-back,.payment-page .pay-back,#favoritesPage .pay-back{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:auto!important;min-width:0!important;min-height:42px!important;margin:0 0 14px!important;
+ padding:10px 14px!important;border:1px solid #eadfe5!important;border-radius:12px!important;
+ background:#fff!important;color:#7c1644!important;font-family:inherit!important;
+ font-size:13px!important;font-weight:750!important;line-height:1.25!important;
+ text-align:center!important;text-indent:0!important;white-space:nowrap!important
+}
+#searchPage .pay-back:hover,.payment-page .pay-back:hover,#favoritesPage .pay-back:hover{background:#fbedf3!important}
+.search-result-card,.favorite-card{border:1px solid #eadfe5!important;border-radius:15px!important;box-shadow:0 5px 18px #3215230a!important}
+.search-result-card img,.favorite-card>img{background:#faf4f7!important}
+.search-result-info strong,.favorite-details strong{font-family:inherit!important;font-size:14px!important;line-height:1.4!important;color:#2b2028!important}
+.search-result-info span,.favorite-details>span{color:#7c1748!important;font-variant-numeric:tabular-nums!important}
+.favorite-add,.favorite-remove{min-height:40px!important;border-radius:11px!important;padding:10px 12px!important;font-family:inherit!important;font-size:12px!important;font-weight:750!important}
+.favorite-add{background:#8f174c!important;color:#fff!important;border:1px solid #8f174c!important}
+.favorite-add:hover{background:#6c1038!important}
+.favorite-remove{background:#fbedf3!important;color:#7c1748!important;border:1px solid #ead1dd!important}
+#searchResults .favorite-add{width:100%!important}
+.product-related-card{border-radius:13px!important;border-color:#eadfe5!important;box-shadow:0 4px 14px #32152308!important}
+.product-related-card span{font-family:inherit!important}
+.product-detail-add{background:#8f174c!important;border-radius:12px!important;box-shadow:none!important}
+.product-detail-add:hover{background:#6c1038!important}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
