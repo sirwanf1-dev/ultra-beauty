@@ -51,29 +51,51 @@ Deno.serve(async (req: Request) => {
   }
   if (rawItems.length < 1 || rawItems.length > 50) return reply(400, { error: "Your basket is empty or contains too many items." });
 
-  // The current storefront has a fixed displayed price of 5,000 IQD per item.
-  // Recalculate every amount on the server; never accept client-supplied prices.
+  // Prices come from the server-side products catalogue, never from browser totals.
   const quantities = new Map<string, number>();
   for (const item of rawItems as any[]) {
     const name = clean(item?.name, 160);
     const qty = Number(item?.quantity);
-    if (name.length < 1 || !Number.isInteger(qty) || qty < 1 || qty > 20) {
+    if (!name || !Number.isInteger(qty) || qty < 1 || qty > 20) {
       return reply(400, { error: "One or more basket items are invalid. Please refresh the shop and try again." });
     }
     quantities.set(name, (quantities.get(name) ?? 0) + qty);
   }
-  const items = [...quantities.entries()].map(([nameEn, quantity]) => ({
-    productId: null,
-    nameEn,
-    nameKu: "",
-    quantity,
-    unitPriceIqd: 5000,
-    lineTotalIqd: 5000 * quantity,
-  }));
-  const subtotal = items.reduce((sum, item) => sum + item.lineTotalIqd, 0);
+
   const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
+  const requestedNames = [...quantities.keys()];
+  const { data: products, error: productsError } = await supabase
+    .from("products")
+    .select("id,name_en,name_ku,price_iqd,sale_price_iqd,in_stock,published")
+    .in("name_en", requestedNames)
+    .eq("published", true);
+  if (productsError) {
+    console.error("Product price lookup failed", productsError.message);
+    return reply(500, { error: "We could not verify current product prices. Please try again later." });
+  }
+  const productByName = new Map((products ?? []).map((p: any) => [p.name_en, p]));
+  const items: any[] = [];
+  for (const [name, quantity] of quantities.entries()) {
+    const product: any = productByName.get(name);
+    if (!product || !product.in_stock) {
+      return reply(400, { error: `“${name}” is not currently available to order. Please contact Ultra Beauty.` });
+    }
+    const unitPriceIqd = Number(product.sale_price_iqd ?? product.price_iqd);
+    if (!Number.isInteger(unitPriceIqd) || unitPriceIqd < 0) {
+      return reply(400, { error: `The price for “${name}” is not configured correctly yet. Please contact Ultra Beauty.` });
+    }
+    items.push({
+      productId: product.id,
+      nameEn: product.name_en,
+      nameKu: product.name_ku,
+      quantity,
+      unitPriceIqd,
+      lineTotalIqd: unitPriceIqd * quantity,
+    });
+  }
+  const subtotal = items.reduce((sum, item) => sum + item.lineTotalIqd, 0);
   const kurdistanCities = new Set(["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"]);
-  const deliveryFee = subtotal >= 20000 ? 0 : (kurdistanCities.has(city) ? 3000 : 5000);
+  const deliveryFee = kurdistanCities.has(city) ? 3000 : 5000;
   const total = subtotal + deliveryFee;
   const { data: order, error: insertError } = await supabase.from("orders").insert({
     customer_name: customerName,
@@ -179,6 +201,10 @@ Deno.serve(async (req: Request) => {
   return reply(201, {
     ok: true,
     orderNumber: order.order_number,
+    subtotalIqd: subtotal,
+    deliveryFeeIqd: deliveryFee,
+    totalIqd: total,
+    items,
     notification: { email: emailStatus, whatsapp: whatsappStatus },
   });
 });
