@@ -18,7 +18,7 @@ If products were entered in the older browser-only dashboard, open `admin.html` 
 ## Supabase setup
 
 1. Run `supabase-setup.sql` in the Supabase SQL Editor.
-2. Set the project publishable/anon key in `supabase-config.js`. The project URL is already configured. Never put a service-role or secret key in this file.
+2. The project's browser-safe publishable key and URL are already configured in `supabase-config.js`. Do not replace them with a service-role or secret key.
 3. Create an admin account in Supabase Authentication → Users.
 4. Add that account's user UUID to `public.admin_users`. See `SUPABASE_SETUP.md`.
 5. Sign in at the published `admin.html` page.
