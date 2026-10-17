@@ -27,4 +27,4 @@ The storefront reads only rows with `published = true`. Product prices are store
 
 ## Orders
 
-`supabase-orders-setup.sql` defines order storage. The `submit-order` Edge Function verifies prices against the shared catalogue. Deploy it separately when order checkout is ready. Keep service-role and provider credentials in Supabase secrets only.
+`supabase-orders-setup.sql` defines order storage and starts clean order references at `UB-1000`. For an existing database, run `supabase-order-reference-migration.sql` to preserve prior references and set the next safe number. The `submit-order` Edge Function verifies published products and prices server-side, then sends email and WhatsApp alerts when the required Supabase secrets are configured. Deploy the updated function only after the SQL is applied. Keep service-role and provider credentials in Supabase secrets only.
