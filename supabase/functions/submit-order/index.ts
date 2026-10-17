@@ -1,0 +1,196 @@
+// Ultra Beauty public order endpoint.
+// Deploy as a Supabase Edge Function. All provider credentials belong in Supabase secrets.
+// Never place SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY or WhatsApp access tokens in browser code.
+
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": Deno.env.get("PUBLIC_SITE_ORIGIN") ?? "https://sirwanf1-dev.github.io",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Content-Type": "application/json",
+};
+
+function reply(status: number, payload: Record<string, unknown>) {
+  return new Response(JSON.stringify(payload), { status, headers: corsHeaders });
+}
+function clean(value: unknown, max: number): string {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+function money(value: number): string {
+  return new Intl.NumberFormat("en-IQ").format(value) + " IQD";
+}
+
+Deno.serve(async (req: Request) => {
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return reply(405, { error: "Method not allowed" });
+
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!supabaseUrl || !serviceKey) return reply(503, { error: "Order service is not configured yet." });
+
+  let body: Record<string, unknown>;
+  try { body = await req.json(); } catch { return reply(400, { error: "Invalid JSON." }); }
+
+  // Simple honeypot for low-effort bot submissions.
+  if (clean(body.website, 200)) return reply(200, { ok: true, orderNumber: "received" });
+
+  const customerName = clean(body.customerName, 120);
+  const customerPhone = clean(body.customerPhone, 40);
+  const city = clean(body.city, 100);
+  const address = clean(body.address, 500);
+  const instructions = clean(body.instructions, 500);
+  const paymentMethod = clean(body.paymentMethod, 40);
+  const rawItems = Array.isArray(body.items) ? body.items : [];
+
+  if (customerName.length < 2 || customerPhone.length < 6 || !city || address.length < 5) {
+    return reply(400, { error: "Please provide your name, phone number, city and full delivery address." });
+  }
+  if (!["cash_on_delivery", "fib_manual"].includes(paymentMethod)) {
+    return reply(400, { error: "Please choose a supported payment method." });
+  }
+  if (rawItems.length < 1 || rawItems.length > 50) return reply(400, { error: "Your basket is empty or contains too many items." });
+
+  // Never trust prices or totals sent by the browser. The server loads published catalogue prices.
+  const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
+  const ids = rawItems.map((x: any) => clean(x?.productId, 80)).filter(Boolean);
+  const nameOnlyItems = rawItems.some((x: any) => !clean(x?.productId, 80));
+  if (nameOnlyItems || ids.length !== rawItems.length) {
+    return reply(400, { error: "The basket contains an item that needs refreshing. Please reload the shop and try again." });
+  }
+  const quantities = new Map<string, number>();
+  for (const item of rawItems as any[]) {
+    const id = clean(item.productId, 80);
+    const qty = Number(item.quantity);
+    if (!Number.isInteger(qty) || qty < 1 || qty > 20) return reply(400, { error: "Each item quantity must be between 1 and 20." });
+    quantities.set(id, (quantities.get(id) ?? 0) + qty);
+  }
+  const uniqueIds = [...quantities.keys()];
+  const { data: products, error: productError } = await supabase
+    .from("products")
+    .select("id,name_en,name_ku,price_iqd,sale_price_iqd,in_stock,published")
+    .in("id", uniqueIds);
+  if (productError || !products || products.length !== uniqueIds.length) {
+    return reply(400, { error: "One or more products are no longer available. Please refresh your basket." });
+  }
+  const items = [];
+  let subtotal = 0;
+  for (const product of products as any[]) {
+    if (!product.published || !product.in_stock) return reply(400, { error: "A product in your basket is unavailable. Please refresh the shop." });
+    const quantity = quantities.get(product.id) ?? 0;
+    const unitPrice = product.sale_price_iqd ?? product.price_iqd;
+    subtotal += unitPrice * quantity;
+    items.push({ productId: product.id, nameEn: product.name_en, nameKu: product.name_ku, quantity, unitPriceIqd: unitPrice, lineTotalIqd: unitPrice * quantity });
+  }
+  // Delivery fees match the storefront policy currently documented for this shop.
+  const kurdistanCities = new Set(["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"]);
+  const deliveryFee = subtotal >= 20000 ? 0 : (kurdistanCities.has(city) ? 3000 : 5000);
+  const total = subtotal + deliveryFee;
+
+  const { data: order, error: insertError } = await supabase.from("orders").insert({
+    customer_name: customerName,
+    customer_phone: customerPhone,
+    city,
+    delivery_address: address,
+    delivery_instructions: instructions,
+    payment_method: paymentMethod,
+    items,
+    subtotal_iqd: subtotal,
+    delivery_fee_iqd: deliveryFee,
+    total_iqd: total,
+  }).select("id,order_number,created_at").single();
+
+  if (insertError || !order) {
+    console.error("Order insert failed", insertError?.message);
+    return reply(500, { error: "We could not save your order. Please try again or contact us on WhatsApp." });
+  }
+
+  const itemLines = items.map((x: any) => `• ${x.nameEn} × ${x.quantity} — ${money(x.lineTotalIqd)}`).join("\n");
+  const paymentLabel = paymentMethod === "cash_on_delivery" ? "Cash on delivery" : "FIB manual transfer";
+  const emailText = [
+    `New Ultra Beauty order: ${order.order_number}`,
+    `Customer: ${customerName}`,
+    `Phone: ${customerPhone}`,
+    `City: ${city}`,
+    `Address: ${address}`,
+    instructions ? `Delivery instructions: ${instructions}` : "",
+    `Payment: ${paymentLabel}`,
+    "",
+    "Items:",
+    itemLines,
+    "",
+    `Subtotal: ${money(subtotal)}`,
+    `Delivery: ${deliveryFee === 0 ? "Free" : money(deliveryFee)}`,
+    `Total: ${money(total)}`,
+    `Status: New`,
+  ].filter(Boolean).join("\n");
+
+  let emailStatus = "not_configured";
+  const resendKey = Deno.env.get("RESEND_API_KEY");
+  const notifyEmail = Deno.env.get("ORDER_NOTIFICATION_EMAIL") ?? "sirwanf1@gmail.com";
+  if (resendKey) {
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: Deno.env.get("RESEND_FROM_EMAIL") ?? "Ultra Beauty Orders <onboarding@resend.dev>",
+          to: [notifyEmail],
+          subject: `New Ultra Beauty order ${order.order_number} — ${money(total)}`,
+          text: emailText,
+        }),
+      });
+      emailStatus = response.ok ? "sent" : "failed";
+      if (!response.ok) console.error("Email provider failed", response.status, (await response.text()).slice(0, 300));
+    } catch (error) {
+      emailStatus = "failed";
+      console.error("Email provider error", String(error));
+    }
+  }
+
+  let whatsappStatus = "not_configured";
+  const waToken = Deno.env.get("WHATSAPP_ACCESS_TOKEN");
+  const waPhoneNumberId = Deno.env.get("WHATSAPP_PHONE_NUMBER_ID");
+  const waTemplate = Deno.env.get("WHATSAPP_ORDER_TEMPLATE_NAME");
+  const waLanguage = Deno.env.get("WHATSAPP_TEMPLATE_LANGUAGE") ?? "en";
+  const waRecipient = Deno.env.get("ORDER_NOTIFICATION_WHATSAPP") ?? "964706943110";
+  if (waToken && waPhoneNumberId && waTemplate) {
+    try {
+      const response = await fetch(`https://graph.facebook.com/v21.0/${waPhoneNumberId}/messages`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${waToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messaging_product: "whatsapp",
+          to: waRecipient,
+          type: "template",
+          template: {
+            name: waTemplate,
+            language: { code: waLanguage },
+            components: [{ type: "body", parameters: [
+              { type: "text", text: order.order_number },
+              { type: "text", text: customerName },
+              { type: "text", text: money(total) },
+            ] }],
+          },
+        }),
+      });
+      whatsappStatus = response.ok ? "sent" : "failed";
+      if (!response.ok) console.error("WhatsApp provider failed", response.status, (await response.text()).slice(0, 300));
+    } catch (error) {
+      whatsappStatus = "failed";
+      console.error("WhatsApp provider error", String(error));
+    }
+  }
+
+  await supabase.from("orders").update({
+    notification_email_status: emailStatus,
+    notification_whatsapp_status: whatsappStatus,
+  }).eq("id", order.id);
+
+  // Do not report the order as failed if it was saved but a notification provider failed.
+  return reply(201, {
+    ok: true,
+    orderNumber: order.order_number,
+    notification: { email: emailStatus, whatsapp: whatsappStatus },
+  });
+});
