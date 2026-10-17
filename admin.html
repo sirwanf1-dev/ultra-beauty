@@ -145,6 +145,56 @@ button{cursor:pointer}
  .product-actions .btn{min-height:34px;padding:7px 9px}
  .workspace{padding:12px}
 }
+
+/* Shared Ultra Beauty typography and controls */
+:root{--ink:#251c24;--muted:#746b73;--berry:#8f174c;--berry-dark:#6c1038;--line:#eadfe5;--paper:#faf7f9;--white:#fff;--green:#287650;--red:#a33a4b}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif!important;background:#faf7f9!important;color:var(--ink)!important}
+button,input,select,textarea{font-family:inherit}
+.brand{direction:ltr!important;text-align:left!important;color:#28151f!important;font-family:Georgia,"Times New Roman",serif!important;font-size:25px!important;letter-spacing:-.7px!important}
+.brand span{color:var(--berry)!important}
+.top{min-height:72px!important;padding:10px clamp(14px,3vw,30px)!important}
+.actions{gap:8px!important}
+.btn{min-height:42px!important;border-radius:12px!important;font-family:inherit!important;font-size:13px!important;line-height:1.2!important;gap:8px!important}
+.btn.primary,.btn.dark{background:var(--berry)!important;border-color:var(--berry)!important}
+.btn.primary:hover,.btn.dark:hover{background:var(--berry-dark)!important}
+.btn.soft{background:#fbedf3!important;color:var(--berry)!important;border-color:#f0d7e2!important}
+.btn:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #bc628766!important;outline-offset:2px}
+.ui-icon{width:18px;height:18px;flex:0 0 18px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.btn .ui-icon{width:17px;height:17px;flex-basis:17px}
+.icon-btn{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;font-size:0}
+.icon-btn .ui-icon{width:19px;height:19px}
+.wrap{padding-top:20px}
+.notice{border-radius:14px;background:linear-gradient(110deg,#fff3f7,#fff8f4)}
+.welcome-hero{border-radius:22px}
+.workspace,.panel{border-radius:18px!important}
+.workspace-head h2,.drawer-head h2,.auth-panel h2{font-family:Georgia,"Times New Roman",serif!important;font-weight:500!important;letter-spacing:-.3px!important}
+.workspace-head .actions{justify-content:flex-end}
+.tools{border-radius:14px}
+.search-box{position:relative}
+.search-box:before{content:none!important}
+.search-box input{font-family:inherit!important;padding-left:42px!important;border-radius:10px!important}
+.search-icon{position:absolute;z-index:1;left:13px;top:50%;transform:translateY(-50%);width:19px;height:19px;color:#8f174c;pointer-events:none}
+.search-icon .ui-icon{width:19px;height:19px}
+.product-card{border-radius:16px!important}
+.product-visual{border-radius:13px!important;background:linear-gradient(145deg,#f9e8ef,#f0eaf7 54%,#fff1eb)!important}
+.product-placeholder-icon{width:28px;height:28px;color:#a8446c}
+.product-title{font-family:inherit!important}
+.product-actions{gap:8px}
+.product-actions .btn{min-height:38px!important;border-radius:10px!important}
+.field label{font-family:inherit!important}
+.field input,.field select,.field textarea{font-family:inherit!important;border-radius:10px!important}
+.drawer-overlay{background:#2417204a}
+.drawer-head,.drawer-foot{background:#fff}
+.drawer-foot .btn{min-height:44px!important}
+.tag{border-radius:999px!important}
+@media(max-width:760px){
+ .top{min-height:64px!important;padding:9px 12px!important}
+ .brand{font-size:23px!important}
+ .workspace-head .actions{width:100%;justify-content:flex-start}
+ .workspace-head .actions .btn{flex:1 1 auto}
+ .product-actions .btn{min-height:38px!important;padding:8px 10px!important}
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
@@ -152,7 +202,7 @@ button{cursor:pointer}
 <body>
 <header class="top">
   <div><div class="brand">ultra <span>beauty</span></div><small id="authStatus">Product manager · IQD</small></div>
-  <div class="actions"><button class="btn soft" id="logoutBtn" type="button" hidden>Sign out</button><a class="btn" href="./index.html">View shop ↗</a></div>
+  <div class="actions"><button class="btn soft" id="logoutBtn" type="button" hidden>Sign out</button><a class="btn" href="./index.html"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="m20 4-9 9"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></svg>View shop</a></div>
 </header>
 <main class="wrap">
   <div class="notice"><strong>Shared catalogue</strong> Products you save here are shared with the storefront. Published products appear on the shop; drafts stay hidden until you publish them.</div>
@@ -168,12 +218,12 @@ button{cursor:pointer}
   <div id="managerApp" hidden>
     <section class="welcome-hero">
       <div class="hero-copy"><p class="hero-kicker">Your shop, beautifully organised</p><h1>Make room for<br>something beautiful.</h1><p>Manage your products, prices and availability in one simple place. Your catalogue updates the shop when you save.</p>
-        <div class="hero-bottom"><button class="btn primary" id="addProductBtn" type="button">＋ Add a product</button><span class="hero-count"><strong id="totalCount">0</strong> products in your catalogue</span></div>
+        <div class="hero-bottom"><button class="btn primary" id="addProductBtn" type="button"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a product</button><span class="hero-count"><strong id="totalCount">0</strong> products in your catalogue</span></div>
       </div>
     </section>
     <section class="workspace">
       <div class="workspace-head"><div><p class="eyebrow">The collection</p><h2>Product catalogue</h2><div class="muted">Search, review and update the products in your shop.</div></div>
-        <div class="actions"><button class="btn" id="migrateLocalBtn" type="button" hidden>Import saved browser products</button><button class="btn" id="exportBtn" type="button">↓ Export backup</button><label class="btn" for="importFile">↑ Import backup</label><input id="importFile" type="file" accept="application/json" hidden></div>
+        <div class="actions"><button class="btn" id="migrateLocalBtn" type="button" hidden>Import saved browser products</button><button class="btn" id="exportBtn" type="button"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Export backup</button><label class="btn" for="importFile"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>Import backup</label><input id="importFile" type="file" accept="application/json" hidden></div>
       </div>
       <div class="stats" aria-label="Catalogue summary">
         <div class="stat"><strong id="saleCount">0</strong><span>on sale</span></div>
@@ -181,10 +231,10 @@ button{cursor:pointer}
         <div class="stat"><strong id="publishedCount">0</strong><span>published</span></div>
       </div>
       <div class="tools">
-        <div class="search-box"><input id="search" type="search" placeholder="Search by product name..." aria-label="Search products"></div>
+        <div class="search-box"><span class="search-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><input id="search" type="search" placeholder="Search by product name..." aria-label="Search products"></div>
         <select id="filterCategory" aria-label="Filter by category"><option value="">All categories</option><option>Skincare</option><option>Beauty & Makeup</option><option>Haircare</option><option>Personal Care</option><option>Perfumes</option><option>Women</option><option>Men</option><option>Other</option></select>
       </div>
-      <div class="list" id="productList"><div class="empty"><div class="empty-icon">✦</div><h3>Your catalogue is ready</h3><p>Add a product with its real price and details. Published products will appear on your storefront.</p><button class="btn primary" type="button" data-add-product>＋ Add your first product</button></div></div>
+      <div class="list" id="productList"><div class="empty"><div class="empty-icon">✦</div><h3>Your catalogue is ready</h3><p>Add a product with its real price and details. Published products will appear on your storefront.</p><button class="btn primary" type="button" data-add-product><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add your first product</button></div></div>
       <div class="foot">Use the published setting to show a product on the shop. Drafts remain hidden. Sale prices must be lower than regular prices.</div>
     </section>
   </div>
@@ -192,7 +242,7 @@ button{cursor:pointer}
 <div class="drawer-overlay" id="editorOverlay" hidden>
   <div class="drawer-backdrop" data-close-editor aria-hidden="true"></div>
   <aside class="editor-drawer" id="productEditor" role="dialog" aria-modal="true" aria-labelledby="formTitle">
-    <div class="drawer-head"><div><h2 id="formTitle">Add a product</h2><p>Fill in the details you want customers to see.</p></div><button class="icon-btn" id="closeEditorBtn" type="button" aria-label="Close product editor">×</button></div>
+    <div class="drawer-head"><div><h2 id="formTitle">Add a product</h2><p>Fill in the details you want customers to see.</p></div><button class="icon-btn" id="closeEditorBtn" type="button" aria-label="Close product editor"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
     <form id="productForm" style="display:flex;flex-direction:column;min-height:0;flex:1">
       <input id="productId" type="hidden">
       <div class="drawer-scroll">
@@ -241,7 +291,7 @@ function render(){
  }
  list.innerHTML=filtered.map(p=>{
   const validSale=p.salePrice!=null&&Number(p.salePrice)>0&&Number(p.salePrice)<Number(p.price);
-  const image=p.imageUrl?'<img src="'+safeText(p.imageUrl)+'" alt="" loading="lazy" onerror="this.remove()">':'<span aria-hidden="true">✦</span>';
+  const image=p.imageUrl?'<img src="'+safeText(p.imageUrl)+'" alt="" loading="lazy" onerror="this.remove()">':'<svg class="ui-icon product-placeholder-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg>';
   return '<article class="product-card"><div class="product-visual">'+image+'</div><div class="product-main"><p class="product-eyebrow">'+safeText(p.category)+'</p><h3 class="product-title">'+safeText(p.nameEn)+'</h3><p class="product-sorani" dir="rtl">'+safeText(p.nameKu)+'</p><div class="product-bottom"><div class="prices">'+(validSale?'<span class="sale">'+money(p.salePrice)+'</span> <del>'+money(p.price)+'</del>':'<span>'+money(p.price)+'</span>')+'</div><span class="tag '+(p.stock==='out-of-stock'?'out':'')+'">'+(p.stock==='out-of-stock'?'Out of stock':'In stock')+'</span><span class="tag '+(p.published?'':'draft')+'">'+(p.published?'Published':'Draft')+'</span></div></div><div class="product-actions"><button class="btn soft" type="button" data-edit="'+safeText(p.id)+'">Edit</button><button class="btn danger" type="button" data-delete="'+safeText(p.id)+'">Delete</button></div></article>'
  }).join('')
 }
