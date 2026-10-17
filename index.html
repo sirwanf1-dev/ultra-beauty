@@ -1224,6 +1224,22 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 #guestOrderForm .delivery-box,#guestOrderForm .customer-details-box,#guestOrderForm .guest-delivery-box{margin:0 0 18px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 #guestOrderForm .pay-back{padding:4px 0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 #guestOrderForm #customerAddress{min-height:68px!important}
+/* Checkout item removal and confirmation */
+.guest-order-item{gap:10px}
+.guest-order-remove{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;padding:0;border:1px solid #f0ccd8;border-radius:11px;background:#fff4f7;color:#a8325c;cursor:pointer;transition:background .16s ease,border-color .16s ease,transform .16s ease}
+.guest-order-remove:hover{background:#ffe6ef;border-color:#dc8ea9;transform:translateY(-1px)}
+.guest-order-remove:focus-visible,.guest-item-remove-dialog button:focus-visible{outline:3px solid #c92f6140;outline-offset:2px}
+.guest-order-remove svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.guest-order-empty{padding:16px;border:1px dashed #e8cad5;border-radius:12px;background:#fff8fa;color:#76636c;text-align:center;font-size:14px;line-height:1.6}
+.guest-item-remove-dialog{width:min(420px,calc(100vw - 32px));padding:22px;border:1px solid #f0ccd8;border-radius:18px;background:#fff;color:#23151d;box-shadow:0 20px 60px #36142430;text-align:right}
+.guest-item-remove-dialog::backdrop{background:#24121c70;backdrop-filter:blur(2px)}
+.guest-item-remove-dialog h2{margin:0 0 10px;color:#23151d;font-size:19px}
+.guest-item-remove-dialog p{margin:0;color:#71636a;font-size:15px;line-height:1.7}
+.guest-item-remove-actions{display:flex;gap:10px;margin-top:20px}
+.guest-item-remove-actions button{flex:1;min-height:46px;border-radius:11px;font:inherit;font-weight:750;cursor:pointer}
+.guest-item-remove-yes{border:0;background:#a8325c;color:#fff}
+.guest-item-remove-no{border:1px solid #ead8df;background:#fff;color:#51434a}
+@media(max-width:390px){.guest-order-item{gap:7px}.guest-order-item img{width:48px;height:48px}.guest-order-item-price{font-size:12px}.guest-order-remove{flex-basis:36px;width:36px;height:36px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
@@ -1295,6 +1311,14 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
  <h1 data-en="Complete your website order" data-ku="داواکارییەکەت لێرە تۆمار بکە">Complete your website order</h1>
 
  <div id="guestOrderItems" class="guest-order-items"></div>
+ <dialog id="guestItemRemoveDialog" class="guest-item-remove-dialog" aria-labelledby="guestItemRemoveTitle" aria-describedby="guestItemRemoveMessage" dir="rtl">
+  <h2 id="guestItemRemoveTitle" data-en="Remove this item?" data-ku="سڕینەوەی بەرهەم؟">Remove this item?</h2>
+  <p id="guestItemRemoveMessage" data-en="Are you sure you want to remove this product?" data-ku="دڵنیایت دیته‌وێت ئه‌م به‌رهه‌مه‌ بسڕیته‌وه‌؟">Are you sure you want to remove this product?</p>
+  <div class="guest-item-remove-actions">
+   <button id="confirmGuestItemRemoval" class="guest-item-remove-yes" type="button" data-en="Yes" data-ku="به‌ڵێ">Yes</button>
+   <button id="cancelGuestItemRemoval" class="guest-item-remove-no" type="button" data-en="No" data-ku="نه‌خێر">No</button>
+  </div>
+ </dialog>
  <div class="delivery-box customer-details-box">
   <h2><svg class="checkout-heading-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c.8-3.5 3.3-5.4 7-5.4s6.2 1.9 7 5.4"/></svg><span data-en="Your details" data-ku="وردەکارییەکانت">Your details</span></h2>
   <label for="customerName" data-en="Name" data-ku="ناو">Name</label>
@@ -1360,8 +1384,29 @@ function renderCart(){document.getElementById("cartCount").textContent=cart.redu
 function updateOrderWhatsApp(){const city=document.getElementById("deliveryCity")?.value||"Erbil";const fee=selectedDeliveryFee();const total=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0)+fee;const msg="Hello Ultra Beauty, I would like to place an order.\n"+cart.map(x=>x.name+" × "+x.qty).join("\n")+"\nDelivery city: "+city+"\nDelivery fee: "+fee+" IQD\nTotal: "+total+" IQD\nPlease confirm the order and payment details.";/* Order details are no longer sent through WhatsApp checkout. */}
 function buildOrderMessage(){const city=document.getElementById("deliveryCity")?.selectedOptions[0]?.textContent||document.getElementById("deliveryCity")?.value||"Erbil";const name=document.getElementById("customerName")?.value.trim()||"Not provided";const phone=document.getElementById("customerPhone")?.value.trim()||"Not provided";const fee=selectedDeliveryFee();const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0);const total=subtotal+fee;const items=cart.map(x=>"Item name: "+x.name+" × "+x.qty+"\nItem size: Not specified").join("\n\n");return "Order:\nCustomer name: "+name+"\nPhone number: "+phone+"\n\n"+items+"\n\nCity: "+city+"\nPrice: "+subtotal.toLocaleString("en-US")+" IQD\nTotal with delivery: "+total.toLocaleString("en-US")+" IQD";}
 function makeSummaryRow(label,value){const row=document.createElement("div");row.className="summary-row";const a=document.createElement("span");a.textContent=label;const b=document.createElement("strong");b.textContent=value;row.append(a,b);return row;}
+let pendingGuestRemoveName="",pendingGuestRemoveIndex=-1,guestRemoveTrigger=null;
+function openGuestRemoveDialog(name,trigger){
+ const dialog=document.getElementById("guestItemRemoveDialog");if(!dialog)return;
+ pendingGuestRemoveName=name;pendingGuestRemoveIndex=cart.findIndex(item=>item.name===name);guestRemoveTrigger=trigger;
+ dialog.showModal();document.getElementById("cancelGuestItemRemoval").focus();
+}
+const guestItemRemoveDialog=document.getElementById("guestItemRemoveDialog");
+document.getElementById("cancelGuestItemRemoval").addEventListener("click",()=>guestItemRemoveDialog.close("cancel"));
+document.getElementById("confirmGuestItemRemoval").addEventListener("click",()=>{
+ const index=cart.findIndex(item=>item.name===pendingGuestRemoveName);
+ if(index>=0){cart.splice(index,1);persistCart();renderCart();renderProductControls();renderGuestOrder();}
+ guestItemRemoveDialog.close("removed");
+});
+guestItemRemoveDialog.addEventListener("close",()=>{
+ if(guestItemRemoveDialog.returnValue==="removed"){
+  const buttons=document.querySelectorAll("#guestOrderItems .guest-order-remove"),target=buttons[Math.min(Math.max(pendingGuestRemoveIndex,0),buttons.length-1)]||document.getElementById("backToGuestCart");
+  target.focus();
+ }else if(guestRemoveTrigger?.isConnected)guestRemoveTrigger.focus();
+ pendingGuestRemoveName="";pendingGuestRemoveIndex=-1;guestRemoveTrigger=null;
+});
 function renderGuestOrder(){
  const list=document.getElementById("guestOrderItems");list.innerHTML="";
+ if(!cart.length){const empty=document.createElement("p");empty.className="guest-order-empty";empty.textContent=lang==="ku"?"هیچ بەرهەمێک لە لیستەکەدا نییە. بۆ زیادکردنی بەرهەم بگەڕێوە بۆ فرۆشگا.":"No items in your order. Go back to the shop to add products.";list.append(empty);}
  cart.forEach(item=>{
   const row=document.createElement("div");row.className="guest-order-item";
   const img=document.createElement("img");img.src=productImageByName(item.name);img.alt=item.name;
@@ -1370,8 +1415,12 @@ function renderGuestOrder(){
   const qty=document.createElement("small");qty.textContent=(lang==="ku"?"ژمارە: ":"Quantity: ")+item.qty;
   info.append(name,qty);
   const price=document.createElement("div");price.className="guest-order-item-price";price.textContent=(unitPrice(item.name)*item.qty).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
-  row.append(img,info,price);list.append(row);
+  const remove=document.createElement("button");remove.type="button";remove.className="guest-order-remove";remove.setAttribute("aria-label",lang==="ku"?"سڕینەوەی ئەم بەرهەمە":"Remove this product");remove.title=lang==="ku"?"سڕینەوە":"Remove";
+  remove.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m3 4v6m6-6v6"/></svg>';
+  remove.addEventListener("click",()=>openGuestRemoveDialog(item.name,remove));
+  row.append(img,info,price,remove);list.append(row);
  });
+ const submit=document.getElementById("createOrderSummary");if(submit)submit.disabled=!cart.length;
  updateGuestDelivery();
 }
 function updateGuestDelivery(){
