@@ -12,8 +12,8 @@ The public storefront is static GitHub Pages and submits orders to the Supabase 
 
 1. The storefront submits the customer's name, phone, city, address, payment choice and product IDs/quantities to the `submit-order` Supabase Edge Function.
 2. The function validates stable product IDs against published products, re-reads server prices (never trusts browser totals), saves the order and generates a unique reference such as `UB-1000`.
-3. The function sends a full order summary by email through Resend.
-4. It sends a WhatsApp Business template message through Meta's WhatsApp Cloud API with customer name, mobile number, full delivery address and order reference.
+3. The function sends a full order summary by email through Resend when email credentials are configured.
+4. If WhatsApp is configured, it also sends a WhatsApp Business template message through Meta's WhatsApp Cloud API with customer name, mobile number, full delivery address and order reference. WhatsApp is optional; missing WhatsApp credentials do not block order submission or email.
 5. The admin dashboard will need a protected authenticated orders view; public users must never be able to read orders.
 
 ## Required authorizations — do not send credentials in chat
@@ -24,7 +24,7 @@ The public storefront is static GitHub Pages and submits orders to the Supabase 
 - Run `supabase-setup.sql` and then `supabase-orders-setup.sql` in its SQL Editor.
 - On an existing setup, run `supabase-order-reference-migration.sql` before deploying the current Edge Function. It preserves previous order references and safely advances the sequence; a clean database starts at `UB-1000`.
 - Keep the project URL and publishable/anon key for the frontend connection.
-- The server-side service-role key must be added only as a Supabase Edge Function secret. Never commit it or paste it into chat.
+- Supabase provides the project URL and server-side key to Edge Functions automatically. Never put them in the website or GitHub.
 
 ### 2. Email with Resend
 
@@ -36,7 +36,9 @@ The public storefront is static GitHub Pages and submits orders to the Supabase 
   - `RESEND_FROM_EMAIL` (optional for the test sender; use a verified sender for production)
   - `ORDER_NOTIFICATION_EMAIL=sirwanf1@gmail.com`
 
-### 3. WhatsApp Business via Meta Cloud API
+### 3. Optional: WhatsApp Business via Meta Cloud API
+
+Skip this section if you want email notifications only. Orders will still be saved and email notifications will still be sent when Resend is configured.
 
 - Create/authorize a Meta business app with WhatsApp Cloud API at https://developers.facebook.com/apps/.
 - The business number that sends messages must be registered with the API; it may not be the same number used as the notification recipient.
@@ -51,21 +53,28 @@ The public storefront is static GitHub Pages and submits orders to the Supabase 
 
 ### 4. Supabase Edge Function secrets and deployment
 
-The owner notification destinations are `sirwanf1@gmail.com` and WhatsApp `+9647706943110`. Set provider credentials as server-side Supabase secrets using the dashboard secrets UI or Supabase CLI; never put them in GitHub:
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `PUBLIC_SITE_ORIGIN=https://sirwanf1-dev.github.io`
+Open the project's Edge Function Secrets page and add provider settings there. Do not put credentials in GitHub or browser code.
+
+For email-only setup, add:
+- `RESEND_API_KEY`
 - `ORDER_NOTIFICATION_EMAIL=sirwanf1@gmail.com`
+- `RESEND_FROM_EMAIL` only when you have a verified sending domain; leave it unset to use Resend's test sender for testing.
+
+To add WhatsApp later, also add:
 - `ORDER_NOTIFICATION_WHATSAPP=9647706943110`
-- `RESEND_API_KEY`, `RESEND_FROM_EMAIL`
-- `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_ORDER_TEMPLATE_NAME`, `WHATSAPP_TEMPLATE_LANGUAGE`
+- `WHATSAPP_ACCESS_TOKEN`
+- `WHATSAPP_PHONE_NUMBER_ID`
+- `WHATSAPP_ORDER_TEMPLATE_NAME`
+- `WHATSAPP_TEMPLATE_LANGUAGE`
+
+Supabase provides its own project URL and server key to Edge Functions automatically; they do not need to be entered here.
 
 Deploy `supabase/functions/submit-order/index.ts` as the Edge Function named `submit-order`. Use Supabase's official CLI and keep secrets in Supabase, not GitHub. If the function is public, enable rate limiting/abuse protection before taking real orders.
 
 ## Important remaining integration work
 
 - The storefront now sends product IDs with the basket so orders stay linked to the current catalogue even if product names change. Deploy the updated function together with the website before accepting orders.
-- The product manager does not currently include an orders list. Use the order reference in the email and WhatsApp alerts to identify an order; the protected `orders` table remains the source of order status.
+- The product manager does not currently include an orders list. Use the order reference in the email (and WhatsApp, if enabled) to identify an order; the protected `orders` table remains the source of order status.
 - Delivery uses the storefront policy: free when the product subtotal is over 20,000 IQD; otherwise 3,000 IQD in listed Kurdistan cities and 5,000 IQD elsewhere.
 - Add a real rate-limit / anti-spam layer and test failed notification delivery and duplicate submissions.
-- Only advertise ordering as live after a controlled test order verifies the saved reference and both notification channels. Do not use a real customer order for this check.
+- Only advertise ordering as live after a controlled test order verifies the saved reference and each notification channel you enabled. Do not use a real customer order for this check.
