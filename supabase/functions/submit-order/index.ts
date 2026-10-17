@@ -216,9 +216,10 @@ Deno.serve(async (req: Request) => {
             name: waTemplate,
             language: { code: waLanguage },
             components: [{ type: "body", parameters: [
-              { type: "text", text: order.order_number },
               { type: "text", text: customerName },
-              { type: "text", text: money(total) },
+              { type: "text", text: customerPhone },
+              { type: "text", text: `${address}, ${city}` },
+              { type: "text", text: order.order_number },
             ] }],
           },
         }),
