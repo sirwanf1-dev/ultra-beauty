@@ -2,7 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
-<meta name="build-version" content="2026-10-17-03-finish">
+<meta name="build-version" content="2026-10-17-04-finish">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
 <title>Ultra Beauty | Beauty & Personal Care</title>
 <style>
@@ -1113,6 +1113,11 @@ a,button{touch-action:manipulation}
 .product-related-card span{font-family:inherit!important}
 .product-detail-add{background:#8f174c!important;border-radius:12px!important;box-shadow:none!important}
 .product-detail-add:hover{background:#6c1038!important}
+
+
+/* Keep a single search result or favourite balanced in the available space */
+.search-results:has(.search-result-card:only-child),.favorite-grid:has(.favorite-card:only-child){grid-template-columns:minmax(0,1fr)!important;justify-content:center!important}
+.search-results:has(.search-result-card:only-child)>.search-result-card,.favorite-grid:has(.favorite-card:only-child)>.favorite-card{width:100%!important;max-width:430px!important;margin-inline:auto!important}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
