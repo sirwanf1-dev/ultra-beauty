@@ -2,11 +2,11 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
-<meta name="build-version" content="2026-10-17-10-clear-checkout">
+<meta name="build-version" content="2026-10-17-11-simple-checkout">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <title>Ultra Beauty | Beauty & Personal Care</title>
 <style>
 :root{--gold:#e8a0bc;--gold-dark:#8f174c;--ink:#23151d;--muted:#7c7078;--line:#eadde4;--paper:#f4f4f8;--soft:#fff1f6;--brand:#8f174c;--brand-soft:#f8e7ef}
@@ -1184,6 +1184,41 @@ html[lang="ckb"] #guestOrderForm #customerPhone{direction:ltr;text-align:left;fo
 #orderConfirmationTitle{display:flex;align-items:center;gap:10px}
 .confirmation-icon{width:34px;height:34px;flex:none;padding:8px;border-radius:50%;background:#e8f8ef;color:#168653;stroke:currentColor;stroke-width:2;fill:none}
 @media(max-width:560px){.order-contact-note{padding:12px 13px}.summary-contact-actions .pay-link{gap:9px}}
+
+/* Simple checkout: one clear form, one calm palette */
+body{font-family:Inter,Arial,sans-serif}
+html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-brand):not(.summary-brand){font-family:"Noto Sans Arabic",Tahoma,Arial,sans-serif!important}
+#paymentPage[hidden],#guestOrderForm[hidden]{display:none!important}
+#guestOrderForm{width:calc(100% - 24px);max-width:640px!important;margin:18px auto 96px!important;padding:clamp(18px,4vw,28px)!important;border:1px solid #eee3e7!important;border-radius:20px!important;background:#fff!important;box-shadow:0 10px 28px rgba(55,30,39,.07)!important}
+#guestOrderForm h1{margin:10px 0 18px!important;color:#30252a!important;font-size:clamp(22px,4.5vw,27px)!important;font-weight:700;line-height:1.45}
+#guestOrderForm .pay-back{display:inline-flex;align-items:center;min-height:38px;margin:0 0 10px;padding:6px 0;border:0;background:transparent;color:#8f174c;font-size:14px;font-weight:650}
+#guestOrderForm .checkout-step,#guestOrderForm .guest-order-instruction{display:none!important}
+#guestOrderForm .guest-order-items{margin:0 0 18px;padding:0 0 14px;border-bottom:1px solid #eee7ea}
+#guestOrderForm .guest-order-item{gap:12px;padding:8px 0;border:0}
+#guestOrderForm .guest-order-item img{width:56px;height:56px;border:1px solid #eee5e8;border-radius:10px;object-fit:cover}
+#guestOrderForm .guest-order-item-info strong{color:#30252a;font-size:14px;font-weight:650}
+#guestOrderForm .guest-order-item-info small{color:#786c71;font-size:12px}
+#guestOrderForm .guest-order-item-price{color:#a8325c;font-size:14px;font-weight:700}
+#guestOrderForm .delivery-box{margin:0 0 18px;padding:0;border:0;border-radius:0;background:transparent}
+#guestOrderForm .delivery-box h2{margin:0 0 10px;color:#352a2f;font-size:17px;font-weight:700}
+#guestOrderForm .checkout-heading-icon{width:32px;height:32px;padding:7px;border-radius:10px;background:#faeef2;color:#a8325c}
+#guestOrderForm .delivery-box label{margin:12px 0 6px;color:#62575c;font-size:13px;font-weight:650}
+#guestOrderForm .delivery-box input,#guestOrderForm .delivery-box textarea,#guestOrderForm .delivery-box select{min-height:47px;padding:11px 12px;border:1px solid #ded4d8;border-radius:10px;background:#fff;color:#30252a;font-size:15px}
+#guestOrderForm .delivery-box textarea{min-height:82px}
+#guestOrderForm .delivery-box input:focus,#guestOrderForm .delivery-box textarea:focus,#guestOrderForm .delivery-box select:focus{outline:3px solid rgba(168,50,92,.12);border-color:#a8325c}
+#guestOrderForm .field-hint{margin:4px 2px 0;color:#796d72;font-size:12px;line-height:1.6}
+#guestOrderForm .fib-payment-help{margin:12px 0;padding:12px 14px;border:1px solid #e5ebe7;border-radius:12px;background:#f7faf8;color:#4e5c54;line-height:1.7}
+#guestOrderForm .fib-payment-help strong{color:#236447;font-size:14px}
+#guestOrderForm .fib-payment-help p{font-size:13px}
+#guestOrderForm .delivery-summary{margin-top:10px;padding:10px 0;border-top:1px solid #eee7ea;color:#6f6368}
+#guestOrderForm .delivery-summary strong{color:#a8325c;font-size:14px}
+#guestOrderForm .order-total{margin:12px 0;padding:14px 15px;border:0;border-radius:12px;background:#f8f1f4;color:#382c31;font-size:15px}
+#guestOrderForm .order-total strong{color:#a8325c;font-size:19px}
+#guestOrderForm .checkout-submit-button{min-height:50px;margin-top:12px;border-radius:11px;background:#a8325c!important;box-shadow:none!important;font-size:16px;font-weight:700}
+#guestOrderForm .checkout-submit-button:hover{background:#8f174c!important;transform:none;box-shadow:none}
+#guestOrderForm .checkout-submit-button:disabled{opacity:.55}
+@media(max-width:560px){#guestOrderForm{width:calc(100% - 16px);margin:10px auto 92px!important;padding:16px!important;border-radius:16px!important}#guestOrderForm h1{font-size:22px!important}.guest-order-item img{width:52px;height:52px}}
+@media(prefers-reduced-motion:reduce){#guestOrderForm .checkout-submit-button{transition:none}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
@@ -1245,32 +1280,15 @@ html[lang="ckb"] #guestOrderForm #customerPhone{direction:ltr;text-align:left;fo
 <nav class="mobile-bottom-nav" aria-label="Quick navigation"><button type="button" data-goto="homeMain"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><small data-en="Home" data-ku="سەرەتا">سەرەتا</small></button><button type="button" data-goto="trending"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><small data-en="Shop" data-ku="کڕین">کڕین</small></button><button type="button" id="bottomCart"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span><small data-en="Bag" data-ku="سەبەتە">سەبەتە</small><i id="bottomCartCount">0</i></button><button type="button" id="bottomSearch"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><small data-en="Search" data-ku="گەڕان">گەڕان</small></button></nav>
 <section class="payment-page" id="favoritesPage"><button class="pay-back" id="backFromFavorites" data-en="← Continue shopping" data-ku="← بەردەوام بە لە کڕین">← Continue shopping</button><h1 data-en="Your favourites" data-ku="دڵخوازەکانت">Your favourites</h1><div id="favoriteItems" class="favorite-grid"></div></section>
 <section class="search-page" id="searchPage"><button class="pay-back" id="closeSearch" data-en="← Close search" data-ku="← داخستن">← Close search</button><h1 data-en="Search products" data-ku="گەڕان بۆ بەرهەم">Search products</h1><label class="search-field"><span class="ui-icon-wrap" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><input id="productSearchInput" type="search" placeholder="Search products..." autocomplete="off" data-placeholder-en="Search products..." data-placeholder-ku="گەڕان بۆ بەرهەم..." /><button id="clearSearch" type="button" aria-label="Clear search"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></label><p id="searchStatus" class="search-status"></p><div id="searchResults" class="search-results"></div></section>
-<section class="payment-page" id="paymentPage">
- <div class="checkout-step"><span class="checkout-step-number">1</span><span data-en="Review your basket" data-ku="پێداچوونەوە بە سەبەتە">Review your basket</span></div>
+<section class="payment-page" id="paymentPage" hidden aria-hidden="true">
  <div id="cartItems"></div>
- <div class="delivery-box checkout-delivery-part">
-  <h2 data-en="Delivery location" data-ku="شوێنی گەیاندن">Delivery location</h2>
-  <label for="deliveryCity" data-en="Choose your city in Iraq" data-ku="شارەکەت لە عێراق هەڵبژێرە">Choose your city in Iraq</label>
-  <select id="deliveryCity" required>
-  <optgroup label="Kurdistan Region — 3,000 IQD" data-ku-label="هەرێمی کوردستان — ٣,٠٠٠ دینار">
-   <option value="Erbil" data-region="kurdistan">Erbil / هەولێر</option><option value="Sulaymaniyah" data-region="kurdistan">Sulaymaniyah / سلێمانی</option><option value="Duhok" data-region="kurdistan">Duhok / دهۆک</option><option value="Halabja" data-region="kurdistan">Halabja / هەڵەبجە</option><option value="Zakho" data-region="kurdistan">Zakho / زاخۆ</option><option value="Soran" data-region="kurdistan">Soran / سۆران</option><option value="Ranya" data-region="kurdistan">Ranya / ڕانیە</option><option value="Koya" data-region="kurdistan">Koya / کۆیە</option><option value="Akre" data-region="kurdistan">Akre / ئاکرێ</option><option value="Shaqlawa" data-region="kurdistan">Shaqlawa / شەقڵاوە</option><option value="Chamchamal" data-region="kurdistan">Chamchamal / چەمچەماڵ</option><option value="Kalar" data-region="kurdistan">Kalar / کەلار</option><option value="Qaladizeh" data-region="kurdistan">Qaladizeh / قەڵادزێ</option><option value="Mergasor" data-region="kurdistan">Mergasor / مێرگەسۆر</option>
-  </optgroup>
-  <optgroup label="Other Iraqi cities — 5,000 IQD" data-ku-label="شارەکانی تری عێراق — ٥,٠٠٠ دینار">
-   <option value="Baghdad" data-region="iraq">Baghdad / بەغدا</option><option value="Basra" data-region="iraq">Basra / بەسرە</option><option value="Mosul" data-region="iraq">Mosul / موسڵ</option><option value="Kirkuk" data-region="iraq">Kirkuk / کەرکووک</option><option value="Tikrit" data-region="iraq">Tikrit / تەکریت</option><option value="Samarra" data-region="iraq">Samarra / سامەڕا</option><option value="Baqubah" data-region="iraq">Baqubah / بەعقوبە</option><option value="Ramadi" data-region="iraq">Ramadi / ڕەمادی</option><option value="Fallujah" data-region="iraq">Fallujah / فەللووجە</option><option value="Karbala" data-region="iraq">Karbala / کەربەلا</option><option value="Najaf" data-region="iraq">Najaf / نەجەف</option><option value="Hillah" data-region="iraq">Hillah / حیللە</option><option value="Diwaniyah" data-region="iraq">Diwaniyah / دیوانیە</option><option value="Kut" data-region="iraq">Kut / کوت</option><option value="Amarah" data-region="iraq">Amarah / عەمارە</option><option value="Nasiriyah" data-region="iraq">Nasiriyah / ناصریە</option><option value="Samawah" data-region="iraq">Samawah / سەماوە</option><option value="Dujail" data-region="iraq">Dujail / دوجەیل</option><option value="Balad" data-region="iraq">Balad / بەڵەد</option><option value="Tal Afar" data-region="iraq">Tal Afar / تەلعەفەر</option><option value="Sinjar" data-region="iraq">Sinjar / شەنگال</option><option value="Alqosh" data-region="iraq">Alqosh / ئالقۆش</option><option value="Khanaqin" data-region="iraq">Khanaqin / خانەقین</option><option value="Haditha" data-region="iraq">Haditha / حەدیثە</option><option value="Rawa" data-region="iraq">Rawa / ڕاوە</option><option value="Zubair" data-region="iraq">Zubair / زوبەیر</option><option value="Abu Al-Khasib" data-region="iraq">Abu Al-Khasib / ئەبوو ئەلخەسیب</option><option value="Shatra" data-region="iraq">Shatra / شەترا</option><option value="Qurna" data-region="iraq">Qurna / قورنه</option><option value="Other city in Iraq" data-region="iraq">Other city in Iraq / شارێکی تری عێراق</option>
-  </optgroup>
- </select>
-  <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="deliveryFee">3,000 دینار</strong></div>
- </div>
- <div class="order-total"><span data-en="Order total" data-ku="کۆی داواکاری">Order total</span><strong id="cartTotal">0 دینار</strong></div>
- <div class="fib-mark"><div class="fib-symbol">FIB</div><div><strong data-en="We accept FIB" data-ku="پارەدان بە FIB قبووڵ دەکەین">We accept FIB</strong><small data-en="Submit your order here first. Then message us with your order reference to get FIB payment details." data-ku="یەکەم داواکارییەکەت لێرە تۆمار بکە. پاشان ژمارەی داواکارییەکەت بە واتساپ یان ئینستاگرام بنێرە بۆ وەرگرتنی وردەکاری پارەدان بە FIB.">Submit your order here first. Then message us with your order reference to get FIB payment details.</small></div></div>
- <button type="button" id="openGuestOrder" class="pay-link checkout-continue-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Continue to delivery details" data-ku="بەردەوام بە بۆ زانیاری گەیاندن">Continue to delivery details</span></button>
- <p class="checkout-website-note" data-en="Your order is placed on this website. Instagram is only for questions or FIB payment details." data-ku="داواکارییەکەت لەم ماڵپەڕە تۆمار دەکەیت. ئینستاگرام تەنها بۆ پرسیار یان وەرگرتنی وردەکاری پارەدان بە FIB ـە.">Your order is placed on this website. Instagram is only for questions or FIB payment details.</p>
+ <select id="deliveryCity" aria-hidden="true" tabindex="-1"><option value="Erbil" data-region="kurdistan" selected>Erbil / هەولێر</option></select>
+ <span id="deliveryFee">3,000 IQD</span><span id="cartTotal">0 IQD</span>
 </section>
 <section class="payment-page guest-order-page" id="guestOrderForm" hidden>
- <button type="button" id="backToGuestCart" class="pay-back" data-en="← Back to basket" data-ku="← گەڕانەوە بۆ سەبەتە">← Back to basket</button>
- <div class="checkout-step"><span class="checkout-step-number">2</span><span data-en="Delivery and payment" data-ku="گەیاندن و پارەدان">Delivery and payment</span></div>
+ <button type="button" id="backToGuestCart" class="pay-back" data-en="← Back to shop" data-ku="← گەڕانەوە بۆ فرۆشگا">← Back to shop</button>
  <h1 data-en="Complete your website order" data-ku="داواکارییەکەت لێرە تۆمار بکە">Complete your website order</h1>
- <div class="guest-order-instruction" data-en="Enter your name, mobile number and delivery address. Choose FIB or cash on delivery, then submit your order here. Your order reference will appear after it is saved." data-ku="ناو، ژمارەی مۆبایل و ناونیشانی گەیاندنت بنووسە. FIB یان پارەدان لە کاتی گەیاندن هەڵبژێرە و داواکارییەکەت لێرە تۆمار بکە. دوای پاشەکەوتکردن، ژمارەی داواکارییەکەت دەردەکەوێت.">Enter your name, mobile number and delivery address. Choose FIB or cash on delivery, then submit your order here. Your order reference will appear after it is saved.</div>
+
  <div id="guestOrderItems" class="guest-order-items"></div>
  <div class="delivery-box customer-details-box">
   <h2><svg class="checkout-heading-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c.8-3.5 3.3-5.4 7-5.4s6.2 1.9 7 5.4"/></svg><span data-en="Your details" data-ku="وردەکارییەکانت">Your details</span></h2>
@@ -1358,22 +1376,7 @@ function updateGuestDelivery(){
  document.getElementById("guestDeliveryFee").textContent=deliveryFeeLabel(fee);
  document.getElementById("guestCartTotal").textContent=(subtotal+fee).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
 }
-document.getElementById("openGuestOrder").addEventListener("click",()=>{
- if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before ordering.");return;}
- document.getElementById("paymentPage").style.display="none";
- document.getElementById("guestOrderForm").hidden=false;
- document.getElementById("guestOrderForm").style.display="block";
- document.getElementById("guestDeliveryCity").value=document.getElementById("deliveryCity").value;
- document.getElementById("orderSummaryWrap").hidden=true;
- renderGuestOrder();window.scrollTo({top:0,left:0,behavior:"auto"});
-});
-document.getElementById("backToGuestCart").addEventListener("click",()=>{
- document.getElementById("guestOrderForm").hidden=true;
- document.getElementById("guestOrderForm").style.display="none";
- document.getElementById("paymentPage").style.display="block";
- window.scrollTo({top:0,left:0,behavior:"auto"});
-});
-document.getElementById("guestDeliveryCity").addEventListener("change",updateGuestDelivery);
+document.getElementById("backToGuestCart").addEventListener("click",()=>{hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});document.getElementById("guestDeliveryCity").addEventListener("change",updateGuestDelivery);
 document.getElementById("createOrderSummary").addEventListener("click",async()=>{
  const nameInput=document.getElementById("customerName"),phoneInput=document.getElementById("customerPhone"),addressInput=document.getElementById("customerAddress");
  const name=nameInput.value.trim(),phone=phoneInput.value.trim().replaceAll(" ","").replaceAll("-","").replaceAll("(","").replaceAll(")","").replaceAll(".","").replace(/[٠-٩۰-۹]/g,d=>String("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹".indexOf(d)%10)),address=addressInput.value.trim(),formBox=document.querySelector("#guestOrderForm .customer-details-box");
@@ -1428,7 +1431,7 @@ document.getElementById("deliveryCity").addEventListener("change",()=>{renderCar
 function updateFibPaymentHelp(){const help=document.getElementById("fibPaymentHelp"),method=document.getElementById("orderPaymentMethod");if(help&&method)help.hidden=method.value!=="fib_manual";}
 document.getElementById("orderPaymentMethod")?.addEventListener("change",updateFibPaymentHelp);updateFibPaymentHelp();
 function hideViews(){["homeMain","paymentPage","guestOrderForm","favoritesPage","searchPage"].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display="none";if(id==="guestOrderForm")el.hidden=true;}});document.getElementById("productDetailPage")?.classList.remove("visible");}
-function openPayment(){hideViews();document.getElementById("paymentPage").style.display="block";renderCart();window.scrollTo({top:0,left:0,behavior:"auto"});}
+function openPayment(){if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before ordering.");return;}hideViews();const form=document.getElementById("guestOrderForm");form.hidden=false;form.style.display="block";document.getElementById("orderSummaryWrap").hidden=true;renderGuestOrder();window.scrollTo({top:0,left:0,behavior:"auto"});}
 function openFavorites(){hideViews();document.getElementById("favoritesPage").style.display="block";renderFavorites();window.scrollTo({top:0,left:0,behavior:"auto"});}
 function renderFavorites(){document.getElementById("favouritesBtn")?.classList.toggle("has-favorites",favorites.size>0);const box=document.getElementById("favoriteItems");if(!box)return;box.innerHTML="";if(!favorites.size){box.textContent=lang==="ku"?"هێشتا هیچ بەرهەمێکت بە دڵخواز زیاد نەکردووە.":"You have not saved any favourites yet.";return;}favorites.forEach(name=>{const card=productCardByName(name);if(!card)return;const item=document.createElement("article");item.className="favorite-card";const img=document.createElement("img");img.src=productImageByName(name);img.alt=name;const details=document.createElement("div");details.className="favorite-details";const title=document.createElement("strong");title.textContent=name;const price=document.createElement("span");price.textContent=(card.querySelector(".sale-price")?.textContent.trim()||"")+" "+(lang==="ku"?"دینار":"IQD");const actions=document.createElement("div");actions.className="favorite-actions";const add=document.createElement("button");add.type="button";add.className="favorite-add";add.textContent=lang==="ku"?"زیادکردن بۆ سەبەتە":"Add to bag";add.addEventListener("click",()=>{changeQty(name,1);toastAdded();});const remove=document.createElement("button");remove.type="button";remove.className="favorite-remove";remove.textContent=lang==="ku"?"لابردن":"Remove";remove.addEventListener("click",()=>{favorites.delete(name);persistFavorites();document.querySelectorAll(".product-card").forEach(p=>{if((p.querySelector(".product-name")?.dataset.en||p.querySelector(".product-name")?.textContent.trim())===name)p.querySelector(".heart")?.classList.remove("saved");});renderFavorites();});actions.append(add,remove);details.append(title,price,actions);item.append(img,details);box.appendChild(item);});}
 function openSearch(){searchReturn="home";hideViews();document.getElementById("searchPage").style.display="block";const input=document.getElementById("productSearchInput");input.value="";renderSearchResults("");window.scrollTo({top:0,left:0,behavior:"auto"});setTimeout(()=>input.focus(),80);}
@@ -1436,7 +1439,7 @@ function renderSearchResults(query){const box=document.getElementById("searchRes
 document.getElementById("productSearchInput").addEventListener("input",e=>renderSearchResults(e.target.value));document.getElementById("clearSearch").addEventListener("click",()=>{const input=document.getElementById("productSearchInput");input.value="";renderSearchResults("");input.focus();});
 document.getElementById("closeSearch").addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});
 document.getElementById("backFromFavorites").addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});
-function openPayment(){hideViews();document.getElementById("paymentPage").style.display="block";renderCart();window.scrollTo({top:0,left:0,behavior:"auto"});}document.getElementById("cartBtn").addEventListener("click",openPayment);document.getElementById("bottomCart")?.addEventListener("click",openPayment);document.getElementById("bottomSearch")?.addEventListener("click",openSearch);function goHome(){hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";window.scrollTo({top:0,left:0,behavior:"smooth"});history.replaceState(null,"",location.pathname+location.search);}
+function openPayment(){if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before ordering.");return;}hideViews();const form=document.getElementById("guestOrderForm");form.hidden=false;form.style.display="block";document.getElementById("orderSummaryWrap").hidden=true;renderGuestOrder();window.scrollTo({top:0,left:0,behavior:"auto"});}document.getElementById("cartBtn").addEventListener("click",openPayment);document.getElementById("bottomCart")?.addEventListener("click",openPayment);document.getElementById("bottomSearch")?.addEventListener("click",openSearch);function goHome(){hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";window.scrollTo({top:0,left:0,behavior:"smooth"});history.replaceState(null,"",location.pathname+location.search);}
 document.querySelector(".logo.wordmark")?.addEventListener("click",e=>{e.preventDefault();goHome();});
 document.querySelectorAll(".mobile-bottom-nav [data-goto]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.goto==="homeMain"){goHome();return;}hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";document.getElementById(b.dataset.goto)?.scrollIntoView({behavior:"smooth",block:"start"});}));document.getElementById("backToShop")?.addEventListener("click",()=>{hideViews();document.getElementById("homeMain").style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});const showcase=document.querySelector(".showcase");if(showcase){const track=showcase.querySelector(".showcase-track");const slides=[...showcase.querySelectorAll(".showcase-slide")];const dots=[...showcase.querySelectorAll(".showcase-dots button")];let current=0;function showShowcase(n){current=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle("active",i===current));dots.forEach((d,i)=>d.classList.toggle("active",i===current));const slide=slides[current];const offset=slide.offsetLeft-(track.parentElement.clientWidth-slide.clientWidth)/2;track.style.transform="translateX("+-offset+"px)";}function restartShowcase(){clearInterval(timer);timer=setInterval(()=>showShowcase(current+1),3500);}showcase.querySelector(".showcase-prev").addEventListener("click",()=>{showShowcase(current-1);restartShowcase();});showcase.querySelector(".showcase-next").addEventListener("click",()=>{showShowcase(current+1);restartShowcase();});dots.forEach((d,i)=>d.addEventListener("click",()=>{showShowcase(i);restartShowcase();}));let timer=setInterval(()=>showShowcase(current+1),3500);window.addEventListener("resize",()=>showShowcase(current));showShowcase(0);}let lang=(()=>{try{return localStorage.getItem('ultraBeautyLanguage')==='en'?'en':'ku'}catch{return'ku'}})();function setLang(next){lang=next;try{localStorage.setItem('ultraBeautyLanguage',lang)}catch{};document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.querySelectorAll('[data-placeholder-en][data-placeholder-ku]').forEach(e=>{const value=e.dataset[lang==='en'?'placeholderEn':'placeholderKu'];if(value)e.placeholder=value;});document.querySelectorAll('.product-card .addbtn').forEach(button=>button.setAttribute('aria-label',button.disabled?(lang==='ku'?'بەردەست نییە':'Out of stock'):(lang==='ku'?'زیادکردن بۆ سەبەتە':'Add to bag')));document.getElementById('langBtn').setAttribute('aria-label',lang==='en'?'Switch to Kurdish':'Switch to English');}
 document.getElementById('langBtn').addEventListener('click',()=>setLang(lang==='en'?'ku':'en'));setLang(lang);
