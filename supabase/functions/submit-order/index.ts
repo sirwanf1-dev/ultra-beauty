@@ -91,10 +91,17 @@ Deno.serve(async (req: Request) => {
     }
     productRows.push(...(data ?? []));
   }
-  const uniqueProducts = [...new Map(productRows.map(product => [product.id, product])).values()];
-  const productById = new Map<string, any>(uniqueProducts.map(product => [product.id, product]));
+  const uniqueProducts: any[] = [];
+  const seenProductIds = new Set<string>();
+  for (const product of productRows) {
+    if (seenProductIds.has(product.id)) continue;
+    seenProductIds.add(product.id);
+    uniqueProducts.push(product);
+  }
+  const productById = new Map<string, any>();
   const productByName = new Map<string, any>();
   for (const product of uniqueProducts) {
+    productById.set(product.id, product);
     if (!requestedNames.includes(product.name_en)) continue;
     if (productByName.has(product.name_en)) {
       console.error("Ambiguous product name in catalogue", product.name_en);
@@ -104,7 +111,7 @@ Deno.serve(async (req: Request) => {
   }
   const items: any[] = [];
   for (const requestedItem of requested.values()) {
-    const product: any = requestedItem.productId ? productById.get(requestedItem.productId) : productByName.get(requestedItem.name);
+    const product: any = requestedItem.productId ? productById.get(requestedItem.productId) : productByName.get(requestedItem.name ?? "");
     const quantity = requestedItem.quantity;
     if (!product || !product.in_stock) {
       return reply(400, { error: "A basket product is no longer published or in stock. Please reload the shop and try again." });
