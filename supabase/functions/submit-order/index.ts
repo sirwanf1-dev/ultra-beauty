@@ -54,7 +54,6 @@ Deno.serve(async (req: Request) => {
   // The current storefront has a fixed displayed price of 5,000 IQD per item.
   // Recalculate every amount on the server; never accept client-supplied prices.
   const quantities = new Map<string, number>();
-  const names = new Map<string, string>();
   for (const item of rawItems as any[]) {
     const name = clean(item?.name, 160);
     const qty = Number(item?.quantity);
@@ -62,7 +61,6 @@ Deno.serve(async (req: Request) => {
       return reply(400, { error: "One or more basket items are invalid. Please refresh the shop and try again." });
     }
     quantities.set(name, (quantities.get(name) ?? 0) + qty);
-    names.set(name, name);
   }
   const items = [...quantities.entries()].map(([nameEn, quantity]) => ({
     productId: null,
@@ -73,6 +71,10 @@ Deno.serve(async (req: Request) => {
     lineTotalIqd: 5000 * quantity,
   }));
   const subtotal = items.reduce((sum, item) => sum + item.lineTotalIqd, 0);
+  const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
+  const kurdistanCities = new Set(["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"]);
+  const deliveryFee = subtotal >= 20000 ? 0 : (kurdistanCities.has(city) ? 3000 : 5000);
+  const total = subtotal + deliveryFee;
   const { data: order, error: insertError } = await supabase.from("orders").insert({
     customer_name: customerName,
     customer_phone: customerPhone,
