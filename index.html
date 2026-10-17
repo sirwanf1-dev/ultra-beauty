@@ -1219,6 +1219,10 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 #guestOrderForm .checkout-submit-button:disabled{opacity:.55}
 @media(max-width:560px){#guestOrderForm{width:calc(100% - 16px);margin:10px auto 92px!important;padding:16px!important;border-radius:16px!important}#guestOrderForm h1{font-size:22px!important}.guest-order-item img{width:52px;height:52px}}
 @media(prefers-reduced-motion:reduce){#guestOrderForm .checkout-submit-button{transition:none}}
+
+/* Keep the checkout calm: avoid nested cards and button outlines */
+#guestOrderForm .delivery-box,#guestOrderForm .customer-details-box,#guestOrderForm .guest-delivery-box{margin:0 0 18px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+#guestOrderForm .pay-back{padding:4px 0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
