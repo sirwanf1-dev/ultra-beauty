@@ -1,32 +1,30 @@
 # Ultra Beauty
 
-Mobile-first beauty and personal-care storefront for customers in Iraq.
+Mobile-first beauty and personal-care storefront for customers in Iraq, in English and Kurdish Sorani.
 
 ## Pages
 
 - `index.html` — public storefront.
-- `admin.html` — first product-manager prototype.
+- `admin.html` — secure product manager connected to Supabase.
 
-## Product manager prototype
+## Product manager
 
-Open `admin.html` on the published site to try adding and editing product details, English and Kurdish Sorani names/descriptions, IQD regular and sale prices, categories, photos, and stock status. The prototype supports searching, filtering, and JSON backup/import.
+The product manager uses Supabase Auth. Only signed-in accounts listed in `public.admin_users` can read or change catalogue records. Product images selected from a device are uploaded to the protected `product-images` bucket.
 
-**Important:** This first version saves product data in the current browser's local storage only. It is not connected to the live storefront, a shared database, or a secure admin login. Products added here will not appear on customers' devices. Do not use this prototype as the live product-management system yet.
+New products are published by default so they appear on the storefront after saving. Choose **Draft** to keep an item hidden. Out-of-stock products can remain published and are shown as unavailable.
 
-## Next production steps
+If products were entered in the older browser-only dashboard, open `admin.html` in that same browser and choose **Import saved browser products** after signing in. They are imported as drafts for review; the browser copy is retained.
 
-1. Connect a private admin authentication flow.
-2. Set up a shared database and image storage (for example, Supabase).
-3. Restrict database and storage access with row-level security and server-side validation.
-4. Connect the public product catalogue to the shared database.
-5. Test backup, restore, pricing, and mobile workflows before real use.
+## Supabase setup
 
-Never put service-role keys, payment secrets, or private credentials in public HTML or client-side JavaScript.
+1. Run `supabase-setup.sql` in the Supabase SQL Editor.
+2. Set the project publishable/anon key in `supabase-config.js`. The project URL is already configured. Never put a service-role or secret key in this file.
+3. Create an admin account in Supabase Authentication → Users.
+4. Add that account's user UUID to `public.admin_users`. See `SUPABASE_SETUP.md`.
+5. Sign in at the published `admin.html` page.
 
+The storefront reads only rows with `published = true`. Product prices are stored as whole IQD amounts. A sale price must be lower than the regular price.
 
-## Shared database setup (in progress)
+## Orders
 
-- `supabase-setup.sql` — database tables and Row Level Security policies for the shared catalogue and product images.
-- `SUPABASE_SETUP.md` — step-by-step instructions for creating the Supabase project and authorising an admin account.
-
-The database schema is committed, but the live pages are not connected yet. The next required step is creating the Supabase project and supplying its **Project URL** and **publishable/anon key** so the storefront and admin can be wired to it. Never share a service-role/secret key. Before migration, export a JSON backup from the same browser where the current product was entered.
+`supabase-orders-setup.sql` defines order storage. The `submit-order` Edge Function verifies prices against the shared catalogue. Deploy it separately when order checkout is ready. Keep service-role and provider credentials in Supabase secrets only.
