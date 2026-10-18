@@ -719,8 +719,12 @@ header{position:sticky}
 .product-detail-discount{background:#fde7ed;color:#c13e67;padding:5px 8px;border-radius:5px;font-size:11px;font-weight:800}
 .product-detail-stock{font-size:12px;color:#28754b;font-weight:700;margin:12px 0 18px}
 .product-detail-description{font-size:14px;line-height:1.85;color:#625b64;border-top:1px solid #f0e5e9;padding-top:15px;margin-top:15px;white-space:pre-line}
-.product-detail-description .detail-language-copy{display:block;max-height:5.55em;overflow:hidden;white-space:pre-line;line-height:1.85}
+.product-detail-description .detail-language-copy{display:block;max-height:3.7em;overflow:hidden;white-space:pre-line;line-height:1.85}
+.product-detail-description .detail-language-section:not(:first-child){display:none}
+.product-detail-description.is-expanded .detail-language-section:not(:first-child){display:block}
 .product-detail-description.is-expanded .detail-language-copy{max-height:none;overflow:visible}
+body:has(#productDetailPage.visible) footer{display:none}
+body:has(#productDetailPage.visible) .wa{display:none}
 .detail-read-more{display:block;margin:10px auto 0;padding:8px 14px;border:1px solid #ead2dd;border-radius:18px;background:#fff5f8;color:#8f174c;font-weight:800;font-size:13px;cursor:pointer}
 
 .product-detail-qty{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 12px}
@@ -1920,9 +1924,9 @@ document.getElementById('productDetailBack').addEventListener('click',()=>closeP
 
 /* Direct inline actions ensure detail buttons work even if delegated events are blocked. */
 /* Single delegated handler for detail quantity and add-to-bag controls. */
-document.getElementById('detailMinus').removeAttribute('onclick');
-document.getElementById('detailPlus').removeAttribute('onclick');
-document.getElementById('detailAdd').removeAttribute('onclick');
+document.getElementById('detailMinus')?.removeAttribute('onclick');
+document.getElementById('detailPlus')?.removeAttribute('onclick');
+document.getElementById('detailAdd')?.removeAttribute('onclick');
 document.addEventListener('click',function(event){
  const target=event.target.closest('#detailMinus,#detailPlus,#detailAdd');
  if(!target)return;
