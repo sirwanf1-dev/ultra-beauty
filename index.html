@@ -1678,8 +1678,9 @@ function openProductDetail(card,updateHistory=true){
  const oldEl=document.getElementById('detailOldPrice'),discountEl=document.getElementById('detailDiscount'),now=Number(prices.current.replace(/,/g,'')),was=Number(prices.old.replace(/,/g,''));
  oldEl.hidden=!(was>now);oldEl.textContent=was>now?prices.old+' '+(lang==='ku'?'دینار':'IQD'):'';
  discountEl.hidden=!(was>now);discountEl.textContent=was>now?'-'+Math.round((was-now)/was*100)+'%':'';
- document.getElementById('detailStock').textContent=volume?String(volume)+' ML':'';
+ 
  const descEn=card.dataset.descriptionEn||'',descKu=card.dataset.descriptionKu||'',volume=card.dataset.volumeMl||'';
+  document.getElementById('detailStock').textContent=volume?String(volume)+' ML':'';
  const descriptionBox=document.getElementById('detailDescription');descriptionBox.replaceChildren();const addDescriptionSection=(heading,body)=>{if(!body)return;const section=document.createElement('section');section.className='detail-language-section';const title=document.createElement('strong');title.className='detail-language-heading';title.textContent=heading;const copy=document.createElement('div');copy.className='detail-language-copy';copy.textContent=body;section.append(title,copy);descriptionBox.appendChild(section);};addDescriptionSection('کوردی:',descKu);addDescriptionSection('English:',descEn);descriptionBox.querySelectorAll('.detail-language-section').forEach(section=>{if(section.querySelector('.detail-language-heading')?.textContent==='English:'){section.dir='ltr';section.style.textAlign='left';}else{section.dir='rtl';section.style.textAlign='right';}});
  document.getElementById('detailQty').textContent=detailQuantity;
  document.getElementById('detailAdd').textContent=lang==='ku'?'زیادکردن بۆ سەبەتە':'ADD TO BAG';
