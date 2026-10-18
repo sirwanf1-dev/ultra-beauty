@@ -1913,6 +1913,27 @@ document.addEventListener('click',e=>{const card=e.target.closest('.product-card
 document.getElementById('productDetailBack').addEventListener('click',()=>closeProductDetail(true));
 /* Detail controls are bound with delegated clicks below because the detail page markup appears later in the document. */
 
+
+/* Direct inline actions ensure detail buttons work even if delegated events are blocked. */
+window.ultraBeautyDetailQty=function(delta){
+ detailQuantity=Math.max(1,Math.min(99,Number(detailQuantity||1)+delta));
+ const qty=document.getElementById('detailQty');
+ if(qty)qty.textContent=String(detailQuantity);
+};
+window.ultraBeautyDetailAdd=function(){
+ if(!detailProductCard){document.getElementById('detailNote').textContent='Please select a product again.';return;}
+ const title=detailProductCard.querySelector('.product-name');
+ const name=title?.dataset.en||title?.textContent.trim();
+ if(!catalogueReady||!cataloguePrices.has(name)||!productIdByName(name)){
+  const status=document.getElementById('detailNote');
+  status.textContent=lang==='ku'?'نرخی بەرهەمەکان هێشتا بار نەکراون. پەڕەکە نوێ بکەرەوە و دووبارە هەوڵ بدەرەوە.':'Product prices are still loading. Refresh the page and try again.';
+  status.style.display='block';return;
+ }
+ const amount=Math.max(1,Math.min(99,Number(detailQuantity||1)));
+ for(let i=0;i<amount;i++)changeQty(name,1);
+ toastAdded();
+ closeProductDetail(true);
+};
 /* Robust delegated handlers for product detail controls */
 document.addEventListener('click',function(event){
  const target=event.target.closest('#detailMinus,#detailPlus,#detailAdd');
@@ -1961,8 +1982,8 @@ const initialProductHash=location.hash.startsWith('#product=')?decodeURIComponen
    <div class="product-detail-price"><span class="product-detail-current" id="detailPrice"></span><s class="product-detail-old" id="detailOldPrice"></s><span class="product-detail-discount" id="detailDiscount" hidden></span></div>
    <div class="product-detail-stock" id="detailStock"></div>
    <div class="product-detail-description" id="detailDescription"></div>
-   <div class="product-detail-qty"><label data-en="Quantity" data-ku="ژمارە">ژمارە</label><div class="product-detail-qty-controls"><button type="button" id="detailMinus" aria-label="Decrease quantity">−</button><span id="detailQty">1</span><button type="button" id="detailPlus" aria-label="Increase quantity">+</button></div></div>
-   <button type="button" class="product-detail-add" id="detailAdd"></button>
+   <div class="product-detail-qty"><label data-en="Quantity" data-ku="ژمارە">ژمارە</label><div class="product-detail-qty-controls"><button type="button" id="detailMinus" aria-label="Decrease quantity" onclick="window.ultraBeautyDetailQty(-1)">−</button><span id="detailQty">1</span><button type="button" id="detailPlus" aria-label="Increase quantity" onclick="window.ultraBeautyDetailQty(1)">+</button></div></div>
+   <button type="button" class="product-detail-add" id="detailAdd" onclick="window.ultraBeautyDetailAdd()"> </button>
    <a class="product-detail-whatsapp" id="detailWhatsApp" href="#" target="_blank" rel="noopener"><span>◉</span><span data-en="Ask about this product on WhatsApp" data-ku="لە واتساپ لەبارەی ئەم بەرهەمە بپرسە">لە واتساپ لەبارەی ئەم بەرهەمە بپرسە</span></a>
    <p class="product-detail-note" id="detailNote"></p>
   </div>
