@@ -1442,6 +1442,16 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .product-card .product-cart-button,.product-card .add-to-cart,.product-card .cart-icon-button{flex:0 0 52px!important;width:52px!important;min-width:52px!important;margin:0!important}
 .product-card .product-price{min-width:0!important;flex:1 1 auto!important;margin:0!important}
 .product-card .product-volume-top{direction:ltr!important;unicode-bidi:isolate!important}
+
+/* Product cards: remove unused space below the price row and strengthen prices */
+.product-track{align-items:start!important}
+.product-card{height:auto!important;min-height:0!important;align-self:start!important;grid-template-rows:auto auto auto auto!important}
+.product-card .product-bottom{height:auto!important;min-height:0!important;padding:10px 10px 12px!important;align-items:center!important;align-self:start!important}
+.product-card .product-bottom .price-stack{justify-content:center!important;gap:3px!important}
+.product-card .product-bottom .price-stack .price{font-weight:900!important;font-size:clamp(16px,4.2vw,20px)!important;line-height:1.2!important}
+.product-card .product-bottom .price-stack .price .sale-price{font-weight:900!important}
+.product-card .product-bottom .old-price{font-size:12px!important;line-height:1.1!important}
+.product-card .product-bottom .addbtn,.product-card .product-bottom .quantity-controls{align-self:center!important}
 </style>
 </head>
 <body>
