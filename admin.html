@@ -552,7 +552,7 @@ $('imageFile').addEventListener('change',e=>{
 });
 $('imageUrl').addEventListener('input',()=>{if(!$('imageUrl').value.trim()&&!existingImageUrls.length&&!pendingImageFiles.length)return});
 $('clearProductImagesBtn').addEventListener('click',()=>{previewObjectUrls.forEach(url=>URL.revokeObjectURL(url));previewObjectUrls=[];pendingImageFiles=[];$('imageFile').value='';renderProductImagePreviews()});
-$('productImagePreviews').addEventListener('click',e=>{const saved=e.target.closest('[data-remove-saved-image]'),fresh=e.target.closest('[data-remove-new-image]');if(saved){const index=Number(saved.dataset.removeSavedImage);existingImageUrls.splice(index,1);renderProductImagePreviews()}else if(fresh){const index=Number(fresh.dataset.removeNewImage);URL.revokeObjectURL(previewObjectUrls[index]);previewObjectUrls.splice(index,1);pendingImageFiles.splice(index,1);renderProductImagePreviews()}});
+$('productImagePreviews').addEventListener('click',e=>{const saved=e.target.closest('[data-remove-saved-image]'),fresh=e.target.closest('[data-remove-new-image]');if(saved){const index=Number(saved.dataset.removeSavedImage),removed=existingImageUrls[index];existingImageUrls.splice(index,1);if($('imageUrl').value.trim()===removed)$('imageUrl').value=existingImageUrls[0]||'';renderProductImagePreviews()}else if(fresh){const index=Number(fresh.dataset.removeNewImage);URL.revokeObjectURL(previewObjectUrls[index]);previewObjectUrls.splice(index,1);pendingImageFiles.splice(index,1);renderProductImagePreviews()}});
 $('resetBtn').addEventListener('click',resetForm);
 $('search').addEventListener('input',render);$('filterCategory').addEventListener('change',render);
 $('productList').addEventListener('click',async e=>{
