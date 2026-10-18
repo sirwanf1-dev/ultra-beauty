@@ -2,7 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#8f174c">
-<meta name="build-version" content="2026-10-18-nrt-sorani-font">
+<meta name="build-version" content="2026-10-18-city-delivery-fees">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1257,7 +1257,7 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 </style>
 </head>
 <body>
-<div class="announcement" role="status" aria-live="polite"><span class="announcement-message" id="announcementMessage" data-en="FREE DELIVERY ON ORDERS OVER 20,000 IQD" data-ku="گەیاندنی بەخۆڕایی بۆ داواکارییەکانی زیاتر لە ٢٠٬٠٠٠ دینار">گەیاندنی بەخۆڕایی بۆ داواکارییەکانی زیاتر لە ٢٠٬٠٠٠ دینار</span></div>
+<div class="announcement" role="status" aria-live="polite"><span class="announcement-message" id="announcementMessage" data-en="Delivery fee depends on your city" data-ku="کرێی گەیاندن بەپێی شارەکەت دیاری دەکرێت">کرێی گەیاندن بەپێی شارەکەت دیاری دەکرێت</span></div>
 <header>
  <div class="topbar">
   <div class="brand-side">
@@ -1315,8 +1315,8 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 <section class="search-page" id="searchPage"><button class="pay-back" id="closeSearch" data-en="← Close search" data-ku="← داخستن">← Close search</button><h1 data-en="Search products" data-ku="گەڕان بۆ بەرهەم">Search products</h1><label class="search-field"><span class="ui-icon-wrap" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><input id="productSearchInput" type="search" placeholder="Search products..." autocomplete="off" data-placeholder-en="Search products..." data-placeholder-ku="گەڕان بۆ بەرهەم..." /><button id="clearSearch" type="button" aria-label="Clear search"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></label><p id="searchStatus" class="search-status"></p><div id="searchResults" class="search-results"></div></section>
 <section class="payment-page" id="paymentPage" hidden aria-hidden="true">
  <div id="cartItems"></div>
- <select id="deliveryCity" aria-hidden="true" tabindex="-1"><option value="Erbil" data-region="kurdistan" selected>Erbil / هەولێر</option></select>
- <span id="deliveryFee">3,000 IQD</span><span id="cartTotal">0 IQD</span>
+ <select id="deliveryCity" aria-hidden="true" tabindex="-1"><option value="" selected disabled>Choose city / شارێک هەڵبژێرە</option></select>
+ <span id="deliveryFee">Choose a city</span><span id="cartTotal">0 IQD</span>
 </section>
 <section class="payment-page guest-order-page" id="guestOrderForm" hidden>
  <button type="button" id="backToGuestCart" class="pay-back" data-en="← Back to shop" data-ku="← گەڕانەوە بۆ فرۆشگا">← Back to shop</button>
@@ -1343,13 +1343,97 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
   <h2><svg class="checkout-heading-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-en="Delivery location" data-ku="شوێنی گەیاندن">Delivery location</span></h2>
   <label for="guestDeliveryCity" data-en="City" data-ku="ناوی شار">City</label>
   <select id="guestDeliveryCity" required>
-  <optgroup label="Kurdistan Region — 3,000 IQD" data-ku-label="هەرێمی کوردستان — ٣,٠٠٠ دینار">
-   <option value="Erbil" data-region="kurdistan">Erbil / هەولێر</option><option value="Sulaymaniyah" data-region="kurdistan">Sulaymaniyah / سلێمانی</option><option value="Duhok" data-region="kurdistan">Duhok / دهۆک</option><option value="Halabja" data-region="kurdistan">Halabja / هەڵەبجە</option><option value="Zakho" data-region="kurdistan">Zakho / زاخۆ</option><option value="Soran" data-region="kurdistan">Soran / سۆران</option><option value="Ranya" data-region="kurdistan">Ranya / ڕانیە</option><option value="Koya" data-region="kurdistan">Koya / کۆیە</option><option value="Akre" data-region="kurdistan">Akre / ئاکرێ</option><option value="Shaqlawa" data-region="kurdistan">Shaqlawa / شەقڵاوە</option><option value="Chamchamal" data-region="kurdistan">Chamchamal / چەمچەماڵ</option><option value="Kalar" data-region="kurdistan">Kalar / کەلار</option><option value="Qaladizeh" data-region="kurdistan">Qaladizeh / قەڵادزێ</option><option value="Mergasor" data-region="kurdistan">Mergasor / مێرگەسۆر</option>
-  </optgroup>
-  <optgroup label="Other Iraqi cities — 5,000 IQD" data-ku-label="شارەکانی تری عێراق — ٥,٠٠٠ دینار">
-   <option value="Baghdad" data-region="iraq">Baghdad / بەغدا</option><option value="Basra" data-region="iraq">Basra / بەسرە</option><option value="Mosul" data-region="iraq">Mosul / موسڵ</option><option value="Kirkuk" data-region="iraq">Kirkuk / کەرکووک</option><option value="Tikrit" data-region="iraq">Tikrit / تەکریت</option><option value="Samarra" data-region="iraq">Samarra / سامەڕا</option><option value="Baqubah" data-region="iraq">Baqubah / بەعقوبە</option><option value="Ramadi" data-region="iraq">Ramadi / ڕەمادی</option><option value="Fallujah" data-region="iraq">Fallujah / فەللووجە</option><option value="Karbala" data-region="iraq">Karbala / کەربەلا</option><option value="Najaf" data-region="iraq">Najaf / نەجەف</option><option value="Hillah" data-region="iraq">Hillah / حیللە</option><option value="Diwaniyah" data-region="iraq">Diwaniyah / دیوانیە</option><option value="Kut" data-region="iraq">Kut / کوت</option><option value="Amarah" data-region="iraq">Amarah / عەمارە</option><option value="Nasiriyah" data-region="iraq">Nasiriyah / ناصریە</option><option value="Samawah" data-region="iraq">Samawah / سەماوە</option><option value="Dujail" data-region="iraq">Dujail / دوجەیل</option><option value="Balad" data-region="iraq">Balad / بەڵەد</option><option value="Tal Afar" data-region="iraq">Tal Afar / تەلعەفەر</option><option value="Sinjar" data-region="iraq">Sinjar / شەنگال</option><option value="Alqosh" data-region="iraq">Alqosh / ئالقۆش</option><option value="Khanaqin" data-region="iraq">Khanaqin / خانەقین</option><option value="Haditha" data-region="iraq">Haditha / حەدیثە</option><option value="Rawa" data-region="iraq">Rawa / ڕاوە</option><option value="Zubair" data-region="iraq">Zubair / زوبەیر</option><option value="Abu Al-Khasib" data-region="iraq">Abu Al-Khasib / ئەبوو ئەلخەسیب</option><option value="Shatra" data-region="iraq">Shatra / شەترا</option><option value="Qurna" data-region="iraq">Qurna / قورنه</option><option value="Other city in Iraq" data-region="iraq">Other city in Iraq / شارێکی تری عێراق</option>
-  </optgroup>
+  <option value="" disabled selected data-fee="">Choose city / شارێک هەڵبژێرە</option>
+  <option value="ناو شاری سلێمانی" data-fee="2500" data-city-en="Inside Sulaymaniyah" data-city-ku="ناو شاری سلێمانی">Inside Sulaymaniyah / ناو شاری سلێمانی</option>
+  <option value="تانجەڕۆ" data-fee="3500" data-city-en="Tangro" data-city-ku="تانجەڕۆ">Tangro / تانجەڕۆ</option>
+  <option value="هەوانە" data-fee="3500" data-city-en="Hawana" data-city-ku="هەوانە">Hawana / هەوانە</option>
+  <option value="ئاڵە" data-fee="3500" data-city-en="Ala" data-city-ku="ئاڵە">Ala / ئاڵە</option>
+  <option value="ڕزگۆیز" data-fee="4000" data-city-en="Rzgoyz" data-city-ku="ڕزگۆیز">Rzgoyz / ڕزگۆیز</option>
+  <option value="بەردەکەر" data-fee="4000" data-city-en="Bardakar" data-city-ku="بەردەکەر">Bardakar / بەردەکەر</option>
+  <option value="قەرەداغ" data-fee="4000" data-city-en="Qaradagh" data-city-ku="قەرەداغ">Qaradagh / قەرەداغ</option>
+  <option value="کانی شێنە" data-fee="4000" data-city-en="Kani Shena" data-city-ku="کانی شێنە">Kani Shena / کانی شێنە</option>
+  <option value="سیتەک" data-fee="4000" data-city-en="Sitak" data-city-ku="سیتەک">Sitak / سیتەک</option>
+  <option value="چوارتا" data-fee="4000" data-city-en="Chwarta" data-city-ku="چوارتا">Chwarta / چوارتا</option>
+  <option value="مەلا داود" data-fee="4000" data-city-en="Mela Dawud" data-city-ku="مەلا داود">Mela Dawud / مەلا داود</option>
+  <option value="کەنەکەوە" data-fee="4000" data-city-en="Kanakawa" data-city-ku="کەنەکەوە">Kanakawa / کەنەکەوە</option>
+  <option value="تۆوە سپی" data-fee="4000" data-city-en="Tawa Sipi" data-city-ku="تۆوە سپی">Tawa Sipi / تۆوە سپی</option>
+  <option value="سەرداراوا" data-fee="4000" data-city-en="Sardarawe" data-city-ku="سەرداراوا">Sardarawe / سەرداراوا</option>
+  <option value="هەولێر" data-fee="4500" data-city-en="Erbil" data-city-ku="هەولێر">Erbil / هەولێر</option>
+  <option value="دهۆک" data-fee="4500" data-city-en="Duhok" data-city-ku="دهۆک">Duhok / دهۆک</option>
+  <option value="کەرکوک" data-fee="4500" data-city-en="Kirkuk" data-city-ku="کەرکوک">Kirkuk / کەرکوک</option>
+  <option value="ڕانیە" data-fee="4500" data-city-en="Ranya" data-city-ku="ڕانیە">Ranya / ڕانیە</option>
+  <option value="کەلار" data-fee="4500" data-city-en="Kalar" data-city-ku="کەلار">Kalar / کەلار</option>
+  <option value="چەمچەماڵ" data-fee="4500" data-city-en="Chamchamal" data-city-ku="چەمچەماڵ">Chamchamal / چەمچەماڵ</option>
+  <option value="تاسلوجە" data-fee="4500" data-city-en="Tasluja" data-city-ku="تاسلوجە">Tasluja / تاسلوجە</option>
+  <option value="ئالایی" data-fee="4500" data-city-en="Alayi" data-city-ku="ئالایی">Alayi / ئالایی</option>
+  <option value="بازیان" data-fee="4500" data-city-en="Bazian" data-city-ku="بازیان">Bazian / بازیان</option>
+  <option value="تەکیە" data-fee="4500" data-city-en="Takiya" data-city-ku="تەکیە">Takiya / تەکیە</option>
+  <option value="تێنال" data-fee="4500" data-city-en="Tenal" data-city-ku="تێنال">Tenal / تێنال</option>
+  <option value="بەردەقامران" data-fee="4500" data-city-en="Bardaqamaran" data-city-ku="بەردەقامران">Bardaqamaran / بەردەقامران</option>
+  <option value="بانیجان" data-fee="4500" data-city-en="Banijan" data-city-ku="بانیجان">Banijan / بانیجان</option>
+  <option value="هەڵەبجەی تازە" data-fee="4500" data-city-en="New Halabja" data-city-ku="هەڵەبجەی تازە">New Halabja / هەڵەبجەی تازە</option>
+  <option value="دەربەندیخان" data-fee="4500" data-city-en="Darbandikhan" data-city-ku="دەربەندیخان">Darbandikhan / دەربەندیخان</option>
+  <option value="پێنجوێن" data-fee="4500" data-city-en="Penjwen" data-city-ku="پێنجوێن">Penjwen / پێنجوێن</option>
+  <option value="سەیدسادق" data-fee="4500" data-city-en="Said Sadiq" data-city-ku="سەیدسادق">Said Sadiq / سەیدسادق</option>
+  <option value="زەرایان" data-fee="4500" data-city-en="Zarayan" data-city-ku="زەرایان">Zarayan / زەرایان</option>
+  <option value="عەمریت" data-fee="4500" data-city-en="Amrit" data-city-ku="عەمریت">Amrit / عەمریت</option>
+  <option value="کانی گۆران" data-fee="4500" data-city-en="Kani Goran" data-city-ku="کانی گۆران">Kani Goran / کانی گۆران</option>
+  <option value="سەموود" data-fee="4500" data-city-en="Samood" data-city-ku="سەموود">Samood / سەموود</option>
+  <option value="بەنگرد" data-fee="4500" data-city-en="Bangard" data-city-ku="بەنگرد">Bangard / بەنگرد</option>
+  <option value="ڕزگاری" data-fee="4500" data-city-en="Rizgari" data-city-ku="ڕزگاری">Rizgari / ڕزگاری</option>
+  <option value="باوەنور" data-fee="4500" data-city-en="Bawnur" data-city-ku="باوەنور">Bawnur / باوەنور</option>
+  <option value="کەفری" data-fee="4500" data-city-en="Kifri" data-city-ku="کەفری">Kifri / کەفری</option>
+  <option value="پیرەمەگڕون" data-fee="4500" data-city-en="Piramagrun" data-city-ku="پیرەمەگڕون">Piramagrun / پیرەمەگڕون</option>
+  <option value="دوکان" data-fee="4500" data-city-en="Dukan" data-city-ku="دوکان">Dukan / دوکان</option>
+  <option value="خەڵەکان" data-fee="4500" data-city-en="Khalakan" data-city-ku="خەڵەکان">Khalakan / خەڵەکان</option>
+  <option value="چوارقوڕنە" data-fee="4500" data-city-en="Chwarqurna" data-city-ku="چوارقوڕنە">Chwarqurna / چوارقوڕنە</option>
+  <option value="حاجیاوا" data-fee="4500" data-city-en="Hajiawa" data-city-ku="حاجیاوا">Hajiawa / حاجیاوا</option>
+  <option value="سێنگەسەر" data-fee="4500" data-city-en="Sengaser" data-city-ku="سێنگەسەر">Sengaser / سێنگەسەر</option>
+  <option value="سەروچاوا" data-fee="4500" data-city-en="Saruchawa" data-city-ku="سەروچاوا">Saruchawa / سەروچاوا</option>
+  <option value="قەڵادزێ" data-fee="4500" data-city-en="Qaladizeh" data-city-ku="قەڵادزێ">Qaladizeh / قەڵادزێ</option>
+  <option value="کۆیە" data-fee="4500" data-city-en="Koya" data-city-ku="کۆیە">Koya / کۆیە</option>
+  <option value="تەق تەق" data-fee="4500" data-city-en="Taqtaq" data-city-ku="تەق تەق">Taqtaq / تەق تەق</option>
+  <option value="پشدەر" data-fee="4500" data-city-en="Pshdar" data-city-ku="پشدەر">Pshdar / پشدەر</option>
+  <option value="سۆران" data-fee="4500" data-city-en="Soran" data-city-ku="سۆران">Soran / سۆران</option>
+  <option value="خەلیفان" data-fee="4500" data-city-en="Khalifan" data-city-ku="خەلیفان">Khalifan / خەلیفان</option>
+  <option value="پیرمام" data-fee="4500" data-city-en="Pirmam" data-city-ku="پیرمام">Pirmam / پیرمام</option>
+  <option value="مەسیف" data-fee="4500" data-city-en="Maseef" data-city-ku="مەسیف">Maseef / مەسیف</option>
+  <option value="شەقڵاوە" data-fee="4500" data-city-en="Shaqlawa" data-city-ku="شەقڵاوە">Shaqlawa / شەقڵاوە</option>
+  <option value="هەریر" data-fee="4500" data-city-en="Harir" data-city-ku="هەریر">Harir / هەریر</option>
+  <option value="بەلەکایەتی" data-fee="4500" data-city-en="Balakayati" data-city-ku="بەلەکایەتی">Balakayati / بەلەکایەتی</option>
+  <option value="مێرگەسور" data-fee="4500" data-city-en="Mergasor" data-city-ku="مێرگەسور">Mergasor / مێرگەسور</option>
+  <option value="بڵە" data-fee="4500" data-city-en="Blla" data-city-ku="بڵە">Blla / بڵە</option>
+  <option value="بارزان" data-fee="4500" data-city-en="Barzan" data-city-ku="بارزان">Barzan / بارزان</option>
+  <option value="سەیدکان" data-fee="4500" data-city-en="Saidkan" data-city-ku="سەیدکان">Saidkan / سەیدکان</option>
+  <option value="بەستۆرە" data-fee="4500" data-city-en="Bestora" data-city-ku="بەستۆرە">Bestora / بەستۆرە</option>
+  <option value="ڕەواندز" data-fee="4500" data-city-en="Rawanduz" data-city-ku="ڕەواندز">Rawanduz / ڕەواندز</option>
+  <option value="چۆمان" data-fee="4500" data-city-en="Choman" data-city-ku="چۆمان">Choman / چۆمان</option>
+  <option value="حاجی ئۆمەران" data-fee="4500" data-city-en="Haji Omran" data-city-ku="حاجی ئۆمەران">Haji Omran / حاجی ئۆمەران</option>
+  <option value="باسرمه" data-fee="4500" data-city-en="Basirma" data-city-ku="باسرمه">Basirma / باسرمه</option>
+  <option value="تاکەر" data-fee="4500" data-city-en="Taker" data-city-ku="تاکەر">Taker / تاکەر</option>
+  <option value="نامەندی" data-fee="4500" data-city-en="Namendi" data-city-ku="نامەندی">Namendi / نامەندی</option>
+  <option value="زاخۆ" data-fee="4500" data-city-en="Zakho" data-city-ku="زاخۆ">Zakho / زاخۆ</option>
+  <option value="سیمێل" data-fee="4500" data-city-en="Semel" data-city-ku="سیمێل">Semel / سیمێل</option>
+  <option value="شێخان" data-fee="4500" data-city-en="Sheikhan" data-city-ku="شێخان">Sheikhan / شێخان</option>
+  <option value="بەردەڕەش" data-fee="4500" data-city-en="Bardarash" data-city-ku="بەردەڕەش">Bardarash / بەردەڕەش</option>
+  <option value="شیلادزێ" data-fee="4500" data-city-en="Sheladize" data-city-ku="شیلادزێ">Sheladize / شیلادزێ</option>
+  <option value="کەلەک" data-fee="4500" data-city-en="Kalak" data-city-ku="کەلەک">Kalak / کەلەک</option>
+  <option value="قەسری" data-fee="4500" data-city-en="Qasri" data-city-ku="قەسری">Qasri / قەسری</option>
+  <option value="ڕۆڤیا" data-fee="4500" data-city-en="Rovia" data-city-ku="ڕۆڤیا">Rovia / ڕۆڤیا</option>
+  <option value="سەرەسنک" data-fee="4500" data-city-en="Sarsink" data-city-ku="سەرەسنک">Sarsink / سەرەسنک</option>
+  <option value="باتیف" data-fee="4500" data-city-en="Batifa" data-city-ku="باتیف">Batifa / باتیف</option>
+  <option value="مەخمور" data-fee="4500" data-city-en="Makhmour" data-city-ku="مەخمور">Makhmour / مەخمور</option>
+  <option value="کوێر" data-fee="4500" data-city-en="Kueir" data-city-ku="کوێر">Kueir / کوێر</option>
+  <option value="هێران" data-fee="4500" data-city-en="Hiran" data-city-ku="هێران">Hiran / هێران</option>
+  <option value="نازنین" data-fee="4500" data-city-en="Nazanin" data-city-ku="نازنین">Nazanin / نازنین</option>
+  <option value="وەرتی" data-fee="4500" data-city-en="Warti" data-city-ku="وەرتی">Warti / وەرتی</option>
+  <option value="قوش تەپە" data-fee="4500" data-city-en="Qush Tapa" data-city-ku="قوش تەپە">Qush Tapa / قوش تەپە</option>
+  <option value="ناحیەی شوان" data-fee="4500" data-city-en="Shwan district" data-city-ku="ناحیەی شوان">Shwan district / ناحیەی شوان</option>
+  <option value="دۆزخورماتوو" data-fee="4500" data-city-en="Tuz Khurmatu" data-city-ku="دۆزخورماتوو">Tuz Khurmatu / دۆزخورماتوو</option>
+  <option value="بەغداد" data-fee="6000" data-city-en="Baghdad" data-city-ku="بەغداد">Baghdad / بەغداد</option>
+  <option value="باشووری عێراق" data-fee="8000" data-city-en="Southern Iraq" data-city-ku="باشووری عێراق">Southern Iraq / باشووری عێراق</option>
  </select>
+  <small class="field-hint" data-en="Delivery fee is calculated separately below." data-ku="کرێی گەیاندن لە خوارەوە بە جیاوە دیاری دەکرێت.">کرێی گەیاندن لە خوارەوە بە جیاوە دیاری دەکرێت.</small>
   <label for="customerAddress" data-en="Full delivery address" data-ku="ناونیشانی تەواوی گەیاندن">Full delivery address</label>
   <textarea id="customerAddress" name="customerAddress" required maxlength="500" rows="2" data-placeholder-en="Street, area, nearest landmark" data-placeholder-ku="شەقام، ناوچە، نزیکترین نیشانە" placeholder="Street, area, nearest landmark"></textarea>
   <label for="orderPaymentMethod" data-en="Payment method" data-ku="شێوازی پارەدان">Payment method</label>
@@ -1361,7 +1445,7 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
    <strong><svg class="checkout-inline-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span data-en="Paying with FIB?" data-ku="بە FIB پارە دەدەیت؟">Paying with FIB?</span></strong>
    <p data-en="After submitting your order here, message us on WhatsApp or Instagram with your order reference. We will send you the FIB payment details." data-ku="دوای تۆمارکردنی داواکاری لێرە، لە واتساپ یان ئینستاگرام بە ژمارەی داواکارییەکەت پەیوەندیمان پێوە بکە. وردەکاری پارەدان بە FIB بۆت دەنێرین.">After submitting your order here, message us on WhatsApp or Instagram with your order reference. We will send you the FIB payment details.</p>
   </div>
-  <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="guestDeliveryFee">3,000 IQD</strong></div>
+  <div class="delivery-summary"><span data-en="Delivery fee" data-ku="کرێی گەیاندن">Delivery fee</span><strong id="guestDeliveryFee">شار هەڵبژێرە</strong></div>
  </div>
  <div class="order-total"><span data-en="Total including delivery" data-ku="کۆی گشتی بە گەیاندنەوە">Total including delivery</span><strong id="guestCartTotal">0 IQD</strong></div>
  <button class="pay-link checkout-submit-button" id="createOrderSummary" type="button"><span data-en="Submit my order" data-ku="داواکارییەکەم تۆمار بکە">Submit my order</span></button>
@@ -1390,12 +1474,8 @@ let searchReturn="home";function toastAdded(){const t=document.getElementById("a
 function productIdByName(name){return productCardByName(name)?.dataset.productId||"";}
 function productImageByName(name){return productCardByName(name)?.querySelector(".product-image img")?.src||"";}
 const KURDISTAN_CITIES=["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"];
-function deliveryFeeLabel(fee){return fee===0?(lang==="ku"?"بەخۆڕایی":"Free"):fee.toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");}
-function selectedDeliveryFee(){const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0);if(subtotal>20000)return 0;return document.getElementById("deliveryCity")?.selectedOptions[0]?.dataset.region==="kurdistan"?3000:5000;}
-function renderCart(){document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0);const bc=document.getElementById("bottomCartCount");if(bc)bc.textContent=cart.reduce((n,x)=>n+x.qty,0);const box=document.getElementById("cartItems");box.innerHTML="";if(!cart.length){box.textContent=lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before ordering.";}else{cart.forEach(item=>{const row=document.createElement("div");row.className="cart-line cart-product-line";const img=document.createElement("img");img.className="cart-product-thumb";img.src=productImageByName(item.name);img.alt=item.name;const details=document.createElement("div");details.className="cart-product-details";const name=document.createElement("strong");name.textContent=item.name;const qty=document.createElement("small");qty.textContent=(lang==="ku"?"ژمارە: ":"Qty: ")+item.qty;details.append(name,qty);const price=document.createElement("span");price.className="cart-product-price";price.textContent=(unitPrice(item.name)*item.qty).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");row.append(img,details,price);box.appendChild(row);});}const fee=selectedDeliveryFee();document.getElementById("deliveryFee").textContent=deliveryFeeLabel(fee);document.getElementById("cartTotal").textContent=(cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0)+fee).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");const orderButton=document.getElementById("createOrderSummary");if(orderButton){const validItems=catalogueReady&&cart.length>0&&cart.every(item=>cataloguePrices.has(item.name)&&!!productIdByName(item.name)&&!productCardByName(item.name)?.querySelector(".addbtn")?.disabled);orderButton.disabled=!validItems;orderButton.setAttribute("aria-disabled",String(!validItems));}renderProductControls();updateOrderWhatsApp();}
-function updateOrderWhatsApp(){const city=document.getElementById("deliveryCity")?.value||"Erbil";const fee=selectedDeliveryFee();const total=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0)+fee;const msg="Hello Ultra Beauty, I would like to place an order.\n"+cart.map(x=>x.name+" × "+x.qty).join("\n")+"\nDelivery city: "+city+"\nDelivery fee: "+fee+" IQD\nTotal: "+total+" IQD\nPlease confirm the order and payment details.";/* Order details are no longer sent through WhatsApp checkout. */}
-function buildOrderMessage(){const city=document.getElementById("deliveryCity")?.selectedOptions[0]?.textContent||document.getElementById("deliveryCity")?.value||"Erbil";const name=document.getElementById("customerName")?.value.trim()||"Not provided";const phone=document.getElementById("customerPhone")?.value.trim()||"Not provided";const fee=selectedDeliveryFee();const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0);const total=subtotal+fee;const items=cart.map(x=>"Item name: "+x.name+" × "+x.qty+"\nItem size: Not specified").join("\n\n");return "Order:\nCustomer name: "+name+"\nPhone number: "+phone+"\n\n"+items+"\n\nCity: "+city+"\nPrice: "+subtotal.toLocaleString("en-US")+" IQD\nTotal with delivery: "+total.toLocaleString("en-US")+" IQD";}
-function makeSummaryRow(label,value){const row=document.createElement("div");row.className="summary-row";const a=document.createElement("span");a.textContent=label;const b=document.createElement("strong");b.textContent=value;row.append(a,b);return row;}
+function deliveryFeeLabel(fee){return fee==null?(lang==="ku"?"شار هەڵبژێرە":"Choose a city"):fee.toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");} function selectedDeliveryOption(){return document.getElementById("guestDeliveryCity")?.selectedOptions[0]||null;} function selectedDeliveryFee(){const option=selectedDeliveryOption(),fee=Number(option?.dataset.fee);return option?.value&&Number.isSafeInteger(fee)&&fee>0?fee:null;} function selectedDeliveryCityLabel(){const option=selectedDeliveryOption();return option?(lang==="ku"?(option.dataset.cityKu||option.textContent):(option.dataset.cityEn||option.textContent)):"";} function renderCart(){document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0);const bc=document.getElementById("bottomCartCount");if(bc)bc.textContent=cart.reduce((n,x)=>n+x.qty,0);const box=document.getElementById("cartItems");box.innerHTML="";if(!cart.length){box.textContent=lang==="ku"?"سەبەتەکەت بەتاڵە. تکایە سەرەتا بەرهەم زیاد بکە.":"Your bag is empty. Add a product before ordering.";}else{cart.forEach(item=>{const row=document.createElement("div");row.className="cart-line cart-product-line";const img=document.createElement("img");img.className="cart-product-thumb";img.src=productImageByName(item.name);img.alt=item.name;const details=document.createElement("div");details.className="cart-product-details";const name=document.createElement("strong");name.textContent=item.name;const qty=document.createElement("small");qty.textContent=(lang==="ku"?"ژمارە: ":"Qty: ")+item.qty;details.append(name,qty);const price=document.createElement("span");price.className="cart-product-price";price.textContent=(unitPrice(item.name)*item.qty).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");row.append(img,details,price);box.appendChild(row);});}const fee=selectedDeliveryFee();document.getElementById("deliveryFee").textContent=deliveryFeeLabel(fee);document.getElementById("cartTotal").textContent=(cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0)+(fee??0)).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");const orderButton=document.getElementById("createOrderSummary");if(orderButton){const validItems=catalogueReady&&cart.length>0&&cart.every(item=>cataloguePrices.has(item.name)&&!!productIdByName(item.name)&&!productCardByName(item.name)?.querySelector(".addbtn")?.disabled);orderButton.disabled=!validItems;orderButton.setAttribute("aria-disabled",String(!validItems));}renderProductControls();updateOrderWhatsApp();}
+function updateOrderWhatsApp(){const city=selectedDeliveryCityLabel()||"—";const fee=selectedDeliveryFee();const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0);const total=subtotal+(fee??0);const msg="Hello Ultra Beauty, I would like to place an order.\n"+cart.map(x=>x.name+" × "+x.qty).join("\n")+"\nDelivery city: "+city+"\nDelivery fee: "+(fee??"")+" IQD\nTotal: "+total+" IQD\nPlease confirm the order and payment details.";/* Order details are no longer sent through WhatsApp checkout. */} function buildOrderMessage(){const city=selectedDeliveryCityLabel()||"Not selected";const name=document.getElementById("customerName")?.value.trim()||"Not provided";const phone=document.getElementById("customerPhone")?.value.trim()||"Not provided";const fee=selectedDeliveryFee();const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0);const total=subtotal+(fee??0);const items=cart.map(x=>"Item name: "+x.name+" × "+x.qty+"\nItem size: Not specified").join("\n\n");return "Order:\nCustomer name: "+name+"\nPhone number: "+phone+"\n\n"+items+"\n\nCity: "+city+"\nPrice: "+subtotal.toLocaleString("en-US")+" IQD\nDelivery fee: "+(fee??"Not selected")+"\nTotal with delivery: "+total.toLocaleString("en-US")+" IQD";} function makeSummaryRow(label,value){const row=document.createElement("div");row.className="summary-row";const a=document.createElement("span");a.textContent=label;const b=document.createElement("strong");b.textContent=value;row.append(a,b);return row;}
 let pendingGuestRemoveName="",pendingGuestRemoveIndex=-1,guestRemoveTrigger=null;
 function openGuestRemoveDialog(name,trigger){
  const dialog=document.getElementById("guestItemRemoveDialog");if(!dialog)return;
@@ -1434,16 +1514,8 @@ function renderGuestOrder(){
  });
  updateGuestDelivery();
 }
-function updateGuestDelivery(){
- const city=document.getElementById("guestDeliveryCity");if(!city)return;
- const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0);
- const fee=subtotal>20000?0:(city.selectedOptions[0]?.dataset.region==="kurdistan"?3000:5000);
- document.getElementById("guestDeliveryFee").textContent=deliveryFeeLabel(fee);
- document.getElementById("guestCartTotal").textContent=(subtotal+fee).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");
-}
-document.getElementById("backToGuestCart").addEventListener("click",()=>{hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});});document.getElementById("guestDeliveryCity").addEventListener("change",updateGuestDelivery);
-document.getElementById("createOrderSummary").addEventListener("click",async()=>{
- const nameInput=document.getElementById("customerName"),phoneInput=document.getElementById("customerPhone"),addressInput=document.getElementById("customerAddress");
+function updateGuestDelivery(){const city=document.getElementById("guestDeliveryCity");if(!city)return;const subtotal=cart.reduce((n,x)=>n+x.qty*unitPrice(x.name),0),option=city.selectedOptions[0],fee=selectedDeliveryFee();document.getElementById("guestDeliveryFee").textContent=deliveryFeeLabel(fee);document.getElementById("guestCartTotal").textContent=(subtotal+(fee??0)).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");const legacyCity=document.getElementById("deliveryCity");if(legacyCity){legacyCity.replaceChildren(...[...city.options].map(item=>item.cloneNode(true)));legacyCity.value=city.value;}} document.getElementById("backToGuestCart").addEventListener("click",()=>{hideViews();const home=document.getElementById("homeMain");if(home)home.style.display="";window.scrollTo({top:0,left:0,behavior:"auto"});}); document.getElementById("guestDeliveryCity").addEventListener("change",()=>{updateGuestDelivery();renderCart();}); document.getElementById("createOrderSummary").addEventListener("click",async()=>{
+ const nameInput=document.getElementById("customerName"),phoneInput=document.getElementById("customerPhone"),addressInput=document.getElementById("customerAddress"),cityInput=document.getElementById("guestDeliveryCity");
  const name=nameInput.value.trim(),phone=phoneInput.value.trim().replaceAll(" ","").replaceAll("-","").replaceAll("(","").replaceAll(")","").replaceAll(".","").replace(/[٠-٩۰-۹]/g,d=>String("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹".indexOf(d)%10)),address=addressInput.value.trim(),formBox=document.querySelector("#guestOrderForm .customer-details-box");
  const status=document.getElementById("orderSubmitStatus"),button=document.getElementById("createOrderSummary");
  const showError=(input,message)=>{
@@ -1452,14 +1524,14 @@ document.getElementById("createOrderSummary").addEventListener("click",async()=>
   if(input.nextElementSibling!==error)input.insertAdjacentElement("afterend",error);
   error.textContent=message;input.setAttribute("aria-invalid","true");input.setAttribute("aria-describedby","checkoutFormError");formBox.scrollIntoView({behavior:"smooth",block:"center"});window.setTimeout(()=>input.focus({preventScroll:true}),250);
  };
- const clearError=()=>{const error=document.getElementById("checkoutFormError");if(error)error.remove();[nameInput,phoneInput,addressInput].forEach(x=>{x.removeAttribute("aria-invalid");x.removeAttribute("aria-describedby");});};
+ const clearError=()=>{const error=document.getElementById("checkoutFormError");if(error)error.remove();[nameInput,phoneInput,addressInput,cityInput].forEach(x=>{x.removeAttribute("aria-invalid");x.removeAttribute("aria-describedby");});};
  if(!cart.length){alert(lang==="ku"?"سەبەتەکەت بەتاڵە.":"Your bag is empty.");return;}
  clearError();status.hidden=true;status.textContent="";
  if(!name){showError(nameInput,lang==="ku"?"تکایە ناوی تەواوت بنووسە.":"Please enter your full name.");return;}
  if(!phone){showError(phoneInput,lang==="ku"?"تکایە ژمارەی تەلەفۆنت بنووسە.":"Please enter your phone number.");return;}
  if(!/^07[0-9]{9}$/.test(phone)){showError(phoneInput,lang==="ku"?"تكایه‌ ژماره‌ی درووست بنووسه‌":"Please enter a valid Iraqi mobile number: 07 followed by 9 digits.");return;}phoneInput.value=phone;
  if(address.length<5){showError(addressInput,lang==="ku"?"تکایە ناونیشانی تەواوی گەیاندن بنووسە.":"Please enter your full delivery address.");return;}
- const cityEl=document.getElementById("guestDeliveryCity"),city=cityEl.value,paymentMethod=document.getElementById("orderPaymentMethod").value;
+ const cityEl=cityInput,city=cityEl.value,paymentMethod=document.getElementById("orderPaymentMethod").value,selectedCity=cityEl.selectedOptions[0],cityLabel=lang==="ku"?(selectedCity?.dataset.cityKu||city):(selectedCity?.dataset.cityEn||city);if(!city){showError(cityEl,lang==="ku"?"تکایە شارەکەت هەڵبژێرە.":"Please choose your city.");return;}
  const orderItems=cart.map(item=>({productId:productIdByName(item.name),name:item.name,quantity:item.qty}));
  if(!catalogueReady||orderItems.some(item=>!item.productId)||cart.some(item=>!cataloguePrices.has(item.name))){status.hidden=false;status.textContent=lang==="ku"?"نرخ و بەردەستبوونی هەموو بەرهەمەکان پشتڕاست نەکراوەتەوە. تکایە دوای باربوونی کاتالۆگ دووبارە هەوڵ بدە.":"We couldn’t verify every basket item against the live catalogue. Please reload the shop and try again.";button.disabled=true;button.style.opacity=".65";return;}
  button.disabled=true;button.style.opacity=".65";button.querySelector("span").textContent=lang==="ku"?"تکایە چاوەڕێ بکە...":"Submitting order…";
@@ -1472,7 +1544,7 @@ document.getElementById("createOrderSummary").addEventListener("click",async()=>
   const result=await response.json().catch(()=>({}));
   if(!response.ok||!result.ok)throw new Error(result.error||"Order submission failed. Please try again.");
   const box=document.getElementById("orderSummaryContent");box.innerHTML="";
-  const orderReference=result.orderReference||result.orderNumber||"Received";const referenceRow=makeSummaryRow(lang==="ku"?"ژمارەی داواکاری":"Order reference",orderReference);referenceRow.classList.add("order-reference-row");box.append(referenceRow,makeSummaryRow(lang==="ku"?"ناوی کڕیار":"Customer name",name),makeSummaryRow(lang==="ku"?"ژمارەی تەلەفۆن":"Phone number",phone),makeSummaryRow(lang==="ku"?"شار":"Delivery city",city));
+  const orderReference=result.orderReference||result.orderNumber||"Received";const referenceRow=makeSummaryRow(lang==="ku"?"ژمارەی داواکاری":"Order reference",orderReference);referenceRow.classList.add("order-reference-row");box.append(referenceRow,makeSummaryRow(lang==="ku"?"ناوی کڕیار":"Customer name",name),makeSummaryRow(lang==="ku"?"ژمارەی تەلەفۆن":"Phone number",phone),makeSummaryRow(lang==="ku"?"شار":"Delivery city",cityLabel));
   const itemsTitle=document.createElement("div");itemsTitle.className="summary-row";itemsTitle.style.fontWeight="800";itemsTitle.textContent=lang==="ku"?"بەرهەمەکان":"Items";box.append(itemsTitle);
   (result.items||[]).forEach(item=>{const itemName=lang==="ku"?(item.nameKu||item.nameEn):(item.nameEn||item.nameKu);const row=document.createElement("div");row.className="summary-item";row.textContent=itemName+" × "+item.quantity+" — "+Number(item.lineTotalIqd).toLocaleString("en-US")+" "+(lang==="ku"?"دینار":"IQD");box.append(row);});
   const subtotal=Number(result.subtotalIqd),fee=Number(result.deliveryFeeIqd),total=Number(result.totalIqd);
@@ -1547,10 +1619,10 @@ if(showcase){
  document.addEventListener("DOMContentLoaded",loadStorefrontSlides,{once:true});
  window.addEventListener("ultra-beauty-supabase-ready",loadStorefrontSlides);
  loadStorefrontSlides();
-}let lang=(()=>{try{return localStorage.getItem('ultraBeautyLanguage')==='en'?'en':'ku'}catch{return'ku'}})();function setLang(next){lang=next;try{localStorage.setItem('ultraBeautyLanguage',lang)}catch{};document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.querySelectorAll('[data-placeholder-en][data-placeholder-ku]').forEach(e=>{const value=e.dataset[lang==='en'?'placeholderEn':'placeholderKu'];if(value)e.placeholder=value;});document.querySelectorAll('.product-card .addbtn').forEach(button=>button.setAttribute('aria-label',button.disabled?(lang==='ku'?'بەردەست نییە':'Out of stock'):(lang==='ku'?'زیادکردن بۆ سەبەتە':'Add to bag')));document.getElementById('langBtn').setAttribute('aria-label',lang==='en'?'Switch to Kurdish':'Switch to English');}
+}let lang=(()=>{try{return localStorage.getItem('ultraBeautyLanguage')==='en'?'en':'ku'}catch{return'ku'}})();function setLang(next){lang=next;try{localStorage.setItem('ultraBeautyLanguage',lang)}catch{};document.querySelectorAll('.quantity-controls').forEach(el=>{const card=el.closest('.product-card');const name=card?.querySelector('.product-name')?.textContent.trim();if(name&&productQty(name)>0)renderProductControls();});document.documentElement.lang=lang==='ku'?'ckb':'en';document.documentElement.dir=lang==='ku'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ku]').forEach(e=>e.textContent=e.dataset[lang]);document.querySelectorAll('[data-placeholder-en][data-placeholder-ku]').forEach(e=>{const value=e.dataset[lang==='en'?'placeholderEn':'placeholderKu'];if(value)e.placeholder=value;});document.querySelectorAll('.product-card .addbtn').forEach(button=>button.setAttribute('aria-label',button.disabled?(lang==='ku'?'بەردەست نییە':'Out of stock'):(lang==='ku'?'زیادکردن بۆ سەبەتە':'Add to bag')));document.getElementById('langBtn').setAttribute('aria-label',lang==='en'?'Switch to Kurdish':'Switch to English');updateGuestDelivery();renderCart();}
 document.getElementById('langBtn').addEventListener('click',()=>setLang(lang==='en'?'ku':'en'));setLang(lang);
 const announcementMessages=[
- {en:"FREE DELIVERY ON ORDERS OVER 20,000 IQD",ku:"گەیاندنی بەخۆڕایی بۆ داواکارییەکانی زیاتر لە ٢٠٬٠٠٠ دینار"},
+ {en:"Delivery fee depends on your city",ku:"کرێی گەیاندن بەپێی شارەکەت دیاری دەکرێت"},
  {en:"SPECIAL REQUEST? CONTACT US ON WHATSAPP",ku:"داواکاری تایبەتت هەیە؟ لە واتساپ پەیوەندیمان پێوە بکە"},
  {en:"LOOKING FOR A SPECIFIC PRODUCT? ASK US",ku:"بەدوای بەرهەمێکی دیاریکراودا دەگەڕێیت؟ لێمان بپرسە"}
 ];

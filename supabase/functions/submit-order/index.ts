@@ -21,6 +21,97 @@ function money(value: number): string {
   return new Intl.NumberFormat("en-IQ").format(value) + " IQD";
 }
 
+const DELIVERY_AREAS: Record<string, { nameKu: string; feeIqd: number }> = {
+  "ناو شاری سلێمانی": { nameKu: "ناو شاری سلێمانی", feeIqd: 2500 },
+  "تانجەڕۆ": { nameKu: "تانجەڕۆ", feeIqd: 3500 },
+  "هەوانە": { nameKu: "هەوانە", feeIqd: 3500 },
+  "ئاڵە": { nameKu: "ئاڵە", feeIqd: 3500 },
+  "ڕزگۆیز": { nameKu: "ڕزگۆیز", feeIqd: 4000 },
+  "بەردەکەر": { nameKu: "بەردەکەر", feeIqd: 4000 },
+  "قەرەداغ": { nameKu: "قەرەداغ", feeIqd: 4000 },
+  "کانی شێنە": { nameKu: "کانی شێنە", feeIqd: 4000 },
+  "سیتەک": { nameKu: "سیتەک", feeIqd: 4000 },
+  "چوارتا": { nameKu: "چوارتا", feeIqd: 4000 },
+  "مەلا داود": { nameKu: "مەلا داود", feeIqd: 4000 },
+  "کەنەکەوە": { nameKu: "کەنەکەوە", feeIqd: 4000 },
+  "تۆوە سپی": { nameKu: "تۆوە سپی", feeIqd: 4000 },
+  "سەرداراوا": { nameKu: "سەرداراوا", feeIqd: 4000 },
+  "هەولێر": { nameKu: "هەولێر", feeIqd: 4500 },
+  "دهۆک": { nameKu: "دهۆک", feeIqd: 4500 },
+  "کەرکوک": { nameKu: "کەرکوک", feeIqd: 4500 },
+  "ڕانیە": { nameKu: "ڕانیە", feeIqd: 4500 },
+  "کەلار": { nameKu: "کەلار", feeIqd: 4500 },
+  "چەمچەماڵ": { nameKu: "چەمچەماڵ", feeIqd: 4500 },
+  "تاسلوجە": { nameKu: "تاسلوجە", feeIqd: 4500 },
+  "ئالایی": { nameKu: "ئالایی", feeIqd: 4500 },
+  "بازیان": { nameKu: "بازیان", feeIqd: 4500 },
+  "تەکیە": { nameKu: "تەکیە", feeIqd: 4500 },
+  "تێنال": { nameKu: "تێنال", feeIqd: 4500 },
+  "بەردەقامران": { nameKu: "بەردەقامران", feeIqd: 4500 },
+  "بانیجان": { nameKu: "بانیجان", feeIqd: 4500 },
+  "هەڵەبجەی تازە": { nameKu: "هەڵەبجەی تازە", feeIqd: 4500 },
+  "دەربەندیخان": { nameKu: "دەربەندیخان", feeIqd: 4500 },
+  "پێنجوێن": { nameKu: "پێنجوێن", feeIqd: 4500 },
+  "سەیدسادق": { nameKu: "سەیدسادق", feeIqd: 4500 },
+  "زەرایان": { nameKu: "زەرایان", feeIqd: 4500 },
+  "عەمریت": { nameKu: "عەمریت", feeIqd: 4500 },
+  "کانی گۆران": { nameKu: "کانی گۆران", feeIqd: 4500 },
+  "سەموود": { nameKu: "سەموود", feeIqd: 4500 },
+  "بەنگرد": { nameKu: "بەنگرد", feeIqd: 4500 },
+  "ڕزگاری": { nameKu: "ڕزگاری", feeIqd: 4500 },
+  "باوەنور": { nameKu: "باوەنور", feeIqd: 4500 },
+  "کەفری": { nameKu: "کەفری", feeIqd: 4500 },
+  "پیرەمەگڕون": { nameKu: "پیرەمەگڕون", feeIqd: 4500 },
+  "دوکان": { nameKu: "دوکان", feeIqd: 4500 },
+  "خەڵەکان": { nameKu: "خەڵەکان", feeIqd: 4500 },
+  "چوارقوڕنە": { nameKu: "چوارقوڕنە", feeIqd: 4500 },
+  "حاجیاوا": { nameKu: "حاجیاوا", feeIqd: 4500 },
+  "سێنگەسەر": { nameKu: "سێنگەسەر", feeIqd: 4500 },
+  "سەروچاوا": { nameKu: "سەروچاوا", feeIqd: 4500 },
+  "قەڵادزێ": { nameKu: "قەڵادزێ", feeIqd: 4500 },
+  "کۆیە": { nameKu: "کۆیە", feeIqd: 4500 },
+  "تەق تەق": { nameKu: "تەق تەق", feeIqd: 4500 },
+  "پشدەر": { nameKu: "پشدەر", feeIqd: 4500 },
+  "سۆران": { nameKu: "سۆران", feeIqd: 4500 },
+  "خەلیفان": { nameKu: "خەلیفان", feeIqd: 4500 },
+  "پیرمام": { nameKu: "پیرمام", feeIqd: 4500 },
+  "مەسیف": { nameKu: "مەسیف", feeIqd: 4500 },
+  "شەقڵاوە": { nameKu: "شەقڵاوە", feeIqd: 4500 },
+  "هەریر": { nameKu: "هەریر", feeIqd: 4500 },
+  "بەلەکایەتی": { nameKu: "بەلەکایەتی", feeIqd: 4500 },
+  "مێرگەسور": { nameKu: "مێرگەسور", feeIqd: 4500 },
+  "بڵە": { nameKu: "بڵە", feeIqd: 4500 },
+  "بارزان": { nameKu: "بارزان", feeIqd: 4500 },
+  "سەیدکان": { nameKu: "سەیدکان", feeIqd: 4500 },
+  "بەستۆرە": { nameKu: "بەستۆرە", feeIqd: 4500 },
+  "ڕەواندز": { nameKu: "ڕەواندز", feeIqd: 4500 },
+  "چۆمان": { nameKu: "چۆمان", feeIqd: 4500 },
+  "حاجی ئۆمەران": { nameKu: "حاجی ئۆمەران", feeIqd: 4500 },
+  "باسرمه": { nameKu: "باسرمه", feeIqd: 4500 },
+  "تاکەر": { nameKu: "تاکەر", feeIqd: 4500 },
+  "نامەندی": { nameKu: "نامەندی", feeIqd: 4500 },
+  "زاخۆ": { nameKu: "زاخۆ", feeIqd: 4500 },
+  "سیمێل": { nameKu: "سیمێل", feeIqd: 4500 },
+  "شێخان": { nameKu: "شێخان", feeIqd: 4500 },
+  "بەردەڕەش": { nameKu: "بەردەڕەش", feeIqd: 4500 },
+  "شیلادزێ": { nameKu: "شیلادزێ", feeIqd: 4500 },
+  "کەلەک": { nameKu: "کەلەک", feeIqd: 4500 },
+  "قەسری": { nameKu: "قەسری", feeIqd: 4500 },
+  "ڕۆڤیا": { nameKu: "ڕۆڤیا", feeIqd: 4500 },
+  "سەرەسنک": { nameKu: "سەرەسنک", feeIqd: 4500 },
+  "باتیف": { nameKu: "باتیف", feeIqd: 4500 },
+  "مەخمور": { nameKu: "مەخمور", feeIqd: 4500 },
+  "کوێر": { nameKu: "کوێر", feeIqd: 4500 },
+  "هێران": { nameKu: "هێران", feeIqd: 4500 },
+  "نازنین": { nameKu: "نازنین", feeIqd: 4500 },
+  "وەرتی": { nameKu: "وەرتی", feeIqd: 4500 },
+  "قوش تەپە": { nameKu: "قوش تەپە", feeIqd: 4500 },
+  "ناحیەی شوان": { nameKu: "ناحیەی شوان", feeIqd: 4500 },
+  "دۆزخورماتوو": { nameKu: "دۆزخورماتوو", feeIqd: 4500 },
+  "بەغداد": { nameKu: "بەغداد", feeIqd: 6000 },
+  "باشووری عێراق": { nameKu: "باشووری عێراق", feeIqd: 8000 },
+};
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return reply(405, { error: "Method not allowed" });
@@ -37,13 +128,13 @@ Deno.serve(async (req: Request) => {
 
   const customerName = clean(body.customerName, 120);
   const customerPhone = clean(body.customerPhone, 40);
-  const city = clean(body.city, 100);
+  const deliveryAreaId = clean(body.city, 100);
   const address = clean(body.address, 500);
   const instructions = clean(body.instructions, 500);
   const paymentMethod = clean(body.paymentMethod, 40);
   const rawItems = Array.isArray(body.items) ? body.items : [];
 
-  if (customerName.length < 2 || customerPhone.length < 6 || !city || address.length < 5) {
+  if (customerName.length < 2 || customerPhone.length < 6 || !deliveryAreaId || address.length < 5) {
     return reply(400, { error: "Please provide your name, phone number, city and full delivery address." });
   }
   if (!["cash_on_delivery", "fib_manual"].includes(paymentMethod)) {
@@ -130,8 +221,10 @@ Deno.serve(async (req: Request) => {
     });
   }
   const subtotal = items.reduce((sum, item) => sum + item.lineTotalIqd, 0);
-  const kurdistanCities = new Set(["Erbil","Sulaymaniyah","Duhok","Halabja","Zakho","Soran","Ranya","Koya","Akre","Shaqlawa","Chamchamal","Kalar","Qaladizeh","Mergasor"]);
-  const deliveryFee = subtotal > 20000 ? 0 : (kurdistanCities.has(city) ? 3000 : 5000);
+  const deliveryArea = DELIVERY_AREAS[deliveryAreaId];
+  if (!deliveryArea) return reply(400, { error: "Please choose one of the available delivery areas." });
+  const cityLabel = deliveryArea.nameKu;
+  const deliveryFee = deliveryArea.feeIqd;
   const total = subtotal + deliveryFee;
   if (!Number.isSafeInteger(total) || total > 2147483647) {
     return reply(400, { error: "Your order total exceeds the supported amount. Please contact Ultra Beauty." });
@@ -139,7 +232,7 @@ Deno.serve(async (req: Request) => {
   const { data: order, error: insertError } = await supabase.from("orders").insert({
     customer_name: customerName,
     customer_phone: customerPhone,
-    city,
+    city: cityLabel,
     delivery_address: address,
     delivery_instructions: instructions,
     payment_method: paymentMethod,
@@ -160,7 +253,7 @@ Deno.serve(async (req: Request) => {
     `New Ultra Beauty order: ${order.order_number}`,
     `Customer: ${customerName}`,
     `Phone: ${customerPhone}`,
-    `City: ${city}`,
+    `City: ${cityLabel}`,
     `Address: ${address}`,
     instructions ? `Delivery instructions: ${instructions}` : "",
     `Payment: ${paymentLabel}`,
@@ -218,7 +311,7 @@ Deno.serve(async (req: Request) => {
             components: [{ type: "body", parameters: [
               { type: "text", text: customerName },
               { type: "text", text: customerPhone },
-              { type: "text", text: `${address}, ${city}` },
+              { type: "text", text: `${address}, ${cityLabel}` },
               { type: "text", text: order.order_number },
             ] }],
           },
