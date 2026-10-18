@@ -1494,6 +1494,18 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .mobile-bottom-nav #bottomCart .nav-icon{color:#8f174c!important}
 .mobile-bottom-nav #bottomCart .nav-icon svg{stroke:#8f174c!important}
 
+
+/* Reliable product-detail controls: keep quantity and add-to-bag buttons clickable */
+#productDetailPage.visible .product-detail-qty-controls,
+#productDetailPage.visible .product-detail-qty-controls button,
+#productDetailPage.visible #detailAdd{
+  position:relative!important;
+  z-index:20!important;
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+}
+#productDetailPage.visible .product-detail-qty-controls button{cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -1902,6 +1914,40 @@ document.getElementById('productDetailBack').addEventListener('click',()=>closeP
 document.getElementById('detailMinus').addEventListener('click',()=>{detailQuantity=Math.max(1,detailQuantity-1);document.getElementById('detailQty').textContent=detailQuantity;});
 document.getElementById('detailPlus').addEventListener('click',()=>{detailQuantity=Math.min(99,detailQuantity+1);document.getElementById('detailQty').textContent=detailQuantity;});
 document.getElementById('detailAdd').addEventListener('click',()=>{if(!detailProductCard)return;const name=detailProductCard.querySelector('.product-name')?.dataset.en||detailProductCard.querySelector('.product-name')?.textContent.trim();if(!catalogueReady||!cataloguePrices.has(name)||!productIdByName(name)){const status=document.getElementById('detailNote');status.textContent=lang==='ku'?'نرخ و بەردەستبوونی ئەم بەرهەمە هێشتا پشتڕاست نەکراوەتەوە.':'This product is not ready to add yet. Please reload the shop.';status.style.display='block';return;}for(let i=0;i<detailQuantity;i++)changeQty(name,1);toastAdded();closeProductDetail(true);});
+
+/* Robust delegated handlers for product detail controls */
+document.addEventListener('click',function(event){
+ const target=event.target.closest('#detailMinus,#detailPlus,#detailAdd');
+ if(!target)return;
+ event.preventDefault();
+ event.stopPropagation();
+ if(target.id==='detailMinus'){
+   detailQuantity=Math.max(1,Number(detailQuantity||1)-1);
+   document.getElementById('detailQty').textContent=detailQuantity;
+   return;
+ }
+ if(target.id==='detailPlus'){
+   detailQuantity=Math.min(99,Number(detailQuantity||1)+1);
+   document.getElementById('detailQty').textContent=detailQuantity;
+   return;
+ }
+ if(!detailProductCard){
+   document.getElementById('detailNote').textContent=lang==='ku'?'تکایە بەرهەمێک هەڵبژێرە.':'Please select a product first.';
+   return;
+ }
+ const title=detailProductCard.querySelector('.product-name');
+ const name=title?.dataset.en||title?.textContent.trim();
+ if(!catalogueReady||!cataloguePrices.has(name)||!productIdByName(name)){
+   const status=document.getElementById('detailNote');
+   status.textContent=lang==='ku'?'نرخی بەرهەمەکان هێشتا بار نەکراون. پەڕەکە نوێ بکەرەوە و دووبارە هەوڵ بدەرەوە.':'Product prices are still loading. Refresh the page and try again.';
+   status.style.display='block';
+   return;
+ }
+ for(let i=0;i<detailQuantity;i++)changeQty(name,1);
+ toastAdded();
+ closeProductDetail(true);
+},true);
+
 window.addEventListener('popstate',()=>{if(location.hash.startsWith('#product=')){const name=decodeURIComponent(location.hash.slice(9));const card=[...document.querySelectorAll('.product-card')].find(c=>(c.querySelector('.product-name')?.dataset.en||c.querySelector('.product-name')?.textContent.trim())===name);if(card)openProductDetail(card,false);}else if(document.getElementById('productDetailPage').classList.contains('visible'))closeProductDetail(false);});
 const initialProductHash=location.hash.startsWith('#product=')?decodeURIComponent(location.hash.slice(9)):'';if(initialProductHash){const target=[...document.querySelectorAll('.product-card')].find(c=>(c.querySelector('.product-name')?.dataset.en||c.querySelector('.product-name')?.textContent.trim())===initialProductHash);if(target)openProductDetail(target,false);}
 
