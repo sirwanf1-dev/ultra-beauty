@@ -101,6 +101,11 @@ button{cursor:pointer}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .image-preview{width:100%;aspect-ratio:16/8;background:linear-gradient(145deg,#f9e8ef,#f0eaf7 54%,#fff1eb);border:1px dashed #dfbdcb;border-radius:13px;display:grid;place-items:center;overflow:hidden;margin-bottom:8px;color:var(--muted);font-size:12px}
 .image-preview img{width:100%;height:100%;object-fit:contain}
+.product-image-previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:9px;margin:8px 0 10px}
+.product-image-thumb{position:relative;aspect-ratio:1;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;min-width:0}
+.product-image-thumb img{width:100%;height:100%;object-fit:contain}
+.product-image-thumb span{position:absolute;left:4px;right:4px;bottom:4px;padding:3px 5px;border-radius:6px;background:#251c24c9;color:white;font-size:10px;text-align:center;overflow-wrap:anywhere}
+.product-image-thumb button{position:absolute;top:4px;right:4px;border:0;border-radius:50%;width:24px;height:24px;background:#fff;color:#8f174c;font-weight:800}
 .drawer-foot{display:flex;gap:9px;padding:14px 23px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff}
 .drawer-foot .btn{flex:1}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#2a1922;color:white;padding:12px 17px;border-radius:12px;font-size:13px;display:none;z-index:30;max-width:90vw;box-shadow:var(--shadow)}
@@ -313,13 +318,13 @@ button,input,select,textarea{font-family:inherit}
         <div class="field"><label for="nameEn">Product name · English *</label><input id="nameEn" required maxlength="120" placeholder="Product name in English"></div>
         <div class="field"><label for="nameKu">Product name · Kurdish Sorani *</label><input id="nameKu" required maxlength="120" dir="rtl" placeholder="ناوی بەرهەم"></div>
         <div class="field"><label for="category">Category *</label><select id="category" required><option value="" selected disabled>Choose a category</option><option value="Skincare">Skincare</option><option value="Beauty & Makeup">Beauty & Makeup</option><option value="Haircare">Haircare</option><option value="Personal Care">Personal Care</option><option value="Perfumes">Perfumes</option><option value="Women">Women</option><option value="Men">Men</option><option value="Other">Other</option></select></div>
-        <div class="two"><div class="field"><label for="price">Regular price · IQD *</label><input id="price" required type="number" min="0" step="1" placeholder="Enter price"></div><div class="field"><label for="salePrice">Discount price · IQD</label><input id="salePrice" type="number" min="0" step="1" placeholder="Optional"></div></div>
+        <div class="two"><div class="field"><label for="price">Regular price · IQD *</label><input id="price" required type="number" min="0" step="1" placeholder="Enter price"></div><div class="field"><label for="salePrice">Discount price · IQD</label><input id="salePrice" type="number" min="0" step="1" placeholder="Optional"></div></div><div class="field"><label for="volumeMl">Volume · mL (optional)</label><input id="volumeMl" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 30 or 100"><div class="muted">For serums, perfumes, creams and other products sold by volume.</div></div>
         <p class="form-section-title">Product description</p>
-        <div class="field"><label for="descEn">Description · English</label><textarea id="descEn" maxlength="1000" placeholder="Size, ingredients or key features"></textarea></div>
-        <div class="field"><label for="descKu">Description · Kurdish Sorani</label><textarea id="descKu" maxlength="1000" dir="rtl" placeholder="وردەکاریی بەرهەم..."></textarea></div>
+        <div class="field"><label for="descEn">Description · English</label><textarea id="descEn" placeholder="Size, ingredients or key features"></textarea></div>
+        <div class="field"><label for="descKu">Description · Kurdish Sorani</label><textarea id="descKu" dir="rtl" placeholder="وردەکاریی بەرهەم..."></textarea></div>
         <p class="form-section-title">Photo and availability</p>
-        <div class="field"><label for="imageUrl">Product image URL (optional)</label><input id="imageUrl" type="url" placeholder="https://..."></div>
-        <div class="field"><label for="imageFile">Or choose a photo from this device</label><input id="imageFile" type="file" accept="image/*"><div class="image-preview" id="imagePreview">Product photo preview</div><div class="muted">Photo uploads to the shared product images. JPG, PNG, WebP or AVIF up to 5 MB.</div></div>
+        <div class="field"><label for="imageUrl">Main product image URL (optional)</label><input id="imageUrl" type="url" placeholder="https://..."><div class="muted">If you enter a URL, it will be used as the first/main photo.</div></div>
+        <div class="field"><label for="imageFile">Add product photos (choose one or more)</label><input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple><div class="product-image-previews" id="productImagePreviews" aria-live="polite"></div><div class="muted">You can add multiple photos to one product. JPG, PNG, WebP or AVIF, up to 5 MB per photo. Select more photos to add to the current selection.</div><button class="btn" id="clearProductImagesBtn" type="button">Clear newly selected photos</button></div>
         <div class="two"><div class="field"><label for="stock">Availability</label><select id="stock"><option value="in-stock">In stock</option><option value="out-of-stock">Out of stock</option></select></div><div class="field"><label for="published">Website visibility</label><select id="published"><option value="true" selected>Published · visible</option><option value="false">Draft · hidden</option></select></div></div>
       </div>
       <div class="drawer-foot"><button class="btn primary" type="submit" id="saveBtn">Save product</button><button class="btn" type="button" id="resetBtn">Clear form</button></div>
@@ -330,8 +335,9 @@ button,input,select,textarea{font-family:inherit}
 <script>
 const LEGACY_KEY='ultraBeautyAdminProducts_v1';
 let products=[];
-let pendingImageFile=null;
-let previewObjectUrl='';
+let pendingImageFiles=[];
+let previewObjectUrls=[];
+let existingImageUrls=[];
 let slides=[];
 let pendingSlideUploads=[];
 const $=id=>document.getElementById(id);
@@ -339,7 +345,7 @@ let client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;
 const money=n=>Number(n||0).toLocaleString('en-GB')+' IQD';
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
 function safeText(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function fromRow(r){return{id:r.id,nameEn:r.name_en,nameKu:r.name_ku,category:r.category,price:r.price_iqd,salePrice:r.sale_price_iqd,descEn:r.description_en||'',descKu:r.description_ku||'',imageUrl:r.image_url||'',stock:r.in_stock?'in-stock':'out-of-stock',published:!!r.published,updatedAt:r.updated_at}}
+function fromRow(r){const images=Array.isArray(r.image_urls)?r.image_urls.filter(v=>typeof v==='string'&&/^https:\/\//i.test(v)):[];const main=r.image_url||images[0]||'';return{id:r.id,nameEn:r.name_en,nameKu:r.name_ku,category:r.category,price:r.price_iqd,salePrice:r.sale_price_iqd,volumeMl:r.volume_ml??null,descEn:r.description_en||'',descKu:r.description_ku||'',imageUrl:main,imageUrls:[...new Set([main,...images].filter(Boolean))],stock:r.in_stock?'in-stock':'out-of-stock',published:!!r.published,updatedAt:r.updated_at}}
 function legacyProducts(){try{const d=JSON.parse(localStorage.getItem(LEGACY_KEY)||'[]');return Array.isArray(d)?d:[]}catch{return[]}}
 function updateLegacyButton(){const n=legacyProducts().length;$('migrateLocalBtn').hidden=!n;$('migrateLocalBtn').textContent=n?'Import saved browser products ('+n+')':'Import saved browser products'}
 function render(){
@@ -464,8 +470,9 @@ function showImage(src){
  const box=$('imagePreview');box.innerHTML='';
  if(src){const img=document.createElement('img');img.src=src;img.alt='Product preview';img.onerror=()=>{box.textContent='Could not load this image'};box.appendChild(img)}else box.textContent='Product photo preview'
 }
-function clearPreview(){if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=''}pendingImageFile=null}
-function resetForm(){ $('productForm').reset();$('productId').value='';clearPreview();$('imagePreview').textContent='Product photo preview';$('formTitle').textContent='Add a product';$('saveBtn').textContent='Save product';$('published').value='true';$('category').value=''}
+function clearPreview(){previewObjectUrls.forEach(url=>URL.revokeObjectURL(url));previewObjectUrls=[];pendingImageFiles=[];existingImageUrls=[];$('imageFile').value='';$('productImagePreviews').replaceChildren()}
+function renderProductImagePreviews(){const grid=$('productImagePreviews');grid.replaceChildren();const images=[...existingImageUrls.map((url,index)=>({url,label:index===0?'Saved · main':'Saved photo '+(index+1),saved:true,index})),...pendingImageFiles.map((file,index)=>({url:previewObjectUrls[index],label:'New photo '+(index+1),saved:false,index}))];images.forEach(item=>{const card=document.createElement('div');card.className='product-image-thumb';const img=document.createElement('img');img.src=item.url;img.alt=item.label;const label=document.createElement('span');label.textContent=item.label;card.append(img,label);if(item.saved){const remove=document.createElement('button');remove.type='button';remove.textContent='×';remove.setAttribute('aria-label','Remove saved photo');remove.dataset.removeSavedImage=String(item.index);card.appendChild(remove)}else{const remove=document.createElement('button');remove.type='button';remove.textContent='×';remove.setAttribute('aria-label','Remove selected photo');remove.dataset.removeNewImage=String(item.index);card.appendChild(remove)}grid.appendChild(card)})}
+function resetForm(){ $('productForm').reset();$('productId').value='';clearPreview();$('formTitle').textContent='Add a product';$('saveBtn').textContent='Save product';$('published').value='true';$('category').value='';$('volumeMl').value=''}
 function openEditor(){
  const overlay=$('editorOverlay');overlay.hidden=false;document.body.classList.add('editor-open');
  requestAnimationFrame(()=>overlay.classList.add('is-open'));
@@ -477,7 +484,7 @@ function closeEditor(){
 }
 function editProduct(id){
  const p=products.find(x=>x.id===id);if(!p)return;
- $('productId').value=p.id;$('nameEn').value=p.nameEn||'';$('nameKu').value=p.nameKu||'';$('category').value=p.category||'Other';$('price').value=p.price??'';$('salePrice').value=p.salePrice??'';$('descEn').value=p.descEn||'';$('descKu').value=p.descKu||'';$('imageUrl').value=p.imageUrl||'';$('stock').value=p.stock||'in-stock';$('published').value=String(!!p.published);clearPreview();showImage(p.imageUrl);$('formTitle').textContent='Edit product';$('saveBtn').textContent='Update product';openEditor()
+ clearPreview();$('productId').value=p.id;$('nameEn').value=p.nameEn||'';$('nameKu').value=p.nameKu||'';$('category').value=p.category||'Other';$('price').value=p.price??'';$('salePrice').value=p.salePrice??'';$('volumeMl').value=p.volumeMl??'';$('descEn').value=p.descEn||'';$('descKu').value=p.descKu||'';$('imageUrl').value=p.imageUrl||'';$('stock').value=p.stock||'in-stock';$('published').value=String(!!p.published);existingImageUrls=[...(p.imageUrls||[p.imageUrl]).filter(Boolean)];renderProductImagePreviews();$('formTitle').textContent='Edit product';$('saveBtn').textContent='Update product';openEditor()
 }
 async function uploadImage(file){
  const allowed={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/avif':'avif'};
@@ -493,14 +500,17 @@ async function photoFromDataUrl(data){
  return new File([blob],'product-image',{type:blob.type})
 }
 async function saveProductRecord(raw,id,existing){
- let imageUrl=String(raw.imageUrl||existing?.imageUrl||'').trim();
- if(pendingImageFile)imageUrl=await uploadImage(pendingImageFile);
+ let imageUrl=String(raw.imageUrl||'').trim();
  if(imageUrl&&!/^https:\/\//i.test(imageUrl))throw new Error('Use a secure https image link.');
- const payload={name_en:String(raw.nameEn||'').trim(),name_ku:String(raw.nameKu||'').trim(),category:String(raw.category||'Other'),price_iqd:Number(raw.price),sale_price_iqd:raw.salePrice===''||raw.salePrice==null?null:Number(raw.salePrice),description_en:String(raw.descEn||'').trim(),description_ku:String(raw.descKu||'').trim(),image_url:imageUrl,in_stock:raw.stock!=='out-of-stock',published:!!raw.published,updated_at:new Date().toISOString()};
+ const uploadedUrls=[];for(const file of pendingImageFiles)uploadedUrls.push(await uploadImage(file));
+ const imageUrls=[...new Set([imageUrl,...existingImageUrls,...uploadedUrls].filter(Boolean))];imageUrl=imageUrls[0]||'';
+ const volumeRaw=raw.volumeMl===''||raw.volumeMl==null?null:Number(raw.volumeMl);
+ if(volumeRaw!==null&&(!Number.isFinite(volumeRaw)||volumeRaw<0||volumeRaw>1000000))throw new Error('Enter a valid volume in mL.');
+ const payload={name_en:String(raw.nameEn||'').trim(),name_ku:String(raw.nameKu||'').trim(),category:String(raw.category||'Other'),price_iqd:Number(raw.price),sale_price_iqd:raw.salePrice===''||raw.salePrice==null?null:Number(raw.salePrice),volume_ml:volumeRaw,description_en:String(raw.descEn||''),description_ku:String(raw.descKu||''),image_url:imageUrl,image_urls:imageUrls,in_stock:raw.stock!=='out-of-stock',published:!!raw.published,updated_at:new Date().toISOString()};
  let result=id?await client.from('products').update(payload).eq('id',id).select('*').single():await client.from('products').insert(payload).select('*').single();
  if(result.error)throw new Error('Could not save product. Check the database policies and required fields.');
  const saved=fromRow(result.data);
- products=id?products.map(p=>p.id===id?saved:p):[saved,...products];
+ clearPreview();products=id?products.map(p=>p.id===id?saved:p):[saved,...products];
  render();updateLegacyButton();return saved
 }
 async function authorizeSession(session){
@@ -533,15 +543,16 @@ $('productForm').addEventListener('submit',async e=>{
  if(!$('nameEn').value.trim()||!$('nameKu').value.trim()){toast('Enter the product name in English and Kurdish Sorani.');return}
  const id=$('productId').value,existing=products.find(p=>p.id===id),btn=$('saveBtn');
  btn.disabled=true;
- try{await saveProductRecord({nameEn:$('nameEn').value,nameKu:$('nameKu').value,category:$('category').value,price,salePrice:sale,descEn:$('descEn').value,descKu:$('descKu').value,imageUrl:$('imageUrl').value,stock:$('stock').value,published:$('published').value==='true'},id||null,existing);resetForm();closeEditor();toast('Product saved to the shared catalogue.')}catch(err){toast(err.message||'Could not save product.')}finally{btn.disabled=false}
+ try{await saveProductRecord({nameEn:$('nameEn').value,nameKu:$('nameKu').value,category:$('category').value,price,salePrice:sale,volumeMl:$('volumeMl').value,descEn:$('descEn').value,descKu:$('descKu').value,imageUrl:$('imageUrl').value,stock:$('stock').value,published:$('published').value==='true'},id||null,existing);resetForm();closeEditor();toast('Product saved to the shared catalogue.')}catch(err){toast(err.message||'Could not save product.')}finally{btn.disabled=false}
 });
 $('imageFile').addEventListener('change',e=>{
- clearPreview();const f=e.target.files?.[0];if(!f){showImage($('imageUrl').value.trim());return}
- const allowed=['image/jpeg','image/png','image/webp','image/avif'];
- if(!allowed.includes(f.type)||f.size>5*1024*1024){e.target.value='';toast('Choose a JPG, PNG, WebP or AVIF image under 5 MB.');showImage($('imageUrl').value.trim());return}
- pendingImageFile=f;previewObjectUrl=URL.createObjectURL(f);showImage(previewObjectUrl)
+ const allowed=['image/jpeg','image/png','image/webp','image/avif'];const files=[...(e.target.files||[])];e.target.value='';
+ for(const file of files){if(!allowed.includes(file.type)||file.size>5*1024*1024){toast(file.name+': choose JPG, PNG, WebP or AVIF under 5 MB.');continue}pendingImageFiles.push(file);previewObjectUrls.push(URL.createObjectURL(file))}
+ renderProductImagePreviews()
 });
-$('imageUrl').addEventListener('input',()=>{if(!pendingImageFile)showImage($('imageUrl').value.trim())});
+$('imageUrl').addEventListener('input',()=>{if(!$('imageUrl').value.trim()&&!existingImageUrls.length&&!pendingImageFiles.length)return});
+$('clearProductImagesBtn').addEventListener('click',()=>{previewObjectUrls.forEach(url=>URL.revokeObjectURL(url));previewObjectUrls=[];pendingImageFiles=[];$('imageFile').value='';renderProductImagePreviews()});
+$('productImagePreviews').addEventListener('click',e=>{const saved=e.target.closest('[data-remove-saved-image]'),fresh=e.target.closest('[data-remove-new-image]');if(saved){const index=Number(saved.dataset.removeSavedImage);existingImageUrls.splice(index,1);renderProductImagePreviews()}else if(fresh){const index=Number(fresh.dataset.removeNewImage);URL.revokeObjectURL(previewObjectUrls[index]);previewObjectUrls.splice(index,1);pendingImageFiles.splice(index,1);renderProductImagePreviews()}});
 $('resetBtn').addEventListener('click',resetForm);
 $('search').addEventListener('input',render);$('filterCategory').addEventListener('change',render);
 $('productList').addEventListener('click',async e=>{
@@ -554,7 +565,7 @@ $('editorOverlay').addEventListener('click',e=>{if(e.target.matches('[data-close
 $('productList').addEventListener('click',e=>{if(e.target.closest('[data-add-product]')){resetForm();openEditor()}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('editorOverlay').hidden)closeEditor()});
 $('exportBtn').addEventListener('click',()=>{
- const backup=products.map(p=>({id:p.id,nameEn:p.nameEn,nameKu:p.nameKu,category:p.category,price:p.price,salePrice:p.salePrice,descEn:p.descEn,descKu:p.descKu,imageUrl:p.imageUrl,stock:p.stock,published:p.published,updatedAt:p.updatedAt}));
+ const backup=products.map(p=>({id:p.id,nameEn:p.nameEn,nameKu:p.nameKu,category:p.category,price:p.price,salePrice:p.salePrice,volumeMl:p.volumeMl,descEn:p.descEn,descKu:p.descKu,imageUrl:p.imageUrl,imageUrls:p.imageUrls||[p.imageUrl].filter(Boolean),stock:p.stock,published:p.published,updatedAt:p.updatedAt}));
  const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='ultra-beauty-products-backup.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Catalogue backup downloaded.')
 });
 async function importBackupRows(data,unpublishedByDefault){
@@ -562,8 +573,8 @@ async function importBackupRows(data,unpublishedByDefault){
  for(const p of data){
   const price=Number(p.price??p.price_iqd),saleRaw=p.salePrice??p.sale_price_iqd,sale=saleRaw===''||saleRaw==null?null:Number(saleRaw);
   if(!p.nameEn&&!p.name_en||!p.nameKu&&!p.name_ku||!Number.isSafeInteger(price)||price<0||sale!==null&&(!Number.isSafeInteger(sale)||sale<0||sale>=price))throw new Error('One or more products have missing names or invalid IQD prices.');
-  const localImage=await photoFromDataUrl(p.imageData),imageUrl=localImage?await uploadImage(localImage):String(p.imageUrl||p.image_url||'');
-  const raw={name_en:p.nameEn||p.name_en,name_ku:p.nameKu||p.name_ku,category:p.category||'Other',price_iqd:price,sale_price_iqd:sale,description_en:p.descEn||p.description_en||'',description_ku:p.descKu||p.description_ku||'',image_url:imageUrl,in_stock:(p.stock||'in-stock')!=='out-of-stock'&&p.in_stock!==false,published:unpublishedByDefault?false:!!p.published,updated_at:new Date().toISOString()};
+  const localImage=await photoFromDataUrl(p.imageData),uploadedMain=localImage?await uploadImage(localImage):'';const imageUrls=[...new Set([uploadedMain,p.imageUrl||p.image_url,...(Array.isArray(p.imageUrls)?p.imageUrls:[])].filter(v=>typeof v==='string'&&/^https:\/\//i.test(v)))];const imageUrl=imageUrls[0]||'';const volumeRaw=p.volumeMl??p.volume_ml??null;
+  const raw={name_en:p.nameEn||p.name_en,name_ku:p.nameKu||p.name_ku,category:p.category||'Other',price_iqd:price,sale_price_iqd:sale,volume_ml:volumeRaw===''?null:volumeRaw==null?null:Number(volumeRaw),description_en:p.descEn||p.description_en||'',description_ku:p.descKu||p.description_ku||'',image_url:imageUrl,image_urls:imageUrls,in_stock:(p.stock||'in-stock')!=='out-of-stock'&&p.in_stock!==false,published:unpublishedByDefault?false:!!p.published,updated_at:new Date().toISOString()};
   const validUuid=typeof p.id==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(p.id);
   const result=validUuid?await client.from('products').upsert({...raw,id:p.id}).select('id').single():await client.from('products').insert(raw).select('id').single();
   if(result.error)throw new Error('Import stopped after '+count+' products. Check admin access and the product schema.');
