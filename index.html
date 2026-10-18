@@ -1280,6 +1280,16 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .product-detail-description .detail-language-section{margin-top:18px;line-height:1.85}
 .product-detail-description .detail-language-heading{display:block;font-weight:800;color:#8f174c;margin-bottom:5px}
 .product-detail-description .detail-language-copy{display:block;font-weight:400;color:#746b73}
+
+.product-detail-price{display:flex!important;align-items:baseline!important;justify-content:flex-start!important;gap:10px;flex-wrap:wrap}
+.product-detail-stock:empty{display:none!important}
+.product-detail-stock:not(:empty){display:inline-flex;align-items:center;margin-top:10px;padding:5px 10px;border:1px solid #eadde4;border-radius:20px;background:#fff5f8;color:#8f174c;font-size:14px;font-weight:800;direction:ltr}
+.product-detail-description{white-space:normal!important;text-align:initial!important}
+.product-detail-description .detail-language-section{margin-top:18px;line-height:1.85}
+.product-detail-description .detail-language-heading{display:block;font-weight:800;color:#8f174c;margin-bottom:5px}
+.product-detail-description .detail-language-copy{display:block;font-weight:400;color:#746b73;white-space:pre-wrap}
+.product-detail-description .detail-language-section[dir="ltr"]{direction:ltr;text-align:left!important}
+.product-detail-description .detail-language-section[dir="rtl"]{direction:rtl;text-align:right!important}
 </style>
 </head>
 <body>
@@ -1668,9 +1678,9 @@ function openProductDetail(card,updateHistory=true){
  const oldEl=document.getElementById('detailOldPrice'),discountEl=document.getElementById('detailDiscount'),now=Number(prices.current.replace(/,/g,'')),was=Number(prices.old.replace(/,/g,''));
  oldEl.hidden=!(was>now);oldEl.textContent=was>now?prices.old+' '+(lang==='ku'?'دینار':'IQD'):'';
  discountEl.hidden=!(was>now);discountEl.textContent=was>now?'-'+Math.round((was-now)/was*100)+'%':'';
- document.getElementById('detailStock').textContent='';
+ document.getElementById('detailStock').textContent=volume?String(volume)+' ML':'';
  const descEn=card.dataset.descriptionEn||'',descKu=card.dataset.descriptionKu||'',volume=card.dataset.volumeMl||'';
- const descriptionBox=document.getElementById('detailDescription');descriptionBox.replaceChildren();const addDescriptionSection=(heading,body)=>{if(!body)return;const section=document.createElement('section');section.className='detail-language-section';const title=document.createElement('strong');title.className='detail-language-heading';title.textContent=heading;const copy=document.createElement('div');copy.className='detail-language-copy';copy.textContent=body;section.append(title,copy);descriptionBox.appendChild(section);};addDescriptionSection('English:',descEn);addDescriptionSection('Kurdish:',descKu);
+ const descriptionBox=document.getElementById('detailDescription');descriptionBox.replaceChildren();const addDescriptionSection=(heading,body)=>{if(!body)return;const section=document.createElement('section');section.className='detail-language-section';const title=document.createElement('strong');title.className='detail-language-heading';title.textContent=heading;const copy=document.createElement('div');copy.className='detail-language-copy';copy.textContent=body;section.append(title,copy);descriptionBox.appendChild(section);};addDescriptionSection('کوردی:',descKu);addDescriptionSection('English:',descEn);descriptionBox.querySelectorAll('.detail-language-section').forEach(section=>{if(section.querySelector('.detail-language-heading')?.textContent==='English:'){section.dir='ltr';section.style.textAlign='left';}else{section.dir='rtl';section.style.textAlign='right';}});
  document.getElementById('detailQty').textContent=detailQuantity;
  document.getElementById('detailAdd').textContent=lang==='ku'?'زیادکردن بۆ سەبەتە':'ADD TO BAG';
  document.getElementById('detailNote').textContent='';
@@ -1686,7 +1696,7 @@ document.addEventListener('click',e=>{const card=e.target.closest('.product-card
 document.getElementById('productDetailBack').addEventListener('click',()=>closeProductDetail(true));
 document.getElementById('detailMinus').addEventListener('click',()=>{detailQuantity=Math.max(1,detailQuantity-1);document.getElementById('detailQty').textContent=detailQuantity;});
 document.getElementById('detailPlus').addEventListener('click',()=>{detailQuantity=Math.min(99,detailQuantity+1);document.getElementById('detailQty').textContent=detailQuantity;});
-document.getElementById('detailAdd').addEventListener('click',()=>{if(!detailProductCard)return;const name=detailProductCard.querySelector('.product-name')?.dataset.en||detailProductCard.querySelector('.product-name')?.textContent.trim();if(!catalogueReady||!cataloguePrices.has(name)||!productIdByName(name)){const status=document.getElementById('detailNote');status.textContent=lang==='ku'?'نرخ و بەردەستبوونی ئەم بەرهەمە هێشتا پشتڕاست نەکراوەتەوە.':'This product is not ready to add yet. Please reload the shop.';status.style.display='block';return;}for(let i=0;i<detailQuantity;i++)changeQty(name,1);toastAdded();closeProductDetail(true);openPayment();});
+document.getElementById('detailAdd').addEventListener('click',()=>{if(!detailProductCard)return;const name=detailProductCard.querySelector('.product-name')?.dataset.en||detailProductCard.querySelector('.product-name')?.textContent.trim();if(!catalogueReady||!cataloguePrices.has(name)||!productIdByName(name)){const status=document.getElementById('detailNote');status.textContent=lang==='ku'?'نرخ و بەردەستبوونی ئەم بەرهەمە هێشتا پشتڕاست نەکراوەتەوە.':'This product is not ready to add yet. Please reload the shop.';status.style.display='block';return;}for(let i=0;i<detailQuantity;i++)changeQty(name,1);toastAdded();closeProductDetail(true);});
 window.addEventListener('popstate',()=>{if(location.hash.startsWith('#product=')){const name=decodeURIComponent(location.hash.slice(9));const card=[...document.querySelectorAll('.product-card')].find(c=>(c.querySelector('.product-name')?.dataset.en||c.querySelector('.product-name')?.textContent.trim())===name);if(card)openProductDetail(card,false);}else if(document.getElementById('productDetailPage').classList.contains('visible'))closeProductDetail(false);});
 const initialProductHash=location.hash.startsWith('#product=')?decodeURIComponent(location.hash.slice(9)):'';if(initialProductHash){const target=[...document.querySelectorAll('.product-card')].find(c=>(c.querySelector('.product-name')?.dataset.en||c.querySelector('.product-name')?.textContent.trim())===initialProductHash);if(target)openProductDetail(target,false);}
 
