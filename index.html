@@ -1452,6 +1452,18 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .product-card .product-bottom .price-stack .price .sale-price{font-weight:900!important}
 .product-card .product-bottom .old-price{font-size:12px!important;line-height:1.1!important}
 .product-card .product-bottom .addbtn,.product-card .product-bottom .quantity-controls{align-self:center!important}
+
+/* FINAL compact card fix: stop CSS grid stretching cards to the tallest card in each row */
+@media(max-width:760px){
+  .product-track{align-items:start!important;grid-auto-rows:max-content!important}
+  .product-track>.product-card{align-self:start!important;height:fit-content!important;min-height:0!important;padding-bottom:0!important;margin-bottom:0!important}
+  .product-track>.product-card .product-bottom{height:auto!important;min-height:0!important;margin-bottom:0!important;padding-bottom:10px!important}
+  .product-track>.product-card .product-bottom .price-stack{min-height:0!important;height:auto!important}
+  .product-track>.product-card .product-name{flex:none!important}
+  .product-track>.product-card .product-volume-badge{margin-top:0!important}
+}
+.product-card .product-bottom .price-stack .price,
+.product-card .product-bottom .price-stack .price .sale-price{font-weight:900!important}
 </style>
 </head>
 <body>
