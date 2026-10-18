@@ -1290,6 +1290,23 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .product-detail-description .detail-language-copy{display:block;font-weight:400;color:#746b73;white-space:pre-wrap}
 .product-detail-description .detail-language-section[dir="ltr"]{direction:ltr;text-align:left!important}
 .product-detail-description .detail-language-section[dir="rtl"]{direction:rtl;text-align:right!important}
+
+/* Final product-card alignment: price and bag control share one fixed row */
+.product-card{display:flex!important;flex-direction:column!important;min-height:100%!important}
+.product-card .product-bottom{display:grid!important;grid-template-columns:minmax(0,1fr) 42px!important;grid-template-rows:auto!important;align-items:center!important;justify-content:initial!important;gap:8px!important;flex-wrap:initial!important;margin-top:auto!important;min-height:82px!important;padding:12px 12px 14px!important;direction:rtl!important}
+.product-card .product-bottom .price-stack{grid-column:1!important;grid-row:1!important;width:auto!important;min-width:0!important;max-width:100%!important;flex:initial!important;margin:0!important;align-items:flex-end!important;justify-content:center!important;text-align:right!important;direction:rtl!important}
+.product-card .product-bottom .addbtn,.product-card .product-bottom .quantity-controls{grid-column:2!important;grid-row:1!important;width:42px!important;min-width:42px!important;max-width:42px!important;flex:initial!important;justify-self:start!important;align-self:center!important;margin:0!important}
+.product-card .product-bottom .quantity-controls{height:auto!important;min-height:36px!important;gap:2px!important;flex-direction:column!important;padding:0!important}
+.product-card .product-bottom .qty-btn{width:34px!important;min-width:34px!important;height:30px!important;min-height:30px!important}
+.product-card .product-bottom .qty-number{font-size:12px!important;line-height:1.1!important;white-space:nowrap!important}
+.product-card .product-volume-badge{align-self:flex-end!important;white-space:nowrap!important}
+@media(max-width:760px){
+ .product-card .product-bottom{grid-template-columns:minmax(0,1fr) 40px!important;min-height:78px!important;padding:10px 10px 12px!important;gap:6px!important}
+ .product-card .product-bottom .addbtn,.product-card .product-bottom .quantity-controls{width:40px!important;min-width:40px!important;max-width:40px!important}
+ .product-card .product-bottom .addbtn{height:40px!important;min-height:40px!important}
+ .product-card .product-bottom .quantity-controls{min-height:34px!important}
+ .product-card .product-bottom .qty-btn{width:32px!important;min-width:32px!important;height:29px!important;min-height:29px!important}
+}
 </style>
 </head>
 <body>
