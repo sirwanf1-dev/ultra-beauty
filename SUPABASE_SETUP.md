@@ -25,6 +25,12 @@ Products entered in the older dashboard are stored only in that browser. **Do no
    on conflict (user_id) do nothing;
    ```
 
+## Product volume and multiple photos
+
+After publishing the updated website code, open Supabase **SQL Editor** and run `supabase-product-volume-images.sql` from this repository. This adds the optional `volume_ml` field and an `image_urls` array, and copies existing main image URLs into that array. It is safe to re-run and does not delete product records.
+
+In the Product Manager, enter a volume such as `30` or `100` in **Volume · mL**. English and Kurdish Sorani description fields have no character limit in the page. Use **Add product photos** to select one or more images; each image is uploaded to the shared storage, and the first/main image remains the storefront card image. Saved photos can be removed in the editor.
+
 ## Add and publish products
 
 1. Open `admin.html` on the published site and sign in with the approved account.
