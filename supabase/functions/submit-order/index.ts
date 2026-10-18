@@ -89,7 +89,7 @@ const DELIVERY_AREAS: Record<string, { nameKu: string; feeIqd: number }> = {
   "حاجی ئۆمەران": { nameKu: "حاجی ئۆمەران", feeIqd: 4500 },
   "باسرمه": { nameKu: "باسرمه", feeIqd: 4500 },
   "تاکەر": { nameKu: "تاکەر", feeIqd: 4500 },
-  "نامەندی": { nameKu: "نامەندی", feeIqd: 4500 },
+  "تامەندی": { nameKu: "تامەندی", feeIqd: 4500 },
   "زاخۆ": { nameKu: "زاخۆ", feeIqd: 4500 },
   "سیمێل": { nameKu: "سیمێل", feeIqd: 4500 },
   "شێخان": { nameKu: "شێخان", feeIqd: 4500 },
