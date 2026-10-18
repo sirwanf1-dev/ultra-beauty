@@ -1921,17 +1921,25 @@ window.ultraBeautyDetailQty=function(delta){
  if(qty)qty.textContent=String(detailQuantity);
 };
 window.ultraBeautyDetailAdd=function(){
- if(!detailProductCard){document.getElementById('detailNote').textContent='Please select a product again.';return;}
- const title=detailProductCard.querySelector('.product-name');
+ const status=document.getElementById('detailNote');
+ const card=detailProductCard;
+ if(!card){if(status){status.textContent='Please select a product again.';status.style.display='block';}return;}
+ const title=card.querySelector('.product-name');
  const name=title?.dataset.en||title?.textContent.trim();
- if(!catalogueReady||!cataloguePrices.has(name)||!productIdByName(name)){
-  const status=document.getElementById('detailNote');
-  status.textContent=lang==='ku'?'نرخی بەرهەمەکان هێشتا بار نەکراون. پەڕەکە نوێ بکەرەوە و دووبارە هەوڵ بدەرەوە.':'Product prices are still loading. Refresh the page and try again.';
-  status.style.display='block';return;
+ const productId=card.dataset.productId||'';
+ const price=Number(card.dataset.priceIqd||cataloguePrices.get(name));
+ if(!name||!productId||!Number.isFinite(price)||price<=0){
+  if(status){status.textContent=lang==='ku'?'زانیاریی ئەم بەرهەمە ئامادە نییە. تکایە پەڕەکە نوێ بکەرەوە.':'This product is not ready to add yet. Please refresh the page and try again.';status.style.display='block';}
+  return;
  }
  const amount=Math.max(1,Math.min(99,Number(detailQuantity||1)));
- for(let i=0;i<amount;i++)changeQty(name,1);
- toastAdded();
+ const existing=cart.find(item=>item.name===name);
+ if(existing)existing.qty=Math.min(99,existing.qty+amount);
+ else cart.push({name,productId,qty:amount});
+ persistCart();
+ renderCart();
+ renderProductControls();
+ if(typeof toastAdded==='function')toastAdded();
  closeProductDetail(true);
 };
 /* Robust delegated handlers for product detail controls */
