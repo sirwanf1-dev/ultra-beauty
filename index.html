@@ -2349,7 +2349,7 @@ document.addEventListener('click',function(event){
  const name=title?.dataset.en||title?.textContent.trim();
  const productId=card?.dataset.productId||'';
  const price=Number(card?.dataset.priceIqd||cataloguePrices.get(name));
- if(!card||!name||!productId||!Number.isFinite(price)||price<=0){
+ if(!card||!name||!Number.isFinite(price)||price<=0){
   if(status){status.textContent=lang==='ku'?'زانیاریی ئەم بەرهەمە ئامادە نییە. تکایە پەڕەکە نوێ بکەرەوە.':'Product details are still loading. Please refresh and try again.';status.style.display='block';}
   return;
  }
@@ -2444,4 +2444,26 @@ header .iconbtn,header .iconbtn svg,header .menu-btn svg,header #cartBtn svg{col
 .showcase-dots button.active,.slide-dots button.active{background:#870044!important}
 .price,.sale-price,.price-stack .price,html body .product-card .price.sale-price{color:#ed1c24!important}
 </style>
+
+<style id="ultra-beauty-remove-blue-and-detail-cart-fix">
+:root{--gold:#870044!important;--gold-dark:#65002f!important;--brand:#870044!important;--brand-soft:#f6dce9!important;--soft:#fff0f7!important;--line:#eadde3!important}
+html,body{accent-color:#870044!important}
+header .iconbtn,header .iconbtn svg,header .menu-btn svg,header #cartBtn svg,
+.mobile-bottom-nav button,.mobile-bottom-nav button span,.mobile-bottom-nav button small,
+.mobile-bottom-nav svg,.mobile-bottom-nav .nav-icon svg{color:#870044!important;stroke:#870044!important}
+.navtab.active,.trend-tabs button.active,.showcase-dots button.active,.slide-dots button.active,
+.addbtn,.addbtn:hover,.addbtn.added,.product-detail-add,.goldlink,
+.mobile-bottom-nav button i,.cart-count{background:#870044!important;color:#fff!important;border-color:#870044!important}
+.iconbtn:hover,.qty-btn{background:#fff0f7!important;color:#870044!important;border-color:#ead0dc!important}
+.product-card,.showcase-slide,.category-picture{border-color:#eadde3!important}
+.product-detail-qty-controls button{background:#fff0f7!important;color:#870044!important;border-color:#ead0dc!important}
+.product-detail-add{display:block!important;width:100%;min-height:48px;cursor:pointer;touch-action:manipulation;position:relative;z-index:5;pointer-events:auto}
+.product-detail-page button{touch-action:manipulation}
+@media(max-width:760px){
+ .topbar .iconrow #cartBtn{background:#870044!important;color:#fff!important;border-color:#870044!important}
+ .topbar .iconrow #cartBtn .cart-count{background:#f7c7df!important;color:#65002f!important}
+ .mobile-bottom-nav button i,.cart-count{background:#870044!important;color:#fff!important}
+}
+</style>
+
 </body></html>
