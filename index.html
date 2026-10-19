@@ -1793,6 +1793,46 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .navtab.active{background:#4d8fc7!important}
 .iconbtn:hover{background:#edf7ff!important;color:#4d8fc7!important}
 </style>
+<style id="ultra-deep-pink-final-theme">
+:root{--gold:#850b45!important;--gold-dark:#650632!important;--brand:#850b45!important;--brand-soft:#f8e7ef!important;--soft:#fff4f8!important;--line:#ead0dc!important}
+.brand-name span,.menu-page-brand b,.footer-brand span{color:#850b45!important}
+.navtab.active,.trend-tabs button.active,.showcase-dots button.active,.slide-dots button.active{background:#850b45!important;color:#fff!important}
+.menu-btn,.menu-language-btn{color:#850b45!important;border-color:#ead0dc!important;background:#fff!important}
+.menu-back{background:#f8e7ef!important;color:#850b45!important}
+.iconbtn:hover{background:#f8e7ef!important;color:#850b45!important}
+.heart{color:#850b45!important}
+.cart-count,.mobile-bottom-nav button i{background:#850b45!important;color:#fff!important}
+.mobile-bottom-nav button{color:#850b45!important}
+.product-card,.showcase-slide,.category-picture{border-color:#ead0dc!important}
+.price,.price-stack .price,.price.sale-price,.product-detail-current{color:#ed1c24!important}
+.addbtn,.addbtn:hover,.addbtn.added,.product-track>.product-card .product-bottom .addbtn,.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls{background:#173b67!important;color:#fff!important}
+.product-track>.product-card .product-bottom .addbtn:hover,.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls:hover{background:#102b4e!important}
+.qty-btn{color:#850b45!important;border-color:#e3b6cb!important;background:#fff3f8!important}
+.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls .qty-btn{color:#fff!important;background:transparent!important}
+.goldlink{background:#850b45!important;color:#fff!important}
+.benefit{border-color:#ead0dc!important;background:#fffafd!important}
+.benefit-icon{background:#f8e0eb!important;color:#850b45!important}
+.hero-slide{background:#fff4f8!important}
+.payment-page{border-color:#ead0dc!important;background:#fffafd!important}
+.cart-product-price{color:#ed1c24!important}
+.product-detail-add{background:#173b67!important;color:#fff!important}
+.announcement{border-bottom-color:#850b45!important}
+.announcement-message:before{background:#d71b54!important;box-shadow:0 0 9px #d71b5499!important}
+.menu-search-item{width:100%;display:flex;align-items:center;gap:14px;text-align:inherit;border:1px solid #ead0dc;background:#fff;border-radius:14px;padding:15px;color:#850b45;cursor:pointer}
+.menu-search-item .menu-page-icon{flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;background:#f8e7ef;border-radius:12px;color:#850b45}
+.menu-search-item .menu-page-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.menu-search-item>span:nth-child(2){display:flex;flex-direction:column;gap:5px;flex:1}
+.menu-search-item strong{font-size:15px;color:#850b45}
+.menu-search-item small{font-size:12px;color:#7c7078}
+.menu-search-item .menu-chevron{color:#850b45}
+@media(max-width:760px){
+ .topbar .iconrow{gap:8px!important}
+ .topbar .iconrow #cartBtn{margin-inline-start:auto}
+ .brand-side{flex-direction:row-reverse!important}
+ .menu-btn{order:0!important}
+ .logo.wordmark{order:1!important}
+}
+</style>
 </head>
 <body>
 <div class="announcement" role="status" aria-live="polite"><span class="announcement-message" id="announcementMessage" data-en="Delivery fee depends on your city" data-ku="کرێی گەیاندن بەپێی شارەکەت دیاری دەکرێت">کرێی گەیاندن بەپێی شارەکەت دیاری دەکرێت</span></div>
@@ -1804,7 +1844,6 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
   </div>
   <div class="topbar-spacer" aria-hidden="true"></div>
   <div class="iconrow">
-   <button class="iconbtn searchbtn" id="searchBtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></button>
    <button class="iconbtn" id="cartBtn" aria-label="Shopping bag"><span class="cart-count" id="cartCount">0</span><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
    
   </div>
@@ -1815,6 +1854,7 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
  <div class="menu-page-top"><span class="menu-page-brand">Ultra <b>Beauty</b></span><button class="iconbtn lang-icon-btn menu-language-btn" id="langBtn" aria-label="Change language" title="Change language"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></button><button class="menu-back" id="menuBack" type="button">← <span data-en="Back to shop" data-ku="گەڕانەوە بۆ فرۆشگا">گەڕانەوە بۆ فرۆشگا</span></button></div>
  <div class="menu-page-heading"><span data-en="DISCOVER ULTRA BEAUTY" data-ku="جوانییەکان بدۆزەرەوە">جوانییەکان بدۆزەرەوە</span><h1 data-en="How can we help?" data-ku="چۆن دەتوانین یارمەتیت بدەین؟">چۆن دەتوانین یارمەتیت بدەین؟</h1><p data-en="Shop beauty essentials, learn about our service or contact our team." data-ku="بەرهەمەکانی جوانکاری ببینە، زانیاری وەربگرە یان پەیوەندیمان پێوە بکە.">بەرهەمەکانی جوانکاری ببینە، زانیاری وەربگرە یان پەیوەندیمان پێوە بکە.</p></div>
  <div class="menu-page-links">
+  <button type="button" id="menuSearchItem" class="menu-search-item"><span class="menu-page-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg></span><span><strong data-en="Search" data-ku="گەڕان">Search</strong><small data-en="Find products by name or brand" data-ku="بەرهەم بە ناو یان براند بدۆزەرەوە">Find products by name or brand</small></span><b class="menu-chevron" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></b></button>
   <button type="button" data-menu-page="home"><span class="menu-page-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><span><strong data-en="Home" data-ku="سەرەتا">سەرەتا</strong><small data-en="Return to the homepage" data-ku="گەڕانەوە بۆ پەڕەی سەرەکی">گەڕانەوە بۆ پەڕەی سەرەکی</small></span><b class="menu-chevron" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></b></button>
   <button type="button" data-menu-page="products"><span class="menu-page-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg></span><span><strong data-en="Shop beauty products" data-ku="بەرهەمەکانی جوانکاری">بەرهەمەکانی جوانکاری</strong><small data-en="Browse makeup, skincare, haircare and perfumes" data-ku="مەکیاژ، چاودێری پێست، قژ و بۆن ببینە">مەکیاژ، چاودێری پێست، قژ و بۆن ببینە</small></span><b class="menu-chevron" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></b></button>
   <button type="button" data-menu-page="delivery"><span class="menu-page-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 4v3h-7"/><circle cx="7" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg></span><span><strong data-en="Delivery information" data-ku="زانیاری گەیاندن">زانیاری گەیاندن</strong><small data-en="Delivery fees and ordering across Iraq" data-ku="کرێی گەیاندن و داواکردن لە عێراق">کرێی گەیاندن و داواکردن لە عێراق</small></span><b class="menu-chevron" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></b></button>
@@ -2157,7 +2197,7 @@ function rotateAnnouncement(){
 }
 window.setInterval(rotateAnnouncement,3000);
 
-function openMenuPage(){document.getElementById('homeMain').style.display='none';document.getElementById('paymentPage').style.display='none';document.getElementById('favoritesPage').style.display='none';document.getElementById('searchPage').style.display='none';document.getElementById('menuPage').classList.add('visible');window.scrollTo({top:0,left:0,behavior:'auto'});}function closeMenuPage(){document.getElementById('menuPage').classList.remove('visible');document.getElementById('homeMain').style.display='';window.scrollTo({top:0,left:0,behavior:'auto'});}document.getElementById('menuBtn').addEventListener('click',openMenuPage);document.getElementById('menuBack').addEventListener('click',closeMenuPage);document.querySelectorAll('[data-menu-page]').forEach(btn=>btn.addEventListener('click',()=>{const type=btn.dataset.menuPage;const info=document.getElementById('menuInfoCard');if(type==='home'){closeMenuPage();return;}if(type==='products'){closeMenuPage();document.getElementById('trending').scrollIntoView({behavior:'smooth'});return;}const en={delivery:'Delivery is 3,000 IQD in Sulaymaniyah, 6,000 IQD in Baghdad, 8,000 IQD in Southern Iraq, and 4,000 IQD in all other listed areas.',authentic:'We recommend contacting us on WhatsApp to ask about a product, its packaging and availability before ordering. Please request confirmation for any specific authenticity concern.',faq:'To order, add products to your bag, choose your delivery city and confirm your order with us on WhatsApp. Payment details are confirmed directly with our team. For delivery timing and returns, please contact us before ordering.'};const ku={delivery:'کرێی گەیاندن لە سلێمانی ٣٬٠٠٠ دینار، لە بەغدا ٦٬٠٠٠ دینار، لە باشووری عێراق ٨٬٠٠٠ دینار و لە هەموو شوێنەکانی تری لیستەکە ٤٬٠٠٠ دینارە.',authentic:'پێش داواکردن دەتوانیت لە واتساپ لەبارەی بەرهەم، پاکەت و بەردەستبوونی بپرسیت. ئەگەر دڵنیایی تایبەتت دەوێت، تکایە لە تیمەکەمان پشتڕاستی بکەرەوە.',faq:'بۆ داواکردن، بەرهەمەکان بخەرە ناو سەبەتە، شارەکەت هەڵبژێرە و داواکارییەکەت لە واتساپ پشتڕاست بکەرەوە. زانیاری پارەدان لەگەڵ تیمەکەمان پشتڕاست دەکرێتەوە. بۆ کاتی گەیاندن و گەڕاندنەوە، پێش داواکردن پەیوەندیمان پێوە بکە.'};info.hidden=false;info.textContent=lang==='ku'?ku[type]:en[type];info.scrollIntoView({behavior:'smooth',block:'nearest'});}));document.getElementById('searchBtn').addEventListener('click',openSearch);
+function openMenuPage(){document.getElementById('homeMain').style.display='none';document.getElementById('paymentPage').style.display='none';document.getElementById('favoritesPage').style.display='none';document.getElementById('searchPage').style.display='none';document.getElementById('menuPage').classList.add('visible');window.scrollTo({top:0,left:0,behavior:'auto'});}function closeMenuPage(){document.getElementById('menuPage').classList.remove('visible');document.getElementById('homeMain').style.display='';window.scrollTo({top:0,left:0,behavior:'auto'});}document.getElementById('menuBtn').addEventListener('click',openMenuPage);document.getElementById("menuSearchItem").addEventListener("click",openSearch);document.getElementById('menuBack').addEventListener('click',closeMenuPage);document.querySelectorAll('[data-menu-page]').forEach(btn=>btn.addEventListener('click',()=>{const type=btn.dataset.menuPage;const info=document.getElementById('menuInfoCard');if(type==='home'){closeMenuPage();return;}if(type==='products'){closeMenuPage();document.getElementById('trending').scrollIntoView({behavior:'smooth'});return;}const en={delivery:'Delivery is 3,000 IQD in Sulaymaniyah, 6,000 IQD in Baghdad, 8,000 IQD in Southern Iraq, and 4,000 IQD in all other listed areas.',authentic:'We recommend contacting us on WhatsApp to ask about a product, its packaging and availability before ordering. Please request confirmation for any specific authenticity concern.',faq:'To order, add products to your bag, choose your delivery city and confirm your order with us on WhatsApp. Payment details are confirmed directly with our team. For delivery timing and returns, please contact us before ordering.'};const ku={delivery:'کرێی گەیاندن لە سلێمانی ٣٬٠٠٠ دینار، لە بەغدا ٦٬٠٠٠ دینار، لە باشووری عێراق ٨٬٠٠٠ دینار و لە هەموو شوێنەکانی تری لیستەکە ٤٬٠٠٠ دینارە.',authentic:'پێش داواکردن دەتوانیت لە واتساپ لەبارەی بەرهەم، پاکەت و بەردەستبوونی بپرسیت. ئەگەر دڵنیایی تایبەتت دەوێت، تکایە لە تیمەکەمان پشتڕاستی بکەرەوە.',faq:'بۆ داواکردن، بەرهەمەکان بخەرە ناو سەبەتە، شارەکەت هەڵبژێرە و داواکارییەکەت لە واتساپ پشتڕاست بکەرەوە. زانیاری پارەدان لەگەڵ تیمەکەمان پشتڕاست دەکرێتەوە. بۆ کاتی گەیاندن و گەڕاندنەوە، پێش داواکردن پەیوەندیمان پێوە بکە.'};info.hidden=false;info.textContent=lang==='ku'?ku[type]:en[type];info.scrollIntoView({behavior:'smooth',block:'nearest'});}));document.getElementById('searchBtn').addEventListener('click',openSearch);
 function filterProducts(filter,group){group.querySelectorAll('button[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));const cards=document.querySelectorAll('.product-card');cards.forEach(c=>{const cats=(c.dataset.category||'').split(' ');c.style.display=filter==='all'||cats.includes(filter)?'':'none';});}
 document.querySelectorAll('.category-nav').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);document.querySelector('.featured').scrollIntoView({behavior:'smooth'});})));
 document.querySelectorAll('.trend-tabs').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);})));
