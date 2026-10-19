@@ -2073,7 +2073,7 @@ a:focus-visible,button:focus-visible{outline-color:#870044!important}
  </div>
 </section>
 <footer><div class="footer-inner"><div class="footer-brand">Ultra <span>Beauty</span></div><div data-en="Beauty, skincare & more — made simple." data-ku="جوانکاری، چاودێری پێست و زیاتر">Beauty, skincare & more — made simple.</div><div>© Ultra Beauty</div></div></footer>
-<a class="wa" id="waLink" href="#contact" aria-label="WhatsApp contact"><svg viewBox="0 0 24 24"><path d="M20.1 11.7a8.1 8.1 0 0 1-12 7.1L3 20l1.3-4.9a8.1 8.1 0 1 1 15.8-3.4Z"/><path d="M8.8 8.1c.3-.5.6-.5.9-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4 0 .6l-.5.7c-.2.2-.2.4 0 .6.4.7 1 1.3 1.7 1.7.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8"/></svg></a>
+
 <script>
 const CART_PHONE="9647706943110";const cataloguePrices=new Map();let catalogueReady=false;async function loadPublishedCatalogue(){const client=window.ULTRA_BEAUTY_SUPABASE_CLIENT;if(!client)return;try{const {data,error}=await client.from("products").select("id,name_en,name_ku,category,price_iqd,sale_price_iqd,volume_ml,description_en,description_ku,image_url,image_urls,in_stock,published").eq("published",true);if(error)throw error;const track=document.querySelector(".product-track"),template=track?.querySelector(".product-card");if(!track||!template)throw new Error("Product card template is unavailable.");track.replaceChildren();cataloguePrices.clear();for(const p of data||[]){if(!p?.id||!p.name_en||!p.name_ku||!Number.isInteger(Number(p.price_iqd)))continue;const card=template.cloneNode(true),title=card.querySelector(".product-name"),img=card.querySelector(".product-image img"),price=card.querySelector(".sale-price"),old=card.querySelector(".old-price"),brand=card.querySelector(".product-brand"),add=card.querySelector(".addbtn"),unitPrice=Number(p.sale_price_iqd??p.price_iqd);card.hidden=false;card.dataset.productId=p.id;card.dataset.priceIqd=String(unitPrice);card.dataset.category=String(p.category||"other").toLowerCase().replace(/[^a-z0-9]+/g," ");card.dataset.descriptionEn=p.description_en||"";card.dataset.descriptionKu=p.description_ku||"";card.dataset.volumeMl=p.volume_ml==null?"":String(p.volume_ml);card.dataset.imageUrls=JSON.stringify(Array.isArray(p.image_urls)&&p.image_urls.length?p.image_urls:(p.image_url?[p.image_url]:[]));cataloguePrices.set(p.name_en,unitPrice);if(title){title.dataset.en=p.name_en;title.dataset.ku=p.name_ku;title.textContent=lang==="ku"?p.name_ku:p.name_en;}if(brand){brand.textContent=String(p.category||"").toLocaleUpperCase();let volumeTop=brand.querySelector(".product-volume-top");if(p.volume_ml!=null&&p.volume_ml!==""){if(!volumeTop){volumeTop=document.createElement("span");volumeTop.className="product-volume-top";brand.appendChild(volumeTop);}volumeTop.textContent="150 ML".replace("150",String(p.volume_ml));}else volumeTop?.remove();}if(price)price.textContent=unitPrice.toLocaleString("en-US");const priceStack=card.querySelector(".price-stack");if(priceStack){let volumeBadge=priceStack.querySelector(".product-volume-badge");if(p.volume_ml!=null&&p.volume_ml!==""){if(!volumeBadge){volumeBadge=document.createElement("span");volumeBadge.className="product-volume-badge";priceStack.appendChild(volumeBadge);}volumeBadge.textContent=String(p.volume_ml)+" ML";}else volumeBadge?.remove();}if(old){if(p.sale_price_iqd!=null){old.hidden=false;const strike=old.querySelector("s");if(strike)strike.textContent=Number(p.price_iqd).toLocaleString("en-US");}else old.hidden=true;}if(img){if(p.image_url)img.src=p.image_url;else img.removeAttribute("src");img.alt=p.name_en;}if(add){add.dataset.product=p.name_en;add.disabled=!p.in_stock;add.setAttribute("aria-label",p.in_stock?(lang==="ku"?"زیادکردن بۆ سەبەتە":"Add to bag"):(lang==="ku"?"بەردەست نییە":"Out of stock"));}track.append(card);}catalogueReady=true;syncCartToCatalogue();renderCart();renderProductControls();}catch(e){console.error("Could not load live product catalogue",e);document.querySelectorAll(".product-card").forEach(card=>{card.hidden=true;});const box=document.getElementById("cartItems");if(box)box.textContent=lang==="ku"?"نەتوانرا نرخە ڕاستەقینەکان بار بکرێن. تکایە دواتر هەوڵ بدە.":"Live product prices could not be loaded. Please try again later.";}};window.addEventListener("ultra-beauty-supabase-ready",loadPublishedCatalogue);document.addEventListener("DOMContentLoaded",loadPublishedCatalogue,{once:true});const CART_STORAGE_KEY="ultraBeautyCart_v1",FAVORITES_STORAGE_KEY="ultraBeautyFavorites_v1";
 const cart=[];
@@ -2258,8 +2258,34 @@ function filterProducts(filter,group){group.querySelectorAll('button[data-filter
 document.querySelectorAll('.category-nav').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);document.querySelector('.featured').scrollIntoView({behavior:'smooth'});})));
 document.querySelectorAll('.trend-tabs').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);})));
 document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{const card=b.closest('.product-card');const name=card?.querySelector('.product-name')?.dataset.en||card?.querySelector('.product-name')?.textContent.trim();if(!name)return;if(favorites.has(name))favorites.delete(name);else favorites.add(name);persistFavorites();b.classList.toggle('saved',favorites.has(name));renderFavorites();}));
-document.addEventListener("click",e=>{const b=e.target.closest(".addbtn");if(!b)return;e.preventDefault();e.stopPropagation();const name=b.dataset.product||b.closest(".product-card")?.querySelector(".product-name")?.textContent?.trim()||"Beauty product";changeQty(name,1);toastAdded();});
-document.getElementById("waLink").href="https://wa.me/"+CART_PHONE;document.getElementById("waLink").target="_blank";document.getElementById("waLink").rel="noopener";
+
+/* Reliable product add handler: resolve the catalogue's canonical English name and handle taps before card navigation. */
+document.addEventListener("click",function(event){
+ const button=event.target.closest(".product-card .addbtn");
+ if(!button)return;
+ event.preventDefault();
+ event.stopImmediatePropagation();
+ const card=button.closest(".product-card");
+ const title=card?.querySelector(".product-name");
+ const name=button.dataset.product||title?.dataset.en||title?.textContent?.trim();
+ if(!name){console.error("Add to bag: product name missing");return;}
+ if(!button.dataset.product)button.dataset.product=name;
+ if(!cataloguePrices.has(name)&&card?.dataset.priceIqd){
+   const price=Number(card.dataset.priceIqd);
+   if(Number.isFinite(price)&&price>0)cataloguePrices.set(name,price);
+ }
+ if(!catalogueReady && card?.dataset.productId && cataloguePrices.has(name))catalogueReady=true;
+ if(!catalogueReady || !cataloguePrices.has(name)){
+   const status=document.getElementById("addedToast");
+   if(status){status.textContent=lang==="ku"?"نرخەکانی بەرهەم ئامادە نین، تکایە پەڕەکە نوێ بکەرەوە.":"Product prices are still loading. Refresh the page and try again.";status.classList.add("visible");}
+   console.error("Add to bag blocked: catalogue is not ready", {name, productId:card?.dataset.productId});
+   return;
+ }
+ changeQty(name,1);
+ if(cart.some(item=>item.name===name))toastAdded();
+},true);
+
+
 
 /* Product details: tapping a product card opens a dedicated mobile-friendly detail view. */
 let detailProductCard=null,detailQuantity=1;
@@ -2361,4 +2387,50 @@ const initialProductHash=location.hash.startsWith('#product=')?decodeURIComponen
  </div>
  <div class="product-detail-related" id="detailRelatedWrap"><h2 data-en="You may also like" data-ku="لەوانەیە ئەمانەشت بەدڵ بن">لەوانەیە ئەمانەشت بەدڵ بن</h2><div class="product-detail-related-grid" id="detailRelated"></div></div>
 </section>
-<div class="added-toast" id="addedToast" role="status" aria-live="polite">Added to bag</div></body></html>
+<div class="added-toast" id="addedToast" role="status" aria-live="polite">Added to bag</div>
+<style id="ultra-beauty-final-palette-and-cart-fix">
+:root{--gold:#870044!important;--gold-dark:#65002f!important;--brand:#870044!important;--brand-soft:#f6dce9!important;--soft:#fff0f7!important;--line:#e9bfd4!important}
+html,body{accent-color:#870044}
+.brand-name span,.menu-page-brand b,.footer-brand span{color:#870044!important}
+.brand-side .menu-btn,.menu-btn,.menu-language-btn,.searchbtn,.iconbtn{color:#870044!important;border-color:#edc7d9!important}
+.menu-btn,.menu-language-btn{background:#fff!important}
+.navtab.active,.trend-tabs button.active,.showcase-dots button.active,.slide-dots button.active{background:#870044!important;color:#fff!important;border-color:#870044!important}
+.iconbtn:hover,.menu-back{background:#f8e3ee!important;color:#870044!important}
+.heart,.mobile-bottom-nav button{color:#870044!important}
+.mobile-bottom-nav button i,.cart-count{background:#870044!important;color:#fff!important}
+.product-card,.showcase-slide,.category-picture{border-color:#e9bfd4!important}
+html body .product-card .price,
+html body .product-card .price.sale-price,
+html body .product-card .price-stack .price,
+html body .product-card .product-bottom .price,
+html body .product-card .product-bottom .price.sale-price,
+html body .product-detail-price .product-detail-current,
+html body .cart-product-price{color:#ed1c24!important}
+.addbtn,.addbtn:hover,.addbtn.added,
+.product-track>.product-card .product-bottom .addbtn,
+.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls,
+.product-detail-add{background:#870044!important;color:#fff!important;border-color:#870044!important}
+.product-track>.product-card .product-bottom .addbtn:hover,
+.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls:hover,
+.product-detail-add:hover{background:#65002f!important}
+.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls .qty-btn{color:#fff!important;background:transparent!important}
+.qty-btn{color:#870044!important;border-color:#e9bfd4!important;background:#fff0f7!important}
+.goldlink{background:#870044!important;color:#fff!important}
+.benefit{border-color:#e9bfd4!important;background:#fffafd!important}
+.benefit-icon{background:#f8dce9!important;color:#870044!important}
+.hero-slide{background:#fff0f7!important}
+.payment-page{border-color:#e9bfd4!important;background:#fffafd!important}
+.announcement{border-bottom-color:#870044!important}
+.announcement-message:before{background:#d00069!important;box-shadow:0 0 9px #d0006999!important}
+.menu-search-item{border-color:#e9bfd4!important;color:#870044!important}
+.menu-search-item .menu-page-icon{background:#f8e3ee!important;color:#870044!important}
+.menu-search-item strong,.menu-search-item .menu-chevron{color:#870044!important}
+.search-page input:focus,.search-field:focus-within{border-color:#870044!important;box-shadow:0 0 0 2px #87004420!important}
+.wa,#waLink{display:none!important}
+@media(max-width:760px){
+ .topbar .iconrow #cartBtn{background:#870044!important;color:#fff!important;border-color:#870044!important}
+ .topbar .iconrow #cartBtn .cart-count{background:#f7c7df!important;color:#65002f!important}
+ .product-track>.product-card .product-bottom .addbtn::after{color:#fff!important}
+}
+</style>
+</body></html>
