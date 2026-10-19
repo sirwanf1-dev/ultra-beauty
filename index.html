@@ -1514,6 +1514,104 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 }
 #productDetailPage.visible .product-detail-qty-controls button{cursor:pointer}
 
+
+
+/* Approved product-card redesign: centred price with a full-width blue add-to-cart button below */
+.product-track>.product-card .product-bottom{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  width:100%!important;
+  padding:14px 12px 12px!important;
+  min-height:0!important;
+  height:auto!important;
+  box-sizing:border-box!important;
+}
+.product-track>.product-card .product-bottom .price-stack{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  width:100%!important;
+  gap:5px!important;
+  margin:0!important;
+}
+.product-track>.product-card .product-bottom .price-stack .price{
+  text-align:center!important;
+  width:100%!important;
+  font-size:clamp(17px,4.6vw,23px)!important;
+  line-height:1.25!important;
+}
+.product-track>.product-card .product-bottom .price-stack .old-price,
+.product-track>.product-card .product-bottom .old-price{
+  text-align:center!important;
+  width:100%!important;
+  font-size:13px!important;
+}
+.product-track>.product-card .product-bottom .addbtn,
+.product-track>.product-card .product-bottom .quantity-controls{
+  order:2!important;
+  display:flex!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  min-height:48px!important;
+  height:48px!important;
+  align-self:stretch!important;
+  justify-content:center!important;
+  align-items:center!important;
+  margin:0!important;
+  border-radius:10px!important;
+  background:#304b70!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+.product-track>.product-card .product-bottom .addbtn{
+  gap:9px!important;
+  font-size:14px!important;
+  font-weight:800!important;
+}
+.product-track>.product-card .product-bottom .addbtn::before{
+  width:23px!important;
+  height:23px!important;
+  flex:0 0 23px!important;
+  background-color:#fff!important;
+}
+.product-track>.product-card .product-bottom .addbtn::after{
+  content:"زیادکردن بۆ سەبەتە"!important;
+  display:inline-block!important;
+  color:#fff!important;
+  font-size:14px!important;
+  line-height:1.2!important;
+  font-weight:800!important;
+  white-space:nowrap!important;
+}
+.product-track>.product-card .product-bottom .addbtn:hover,
+.product-track>.product-card .product-bottom .quantity-controls:hover{
+  background:#243c5b!important;
+}
+.product-track>.product-card .product-bottom .quantity-controls{
+  gap:12px!important;
+  padding:5px 12px!important;
+}
+.product-track>.product-card .product-bottom .quantity-controls .qty-btn{
+  width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important;
+  border-radius:7px!important;font-size:19px!important;
+}
+.product-track>.product-card .product-bottom .quantity-controls .qty-number{
+  color:#fff!important;font-size:15px!important;min-width:24px!important;
+}
+@media(max-width:390px){
+  .product-track>.product-card .product-bottom{padding:12px 9px 10px!important;gap:10px!important}
+  .product-track>.product-card .product-bottom .addbtn{min-height:44px!important;height:44px!important}
+  .product-track>.product-card .product-bottom .addbtn::after{font-size:12px!important}
+}
+
 </style>
 </head>
 <body>
