@@ -1663,6 +1663,62 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
   .product-track>.product-card .product-bottom .addbtn::after{font-size:11px!important}
 }
 
+
+
+/* Keep quantity +/- controls in the exact same slot as Add to Cart */
+.product-track>.product-card .product-bottom.has-inline-qty .addbtn{
+  display:none!important;
+}
+.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
+  grid-column:1 / -1!important;
+  grid-row:auto!important;
+  order:2!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  height:48px!important;
+  min-height:48px!important;
+  flex:0 0 48px!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:clamp(18px,6vw,34px)!important;
+  padding:5px 12px!important;
+  margin:0!important;
+  border-radius:10px!important;
+  background:#304b70!important;
+  color:#fff!important;
+}
+.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls .qty-btn{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 32px!important;
+  width:32px!important;
+  min-width:32px!important;
+  max-width:32px!important;
+  height:32px!important;
+  min-height:32px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:7px!important;
+  background:transparent!important;
+  color:#fff!important;
+  font-size:25px!important;
+  line-height:1!important;
+}
+.product-track>.product-card .product-bottom .quantity-controls.inline-cart-controls .qty-number{
+  display:inline-block!important;
+  min-width:24px!important;
+  text-align:center!important;
+  color:#fff!important;
+  font-size:17px!important;
+  font-weight:800!important;
+}
+
 </style>
 </head>
 <body>
