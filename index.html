@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ckb" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#4d8fc7">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#850b45">
 <meta name="build-version" content="2026-10-18-city-delivery-fees-v2">
 <meta name="description" content="Ultra Beauty — skincare, makeup, haircare, perfumes and personal care.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1256,6 +1256,38 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .showcase-slide{flex:0 0 100%!important;height:100%!important;aspect-ratio:16/9!important;border-radius:14px!important;opacity:1!important;transform:none!important;filter:none!important}
 .showcase-slide img{width:100%;height:100%;object-fit:cover!important}
 .showcase-arrow{top:50%!important}
+
+/* Ultra Beauty colour update: deep pink accents, red prices, dark-blue cart buttons */
+:root{--gold:#850b45;--gold-dark:#650632;--brand:#850b45;--brand-soft:#f8e7ef;--line:#ead0dc;--soft:#fff4f8}
+.meta{}
+.announcement{border-bottom-color:#850b45}
+.announcement-message:before{background:#d71b54;box-shadow:0 0 9px #d71b5499}
+.logo-fallback span,.footer-brand span{color:#850b45}
+.iconbtn:hover{background:#f8e7ef;color:#850b45}
+.navtab.active,.trend-tabs button.active,.showcase-dots button.active,.slide-dots button.active{background:#850b45}
+.showcase-slide{border-color:#f1d5e2}
+.heart{color:#850b45}
+.addbtn,.addbtn:hover,.addbtn.added{background:#173b67;color:#fff;box-shadow:0 3px 8px #173b6729}
+.qty-btn{border-color:#e3b6cb;background:#fff3f8;color:#850b45}
+.price,.price-stack .price,.price.sale-price{color:#ed1c24!important}
+.old-price{color:#9299a4!important}
+.searchbtn{border-color:#e6cfda}
+.hero-slide{background:#fff4f8}
+.goldlink{background:#850b45;color:#fff}
+.benefit{border-color:#ead0dc;background:#fffafd}
+.benefit-icon{background:#f8e0eb;color:#850b45}
+.category-picture{background:#fff4f8;border-color:#ead0dc}
+.payment-page{border-color:#ead0dc;background:#fffafd}
+.cart-product-price{color:#ed1c24!important}
+.product-detail-current{color:#ed1c24!important}
+.product-detail-add{background:#173b67!important;color:#fff!important}
+.mobile-bottom-nav{border-top-color:#ead0dc}
+.mobile-bottom-nav button{color:#850b45}
+.mobile-bottom-nav button i,.cart-count{background:#850b45;color:#fff}
+.product-card{border-color:#ead0dc}
+.product-card:hover{border-color:#850b45}
+@media(max-width:760px){.product-card{border-color:#ead0dc}.product-bottom .price{color:#ed1c24!important}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
