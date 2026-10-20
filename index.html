@@ -2860,4 +2860,17 @@ header .logo.wordmark .brand-name{display:inline-block!important;font-size:clamp
   header .logo.wordmark .brand-name{font-size:clamp(21px,6vw,24px)!important}
 }
 </style>
+
+<style id="ultra-beauty-cart-plus-cascade-fix">
+/* Override older, more specific bag-icon rules on every add-to-bag surface. */
+html body #homeMain .product-track>.product-card .product-bottom>.addbtn::before,
+html body #homeMain .product-grid>.product-card .product-bottom>.addbtn::before,
+html body #productDetailPage.visible .product-card .product-bottom>.addbtn::before,
+html body #productDetailPage.visible #detailAdd::before,
+html body #searchPage .favorite-add::before,
+html body #favoritesPage .favorite-add::before{
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M3.5 4.5h3.8l3.5 15.2h13.1l3.5-11.1H8.2' stroke='%23fff' stroke-width='3.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9.5 23h14' stroke='%23fff' stroke-width='3.1' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='26' r='1.65' fill='%23fff'/%3E%3Ccircle cx='22.5' cy='26' r='1.65' fill='%23fff'/%3E%3Ccircle cx='24.2' cy='8' r='7' fill='%23e53835' stroke='%23fff' stroke-width='1.15'/%3E%3Cpath d='M24.2 4.8v6.4M21 8h6.4' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat!important;
+  -webkit-mask:none!important;mask:none!important;
+}
+</style>
 </body></html>
