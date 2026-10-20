@@ -2259,32 +2259,42 @@ document.querySelectorAll('.category-nav').forEach(n=>n.querySelectorAll('button
 document.querySelectorAll('.trend-tabs').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);})));
 document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{const card=b.closest('.product-card');const name=card?.querySelector('.product-name')?.dataset.en||card?.querySelector('.product-name')?.textContent.trim();if(!name)return;if(favorites.has(name))favorites.delete(name);else favorites.add(name);persistFavorites();b.classList.toggle('saved',favorites.has(name));renderFavorites();}));
 
-/* Reliable product add handler: resolve the catalogue's canonical English name and handle taps before card navigation. */
+/* Reliable add-to-basket handler: resolve the exact card, validate its live price, then update basket state. */
+function handleProductAdd(button){
+ if(!button || button.disabled) return;
+ const card=button.closest(".product-card");
+ const title=card?.querySelector(".product-name");
+ const name=button.dataset.product||title?.dataset.en||title?.textContent?.trim();
+ if(!card||!name){console.error("Basket: product card/name missing");return;}
+ const price=Number(card.dataset.priceIqd||cataloguePrices.get(name)||0);
+ const productId=card.dataset.productId||"";
+ if(Number.isFinite(price)&&price>0&&!cataloguePrices.has(name)) cataloguePrices.set(name,price);
+ if(!cataloguePrices.has(name)||!(Number(cataloguePrices.get(name))>0)){
+   showCartProblem(lang==="ku"?"نرخی ئەم بەرهەمە ئامادە نییە. تکایە پەڕەکە نوێ بکەرەوە.":"This product price is not ready. Refresh the page and try again.");
+   console.error("Basket add blocked: missing price",{name,price,productId});
+   return;
+ }
+ if(!productId){
+   showCartProblem(lang==="ku"?"زانیاری بەرهەم بار نەبووە. تکایە پەڕەکە نوێ بکەرەوە.":"Product data has not finished loading. Refresh the page and try again.");
+   console.error("Basket add blocked: missing product id",{name,price});
+   return;
+ }
+ catalogueReady=true;
+ const before=productQty(name);
+ changeQty(name,1);
+ if(productQty(name)>before) toastAdded();
+}
+function showCartProblem(message){
+ const status=document.getElementById("addedToast");
+ if(status){status.textContent=message;status.classList.add("visible");clearTimeout(showCartProblem.timer);showCartProblem.timer=setTimeout(()=>status.classList.remove("visible"),3000);}
+}
 document.addEventListener("click",function(event){
  const button=event.target.closest(".product-card .addbtn");
  if(!button)return;
  event.preventDefault();
  event.stopImmediatePropagation();
- const card=button.closest(".product-card");
- const title=card?.querySelector(".product-name");
- const name=button.dataset.product||title?.dataset.en||title?.textContent?.trim();
- if(!name){console.error("Add to bag: product name missing");return;}
- if(!button.dataset.product)button.dataset.product=name;
- if(!cataloguePrices.has(name)&&card?.dataset.priceIqd){
-   const price=Number(card.dataset.priceIqd);
-   if(Number.isFinite(price)&&price>0)cataloguePrices.set(name,price);
- }
- if(!catalogueReady && card?.dataset.productId && cataloguePrices.has(name))catalogueReady=true;
- if(!catalogueReady || !cataloguePrices.has(name)){
-   const status=document.getElementById("addedToast");
-   if(status){status.textContent=lang==="ku"?"نرخەکانی بەرهەم ئامادە نین، تکایە پەڕەکە نوێ بکەرەوە.":"Product prices are still loading. Refresh the page and try again.";status.classList.add("visible");}
-   console.error("Add to bag blocked: catalogue is not ready", {name, productId:card?.dataset.productId});
-   return;
- }
- changeQty(name,1);
- if(cart.some(item=>item.name===name))toastAdded();
+ handleProductAdd(button);
 },true);
-
 
 
 /* Product details: tapping a product card opens a dedicated mobile-friendly detail view. */
