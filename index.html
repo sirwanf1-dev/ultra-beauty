@@ -2875,11 +2875,13 @@ html body #favoritesPage .favorite-add::before{
 </style>
 
 <style id="ultra-beauty-visible-cart-plus">
-/* Make the requested white cart-plus mark easy to recognize on every dark-rose action. */
-html body header #cartBtn{width:46px!important;height:46px!important;min-width:46px!important;display:grid!important;place-items:center!important}
-html body header #cartBtn>.cart-plus-icon{display:block!important;width:31px!important;height:31px!important;min-width:31px!important;min-height:31px!important}
+/* Keep the requested cart-plus mark bright and legible on every dark-rose action. */
+html body header .topbar .iconrow #cartBtn{width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;display:grid!important;place-items:center!important;color:#fff!important}
+html body header .topbar .iconrow #cartBtn>.cart-plus-icon{display:block!important;width:31px!important;height:31px!important;min-width:31px!important;min-height:31px!important;color:#fff!important;stroke:#fff!important}
+html body header .topbar .iconrow #cartBtn>.cart-plus-icon path,
+html body header .topbar .iconrow #cartBtn>.cart-plus-icon circle{stroke:#fff!important}
 html body .mobile-bottom-nav>#bottomCart .nav-icon{display:grid!important;place-items:center!important;flex:0 0 32px!important;width:32px!important;height:32px!important}
-html body .mobile-bottom-nav>#bottomCart .nav-icon>.cart-plus-icon{display:block!important;flex:0 0 32px!important;width:32px!important;height:32px!important}
+html body .mobile-bottom-nav>#bottomCart .nav-icon>.cart-plus-icon{display:block!important;flex:0 0 32px!important;width:32px!important;height:32px!important;color:#fff!important;stroke:#fff!important}
 html body .product-card .product-bottom>.addbtn::before,
 html body #detailAdd::before,
 html body .favorite-add::before{flex:0 0 24px!important;width:24px!important;height:24px!important}
