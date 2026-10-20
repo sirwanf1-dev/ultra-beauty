@@ -2340,7 +2340,7 @@ function openProductDetail(card,updateHistory=true){
 }
 function closeProductDetail(updateHistory=true){document.getElementById('productDetailPage').classList.remove('visible');document.getElementById('homeMain').style.display='';if(updateHistory&&location.hash.startsWith('#product='))history.pushState({},'',location.pathname+location.search);detailProductCard=null;window.scrollTo({top:0,left:0,behavior:'auto'});}
 /* Product details are handled by the capture-phase delegated listener above. */
-document.getElementById('productDetailBack').addEventListener('click',()=>closeProductDetail(true));
+document.addEventListener('click',function(event){if(event.target.closest('#productDetailBack')){event.preventDefault();closeProductDetail(true);}});
 /* Detail controls are bound with delegated clicks below because the detail page markup appears later in the document. */
 
 
