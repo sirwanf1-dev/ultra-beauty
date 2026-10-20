@@ -2383,7 +2383,6 @@ document.addEventListener('click',function(event){
  renderCart();
  renderProductControls();
  if(typeof toastAdded==='function')toastAdded();
- closeProductDetail(true);
 },true);
 
 window.addEventListener('popstate',()=>{if(location.hash.startsWith('#product=')){const name=decodeURIComponent(location.hash.slice(9));const card=[...document.querySelectorAll('.product-card')].find(c=>(c.querySelector('.product-name')?.dataset.en||c.querySelector('.product-name')?.textContent.trim())===name);if(card)openProductDetail(card,false);}else if(document.getElementById('productDetailPage').classList.contains('visible'))closeProductDetail(false);});
