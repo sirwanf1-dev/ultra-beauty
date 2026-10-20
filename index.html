@@ -2264,9 +2264,13 @@ function showCartProblem(message){
  const status=document.getElementById("addedToast");
  if(status){status.textContent=message;status.classList.add("visible");clearTimeout(showCartProblem.timer);showCartProblem.timer=setTimeout(()=>status.classList.remove("visible"),3000);}
 }
+/* WeakSet is essential here: cloneNode copies data attributes but not event listeners.
+   The old data-attribute guard was copied into every product clone, so cloned cards never got working clicks. */
+const wiredProductCards=new WeakSet();
 function wireProductCard(card){
- if(!card||card.dataset.interactionsWired==="true")return;
- card.dataset.interactionsWired="true";
+ if(!card||wiredProductCards.has(card))return;
+ wiredProductCards.add(card);
+ delete card.dataset.interactionsWired;
  const add=card.querySelector(".addbtn");
  if(add){
   add.addEventListener("click",function(event){
