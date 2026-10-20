@@ -2259,31 +2259,7 @@ document.querySelectorAll('.category-nav').forEach(n=>n.querySelectorAll('button
 document.querySelectorAll('.trend-tabs').forEach(n=>n.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filterProducts(b.dataset.filter,n);})));
 document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{const card=b.closest('.product-card');const name=card?.querySelector('.product-name')?.dataset.en||card?.querySelector('.product-name')?.textContent.trim();if(!name)return;if(favorites.has(name))favorites.delete(name);else favorites.add(name);persistFavorites();b.classList.toggle('saved',favorites.has(name));renderFavorites();}));
 
-/* Reliable add-to-basket handler: resolve the exact card, validate its live price, then update basket state. */
-function handleProductAdd(button){
- if(!button || button.disabled) return;
- const card=button.closest(".product-card");
- const title=card?.querySelector(".product-name");
- const name=button.dataset.product||title?.dataset.en||title?.textContent?.trim();
- if(!card||!name){console.error("Basket: product card/name missing");return;}
- const price=Number(card.dataset.priceIqd||cataloguePrices.get(name)||0);
- const productId=card.dataset.productId||"";
- if(Number.isFinite(price)&&price>0&&!cataloguePrices.has(name)) cataloguePrices.set(name,price);
- if(!cataloguePrices.has(name)||!(Number(cataloguePrices.get(name))>0)){
-   showCartProblem(lang==="ku"?"نرخی ئەم بەرهەمە ئامادە نییە. تکایە پەڕەکە نوێ بکەرەوە.":"This product price is not ready. Refresh the page and try again.");
-   console.error("Basket add blocked: missing price",{name,price,productId});
-   return;
- }
- if(!productId){
-   showCartProblem(lang==="ku"?"زانیاری بەرهەم بار نەبووە. تکایە پەڕەکە نوێ بکەرەوە.":"Product data has not finished loading. Refresh the page and try again.");
-   console.error("Basket add blocked: missing product id",{name,price});
-   return;
- }
- catalogueReady=true;
- const before=productQty(name);
- changeQty(name,1);
- if(productQty(name)>before) toastAdded();
-}
+/* Reliable basket handler: don't block valid products just because an optional field is missing. */
 function showCartProblem(message){
  const status=document.getElementById("addedToast");
  if(status){status.textContent=message;status.classList.add("visible");clearTimeout(showCartProblem.timer);showCartProblem.timer=setTimeout(()=>status.classList.remove("visible"),3000);}
@@ -2293,9 +2269,30 @@ document.addEventListener("click",function(event){
  if(!button)return;
  event.preventDefault();
  event.stopImmediatePropagation();
- handleProductAdd(button);
+ if(button.disabled)return;
+ const card=button.closest(".product-card");
+ const title=card?.querySelector(".product-name");
+ const name=button.dataset.product||title?.dataset.en||title?.textContent?.trim();
+ const price=Number(card?.dataset.priceIqd||cataloguePrices.get(name)||0);
+ if(!card||!name||!Number.isFinite(price)||price<=0){
+   showCartProblem(lang==="ku"?"نرخی ئەم بەرهەمە ئامادە نییە. تکایە پەڕەکە نوێ بکەرەوە.":"Product price is not ready. Please refresh and try again.");
+   console.error("Add to basket: product details unavailable",{name,price});
+   return;
+ }
+ if(!cataloguePrices.has(name))cataloguePrices.set(name,price);
+ if(!catalogueReady)catalogueReady=true;
+ const before=productQty(name);
+ changeQty(name,1);
+ if(productQty(name)>before)toastAdded();
 },true);
 
+/* Open product details from the image, title, or any non-button area of a product card. */
+document.addEventListener("click",function(event){
+ const card=event.target.closest(".product-card");
+ if(!card||event.target.closest("button,a,input,select,textarea"))return;
+ event.preventDefault();
+ openProductDetail(card,true);
+},true);
 
 /* Product details: tapping a product card opens a dedicated mobile-friendly detail view. */
 let detailProductCard=null,detailQuantity=1;
@@ -2327,7 +2324,7 @@ function openProductDetail(card,updateHistory=true){
  window.scrollTo({top:0,left:0,behavior:'auto'});
 }
 function closeProductDetail(updateHistory=true){document.getElementById('productDetailPage').classList.remove('visible');document.getElementById('homeMain').style.display='';if(updateHistory&&location.hash.startsWith('#product='))history.pushState({},'',location.pathname+location.search);detailProductCard=null;window.scrollTo({top:0,left:0,behavior:'auto'});}
-document.addEventListener('click',e=>{const card=e.target.closest('.product-card');if(!card||e.target.closest('button,a,input'))return;openProductDetail(card,true);});
+/* Product details are handled by the capture-phase delegated listener above. */
 document.getElementById('productDetailBack').addEventListener('click',()=>closeProductDetail(true));
 /* Detail controls are bound with delegated clicks below because the detail page markup appears later in the document. */
 
