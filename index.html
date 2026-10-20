@@ -2520,3 +2520,61 @@ html body .product-card .product-bottom .addbtn svg,html body .product-card .pro
 html body .product-card .product-bottom .addbtn{touch-action:manipulation!important;pointer-events:auto!important;position:relative!important;z-index:3!important}
 </style>
 </body></html>
+
+
+/* Final mobile product-card override: remove all blue tones and align basket controls */
+.product-track>.product-card,
+.product-grid>.product-card,
+.product-card {
+  box-sizing: border-box !important;
+}
+.product-track>.product-card .product-bottom,
+.product-grid>.product-card .product-bottom,
+.product-card .product-bottom {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  padding-inline: 10px !important;
+  align-items: stretch !important;
+}
+.product-track>.product-card .product-bottom .addbtn,
+.product-grid>.product-card .product-bottom .addbtn,
+.product-card .product-bottom .addbtn {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  flex: 0 0 100% !important;
+  margin: 0 auto !important;
+  background: #242124 !important;
+  color: #fff !important;
+  border: 1px solid #242124 !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+}
+.product-track>.product-card .product-bottom .addbtn::after,
+.product-grid>.product-card .product-bottom .addbtn::after,
+.product-card .product-bottom .addbtn::after {
+  color: #fff !important;
+}
+.product-track>.product-card .product-bottom .quantity-controls,
+.product-grid>.product-card .product-bottom .quantity-controls,
+.product-card .product-bottom .quantity-controls {
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+.product-track>.product-card .product-bottom .qty-btn,
+.product-grid>.product-card .product-bottom .qty-btn,
+.product-card .product-bottom .qty-btn {
+  background: #242124 !important;
+  color: #fff !important;
+  border-color: #242124 !important;
+}
+.product-track>.product-card .product-bottom .qty-number,
+.product-grid>.product-card .product-bottom .qty-number,
+.product-card .product-bottom .qty-number {
+  color: #242124 !important;
+}
