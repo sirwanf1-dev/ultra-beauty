@@ -508,11 +508,23 @@ async function saveProductRecord(raw,id,existing){
  if(volumeRaw!==null&&(!Number.isFinite(volumeRaw)||volumeRaw<0||volumeRaw>1000000))throw new Error('Enter a valid volume in mL.');
  const stockQuantity=Number(raw.stockQuantity);if(!Number.isSafeInteger(stockQuantity)||stockQuantity<0||stockQuantity>2147483647)throw new Error('Enter a whole-number stock quantity of 0 or more.');
  const payload={name_en:String(raw.nameEn||'').trim(),name_ku:String(raw.nameKu||'').trim(),category:String(raw.category||'Other'),price_iqd:Number(raw.price),sale_price_iqd:raw.salePrice===''||raw.salePrice==null?null:Number(raw.salePrice),volume_ml:volumeRaw,description_en:String(raw.descEn||''),description_ku:String(raw.descKu||''),image_url:imageUrl,image_urls:imageUrls,stock_quantity:stockQuantity,in_stock:stockQuantity>0,published:!!raw.published,updated_at:new Date().toISOString()};
- let result=id?await client.from('products').update(payload).eq('id',id).select('*').single():await client.from('products').insert(payload).select('*').single();
- if(result.error)throw new Error('Could not save product. Check the database policies and required fields.');
+ const saveWithPayload=value=>id?client.from('products').update(value).eq('id',id).select('*').single():client.from('products').insert(value).select('*').single();
+ let result=await saveWithPayload(payload),stockTrackingFallback=false;
+ if(result.error){
+  const errorText=[result.error.message,result.error.details,result.error.hint].filter(Boolean).join(' ');
+  const missingStockQuantity=/stock_quantity/i.test(errorText)&&(/column|schema cache|could not find|does not exist/i.test(errorText)||['42703','PGRST204'].includes(result.error.code));
+  if(missingStockQuantity&&stockQuantity===0){
+   const legacyPayload={...payload};delete legacyPayload.stock_quantity;
+   result=await saveWithPayload(legacyPayload);
+   stockTrackingFallback=!result.error;
+  }else if(missingStockQuantity){
+   throw new Error('Stock quantity support is not enabled in the database. Run supabase-stock-inventory-migration.sql in Supabase SQL Editor before saving a quantity above 0.');
+  }
+ }
+ if(result.error)throw new Error('Could not save product: '+String(result.error.message||'Database rejected this product.').slice(0,220));
  const saved=fromRow(result.data);
  clearPreview();products=id?products.map(p=>p.id===id?saved:p):[saved,...products];
- render();updateLegacyButton();return saved
+ render();updateLegacyButton();return {product:saved,stockTrackingFallback}
 }
 async function authorizeSession(session){
  $('loginMessage').textContent='Checking admin access…';
@@ -546,7 +558,7 @@ $('productForm').addEventListener('submit',async e=>{
  if(!$('nameEn').value.trim()||!$('nameKu').value.trim()){toast('Enter the product name in English and Kurdish Sorani.');return}
  const id=$('productId').value,existing=products.find(p=>p.id===id),btn=$('saveBtn');
  btn.disabled=true;
- try{await saveProductRecord({nameEn:$('nameEn').value,nameKu:$('nameKu').value,category:$('category').value,price,salePrice:sale,volumeMl:$('volumeMl').value,descEn:$('descEn').value,descKu:$('descKu').value,imageUrl:$('imageUrl').value,stockQuantity,published:$('published').value==='true'},id||null,existing);resetForm();closeEditor();toast('Product saved to the shared catalogue.')}catch(err){toast(err.message||'Could not save product.')}finally{btn.disabled=false}
+ try{const saveResult=await saveProductRecord({nameEn:$('nameEn').value,nameKu:$('nameKu').value,category:$('category').value,price,salePrice:sale,volumeMl:$('volumeMl').value,descEn:$('descEn').value,descKu:$('descKu').value,imageUrl:$('imageUrl').value,stockQuantity,published:$('published').value==='true'},id||null,existing);resetForm();closeEditor();toast(saveResult.stockTrackingFallback?'Product marked unavailable. Run the stock migration to enable quantity tracking and automatic order updates.':'Product saved to the shared catalogue.')}catch(err){toast(err.message||'Could not save product.')}finally{btn.disabled=false}
 });
 $('imageFile').addEventListener('change',e=>{
  const allowed=['image/jpeg','image/png','image/webp','image/avif'];const files=[...(e.target.files||[])];e.target.value='';
