@@ -29,22 +29,27 @@ Products entered in the older dashboard are stored only in that browser. **Do no
 
 After publishing the updated website code, open Supabase **SQL Editor** and run `supabase-product-volume-images.sql` from this repository. This adds the optional `volume_ml` field and an `image_urls` array, and copies existing main image URLs into that array. It is safe to re-run and does not delete product records.
 
+## Product stock quantities
+
+After running `supabase-setup.sql`, `supabase-product-volume-images.sql`, and `supabase-orders-setup.sql`, run `supabase-stock-inventory-migration.sql` in Supabase **SQL Editor**. It is safe to re-run. Existing products marked in stock are initialized to quantity `1`, and products marked out of stock to `0`; update actual quantities in Product Manager. The site shows only whether a product is available, never its stock count. Orders reserve inventory atomically, and cancelling an order returns those units.
+
 In the Product Manager, enter a volume such as `30` or `100` in **Volume · mL**. English and Kurdish Sorani description fields have no character limit in the page. Use **Add product photos** to select one or more images; each image is uploaded to the shared storage, and the first/main image remains the storefront card image. Saved photos can be removed in the editor.
 
 ## Add and publish products
 
 1. Open `admin.html` on the published site and sign in with the approved account.
-2. Add the English and Kurdish Sorani names, category, regular IQD price, optional lower sale price, image, and stock status.
-3. Keep **Published** selected to show the product on the storefront when you save. Choose **Draft** to keep it private.
+2. Add the English and Kurdish Sorani names, category, regular IQD price, optional lower sale price, image, and the `ژماره‌` available quantity.
+3. Set the quantity to `0` for unavailable or enter the number available. Leave the discount price blank when there is no discount; the storefront will show no crossed-out price.
+4. Keep **Published** selected to show the product on the storefront when you save. Choose **Draft** to keep it private.
 4. Products from the old browser dashboard can be brought in with **Import saved browser products**. Review their names, prices and images, then edit and publish them as needed.
 
 Public visitors can read published products and view product images. Product creation, edits, image uploads and deletion require an authenticated account listed in `admin_users`.
 
 ## Product fields
 
-The database stores English and Sorani names and descriptions, category, regular and sale prices in IQD, image URL, stock status, and publication status. The database rejects negative prices and sale prices that are not below the regular price.
+The database stores English and Sorani names and descriptions, category, regular and optional sale prices in IQD, image URL, stock quantity, availability status, and publication status. The database rejects negative prices, quantities, and sale prices that are not below the regular price. The public storefront can read only the availability status; it does not receive the stock quantity.
 
-Order storage and the `submit-order` Edge Function are separate setup steps. Do not place service-role keys, payment credentials, customer data or passwords in public GitHub files or chat.
+Order storage and the `submit-order` Edge Function are separate setup steps. The inventory migration reserves stock when an order is placed and restores it if that order is cancelled. After updating the Edge Function code, deploy `supabase/functions/submit-order/index.ts` to the Supabase project. Do not place service-role keys, payment credentials, customer data or passwords in public GitHub files or chat.
 
 ## Manage homepage slides
 
