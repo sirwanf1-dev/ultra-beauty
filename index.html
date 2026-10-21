@@ -1288,6 +1288,9 @@ html[lang="ckb"] body,html[lang="ckb"] body :not(.brand):not(.logo):not(.footer-
 .product-card:hover{border-color:#850b45}
 @media(max-width:760px){.product-card{border-color:#ead0dc}.product-bottom .price{color:#870044!important}}
 
+
+/* Empty discount rows must stay hidden despite older card display overrides. */
+.product-card .product-bottom .old-price[hidden]{display:none!important}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
@@ -2378,7 +2381,7 @@ if(productTrackForObserver)productCardObserver.observe(productTrackForObserver,{
 /* Product details: tapping the image, name, or card opens the detail page. */
 /* Product details: tapping a product card opens a dedicated mobile-friendly detail view. */
 let detailProductCard=null,detailQuantity=1;
-function detailCardPrice(card){return {current:card?.querySelector('.sale-price')?.textContent?.trim()||'5,000',old:card?.querySelector('.old-price s')?.textContent?.trim()||''};}
+function detailCardPrice(card){return {current:card?.querySelector('.sale-price')?.textContent?.trim()||'',old:card?.querySelector('.old-price s')?.textContent?.trim()||''};}
 function detailCardUrl(card){return '#product='+encodeURIComponent(card?.querySelector('.product-name')?.dataset.en||card?.querySelector('.product-name')?.textContent.trim()||'');}
 function openProductDetail(card,updateHistory=true){
  if(!card)return;detailProductCard=card;detailQuantity=1;
