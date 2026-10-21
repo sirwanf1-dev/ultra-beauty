@@ -512,7 +512,7 @@ async function saveProductRecord(raw,id,existing){
  let result=await saveWithPayload(payload),stockTrackingFallback=false;
  if(result.error){
   const errorText=[result.error.message,result.error.details,result.error.hint].filter(Boolean).join(' ');
-  const missingStockQuantity=/stock_quantity/i.test(errorText)&&(/column|schema cache|could not find|does not exist/i.test(errorText)||['42703','PGRST204'].includes(result.error.code));
+  const missingStockQuantity=/stock_quantity/i.test(errorText)&&(/schema cache|could not find|does not exist|unknown column|column not found/i.test(errorText)||['42703','PGRST204'].includes(result.error.code));
   if(missingStockQuantity&&stockQuantity===0){
    const legacyPayload={...payload};delete legacyPayload.stock_quantity;
    result=await saveWithPayload(legacyPayload);
