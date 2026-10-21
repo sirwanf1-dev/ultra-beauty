@@ -175,7 +175,7 @@ Deno.serve(async (req: Request) => {
   const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
   const requestedIds = [...requested.values()].flatMap(item => item.productId ? [item.productId] : []);
   const requestedNames = [...requested.values()].flatMap(item => item.name ? [item.name] : []);
-  const productColumns = "id,name_en,name_ku,price_iqd,sale_price_iqd,in_stock,published";
+  const productColumns = "id,name_en,name_ku,price_iqd,sale_price_iqd,in_stock,stock_quantity,published";
   const productRows: any[] = [];
   if (requestedIds.length) {
     const { data, error } = await supabase.from("products").select(productColumns).in("id", requestedIds).eq("published", true);
@@ -215,8 +215,9 @@ Deno.serve(async (req: Request) => {
   for (const requestedItem of requested.values()) {
     const product: any = requestedItem.productId ? productById.get(requestedItem.productId) : productByName.get(requestedItem.name ?? "");
     const quantity = requestedItem.quantity;
-    if (!product || !product.in_stock) {
-      return reply(400, { error: "A basket product is no longer published or in stock. Please reload the shop and try again." });
+    const availableQuantity = Number(product?.stock_quantity);
+    if (!product || !product.in_stock || !Number.isSafeInteger(availableQuantity) || availableQuantity < quantity) {
+      return reply(409, { error: "A basket product is no longer available in the requested quantity. Please reload the shop and update your basket." });
     }
     const unitPriceIqd = Number(product.sale_price_iqd ?? product.price_iqd);
     if (!Number.isInteger(unitPriceIqd) || unitPriceIqd < 0 || unitPriceIqd * quantity > 2147483647) {
@@ -255,6 +256,9 @@ Deno.serve(async (req: Request) => {
 
   if (insertError || !order) {
     console.error("Order insert failed", insertError?.message);
+    if (insertError?.code === "P0001" || insertError?.message?.includes("Insufficient product inventory")) {
+      return reply(409, { error: "A product sold while you were checking out. Please reload the shop and update your basket." });
+    }
     return reply(500, { error: "We could not save your order. Please try again or contact us on WhatsApp." });
   }
 
